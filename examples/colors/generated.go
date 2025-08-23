@@ -12,8 +12,7 @@ var (
 )
 
 const (
-	_ColorString      = "BlackWhiteRedLimeBlueYellowCyanMagentaSilverGrayGreyMaroonOliveGreenPurpleTealNavy"
-	_ColorLowerString = "blackwhiteredlimeblueyellowcyanmagentasilvergraygreymaroonolivegreenpurpletealnavy"
+	_ColorString = "BlackWhiteRedLimeBlueYellowCyanMagentaSilverGrayGreyMaroonOliveGreenPurpleTealNavy"
 )
 
 var (
@@ -140,43 +139,11 @@ var (
 		_ColorString[74:78]: 14,
 		_ColorString[78:82]: 15,
 	}
-	_ColorLowerStringToValueMap = map[string]Color{
-		_ColorLowerString[0:5]:   0,
-		_ColorLowerString[5:10]:  1,
-		_ColorLowerString[10:13]: 2,
-		_ColorLowerString[13:17]: 3,
-		_ColorLowerString[17:21]: 4,
-		_ColorLowerString[21:27]: 5,
-		_ColorLowerString[27:31]: 6,
-		_ColorLowerString[31:38]: 7,
-		_ColorLowerString[38:44]: 8,
-		_ColorLowerString[44:48]: 9,
-		_ColorLowerString[48:52]: 9,
-		_ColorLowerString[52:58]: 10,
-		_ColorLowerString[58:63]: 11,
-		_ColorLowerString[63:68]: 12,
-		_ColorLowerString[68:74]: 13,
-		_ColorLowerString[74:78]: 14,
-		_ColorLowerString[78:82]: 15,
-	}
 )
 
 // ColorFromString determines the enum value with an exact case match.
 func ColorFromString(raw string) (Color, bool) {
 	v, ok := _ColorStringToValueMap[raw]
-	if !ok {
-		return Color(0), false
-	}
-	return v, true
-}
-
-// ColorFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func ColorFromStringIgnoreCase(raw string) (Color, bool) {
-	v, ok := ColorFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _ColorLowerStringToValueMap[raw]
 	if !ok {
 		return Color(0), false
 	}

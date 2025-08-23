@@ -16,8 +16,7 @@ var (
 )
 
 const (
-	_AccountStateString      = "STAGEDPROVISIONEDACTIVATEDDEACTIVATEDDEPROVISIONED"
-	_AccountStateLowerString = "stagedprovisionedactivateddeactivateddeprovisioned"
+	_AccountStateString = "STAGEDPROVISIONEDACTIVATEDDEACTIVATEDDEPROVISIONED"
 )
 
 var (
@@ -81,31 +80,11 @@ var (
 		_AccountStateString[26:37]: AccountStateDeactivated,
 		_AccountStateString[37:50]: AccountStateDeprovisioned,
 	}
-	_AccountStateLowerStringToValueMap = map[string]AccountState{
-		_AccountStateLowerString[0:6]:   AccountStateStaged,
-		_AccountStateLowerString[6:17]:  AccountStateProvisioned,
-		_AccountStateLowerString[17:26]: AccountStateActivated,
-		_AccountStateLowerString[26:37]: AccountStateDeactivated,
-		_AccountStateLowerString[37:50]: AccountStateDeprovisioned,
-	}
 )
 
 // AccountStateFromString determines the enum value with an exact case match.
 func AccountStateFromString(raw string) (AccountState, bool) {
 	v, ok := _AccountStateStringToValueMap[raw]
-	if !ok {
-		return AccountState(0), false
-	}
-	return v, true
-}
-
-// AccountStateFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func AccountStateFromStringIgnoreCase(raw string) (AccountState, bool) {
-	v, ok := AccountStateFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _AccountStateLowerStringToValueMap[raw]
 	if !ok {
 		return AccountState(0), false
 	}
@@ -172,8 +151,7 @@ func (_a *AccountState) Scan(value interface{}) error {
 }
 
 const (
-	_CountryCodeString      = "AFGALBDZAASMANDAGOAIAATAATGARGARMABWAUSAUTAZEBHSBHRBGDBRBBLRBELBLZBENBMUBTNBOLBIHBWABRAIOTVGBBRNBGRBFABDIKHMCMRCANCPVCYMCAFTCDCHLCHNCXRCCKCOLCOMCOKCRIHRVCUBCUWCYPCZECODDNKDJIDMADOMTLSECUEGYSLVGNQERIESTETHFLKFROFJIFINFRAPYFGABGMBGEODEUGHAGIBGRCGRLGRDGUMGTMGGYGINGNBGUYHTIHNDHKGHUNISLINDIDNIRNIRQIRLIMNISRITACIVJAMJPNJEYJORKAZKENKIRXKXKWTKGZLAOLVALBNLSOLBRLBYLIELTULUXMACMKDMDGMWIMYSMDVMLIMLTMHLMRTMUSMYTMEXFSMMDAMCOMNGMNEMSRMARMOZMMRNAMNRUNPLNLDANTNCLNZLNICNERNGANIUPRKMNPNOROMNPAKPLWPSEPANPNGPRYPERPHLPCNPOLPRTPRIQATCOGREUROURUSRWABLMSHNKNALCAMAFSPMVCTWSMSMRSTPSAUSENSRBSYCSLESGPSXMSVKSVNSLBSOMZAFKORSSDESPLKASDNSURSJMSWZSWECHESYRTWNTJKTZATHATGOTKLTONTTOTUNTURTKMTCATUVVIRUGAUKRAREGBRUSAURYUZBVUTVATVENVNMWLFESHYEMZMBZWE"
-	_CountryCodeLowerString = "afgalbdzaasmandagoaiaataatgargarmabwausautazebhsbhrbgdbrbblrbelblzbenbmubtnbolbihbwabraiotvgbbrnbgrbfabdikhmcmrcancpvcymcaftcdchlchncxrcckcolcomcokcrihrvcubcuwcypczecoddnkdjidmadomtlsecuegyslvgnqeriestethflkfrofjifinfrapyfgabgmbgeodeughagibgrcgrlgrdgumgtmggygingnbguyhtihndhkghunislindidnirnirqirlimnisritacivjamjpnjeyjorkazkenkirxkxkwtkgzlaolvalbnlsolbrlbylieltuluxmacmkdmdgmwimysmdvmlimltmhlmrtmusmytmexfsmmdamcomngmnemsrmarmozmmrnamnrunplnldantnclnzlnicnernganiuprkmnpnoromnpakplwpsepanpngpryperphlpcnpolprtpriqatcogreurourusrwablmshnknalcamafspmvctwsmsmrstpsausensrbsycslesgpsxmsvksvnslbsomzafkorssdesplkasdnsursjmswzswechesyrtwntjktzathatgotkltonttotunturtkmtcatuvvirugaukraregbrusauryuzbvutvatvenvnmwlfeshyemzmbzwe"
+	_CountryCodeString = "AFGALBDZAASMANDAGOAIAATAATGARGARMABWAUSAUTAZEBHSBHRBGDBRBBLRBELBLZBENBMUBTNBOLBIHBWABRAIOTVGBBRNBGRBFABDIKHMCMRCANCPVCYMCAFTCDCHLCHNCXRCCKCOLCOMCOKCRIHRVCUBCUWCYPCZECODDNKDJIDMADOMTLSECUEGYSLVGNQERIESTETHFLKFROFJIFINFRAPYFGABGMBGEODEUGHAGIBGRCGRLGRDGUMGTMGGYGINGNBGUYHTIHNDHKGHUNISLINDIDNIRNIRQIRLIMNISRITACIVJAMJPNJEYJORKAZKENKIRXKXKWTKGZLAOLVALBNLSOLBRLBYLIELTULUXMACMKDMDGMWIMYSMDVMLIMLTMHLMRTMUSMYTMEXFSMMDAMCOMNGMNEMSRMARMOZMMRNAMNRUNPLNLDANTNCLNZLNICNERNGANIUPRKMNPNOROMNPAKPLWPSEPANPNGPRYPERPHLPCNPOLPRTPRIQATCOGREUROURUSRWABLMSHNKNALCAMAFSPMVCTWSMSMRSTPSAUSENSRBSYCSLESGPSXMSVKSVNSLBSOMZAFKORSSDESPLKASDNSURSJMSWZSWECHESYRTWNTJKTZATHATGOTKLTONTTOTUNTURTKMTCATUVVIRUGAUKRAREGBRUSAURYUZBVUTVATVENVNMWLFESHYEMZMBZWE"
 )
 
 var (
@@ -769,266 +747,11 @@ var (
 		_CountryCodeString[714:717]: 239,
 		_CountryCodeString[717:720]: 240,
 	}
-	_CountryCodeLowerStringToValueMap = map[string]CountryCode{
-		_CountryCodeLowerString[0:3]:     1,
-		_CountryCodeLowerString[3:6]:     2,
-		_CountryCodeLowerString[6:9]:     3,
-		_CountryCodeLowerString[9:12]:    4,
-		_CountryCodeLowerString[12:15]:   5,
-		_CountryCodeLowerString[15:18]:   6,
-		_CountryCodeLowerString[18:21]:   7,
-		_CountryCodeLowerString[21:24]:   8,
-		_CountryCodeLowerString[24:27]:   9,
-		_CountryCodeLowerString[27:30]:   10,
-		_CountryCodeLowerString[30:33]:   11,
-		_CountryCodeLowerString[33:36]:   12,
-		_CountryCodeLowerString[36:39]:   13,
-		_CountryCodeLowerString[39:42]:   14,
-		_CountryCodeLowerString[42:45]:   15,
-		_CountryCodeLowerString[45:48]:   16,
-		_CountryCodeLowerString[48:51]:   17,
-		_CountryCodeLowerString[51:54]:   18,
-		_CountryCodeLowerString[54:57]:   19,
-		_CountryCodeLowerString[57:60]:   20,
-		_CountryCodeLowerString[60:63]:   21,
-		_CountryCodeLowerString[63:66]:   22,
-		_CountryCodeLowerString[66:69]:   23,
-		_CountryCodeLowerString[69:72]:   24,
-		_CountryCodeLowerString[72:75]:   25,
-		_CountryCodeLowerString[75:78]:   26,
-		_CountryCodeLowerString[78:81]:   27,
-		_CountryCodeLowerString[81:84]:   28,
-		_CountryCodeLowerString[84:87]:   29,
-		_CountryCodeLowerString[87:90]:   30,
-		_CountryCodeLowerString[90:93]:   31,
-		_CountryCodeLowerString[93:96]:   32,
-		_CountryCodeLowerString[96:99]:   33,
-		_CountryCodeLowerString[99:102]:  34,
-		_CountryCodeLowerString[102:105]: 35,
-		_CountryCodeLowerString[105:108]: 36,
-		_CountryCodeLowerString[108:111]: 37,
-		_CountryCodeLowerString[111:114]: 38,
-		_CountryCodeLowerString[114:117]: 39,
-		_CountryCodeLowerString[117:120]: 40,
-		_CountryCodeLowerString[120:123]: 41,
-		_CountryCodeLowerString[123:126]: 42,
-		_CountryCodeLowerString[126:129]: 43,
-		_CountryCodeLowerString[129:132]: 44,
-		_CountryCodeLowerString[132:135]: 45,
-		_CountryCodeLowerString[135:138]: 46,
-		_CountryCodeLowerString[138:141]: 47,
-		_CountryCodeLowerString[141:144]: 48,
-		_CountryCodeLowerString[144:147]: 49,
-		_CountryCodeLowerString[147:150]: 50,
-		_CountryCodeLowerString[150:153]: 51,
-		_CountryCodeLowerString[153:156]: 52,
-		_CountryCodeLowerString[156:159]: 53,
-		_CountryCodeLowerString[159:162]: 54,
-		_CountryCodeLowerString[162:165]: 55,
-		_CountryCodeLowerString[165:168]: 56,
-		_CountryCodeLowerString[168:171]: 57,
-		_CountryCodeLowerString[171:174]: 58,
-		_CountryCodeLowerString[174:177]: 59,
-		_CountryCodeLowerString[177:180]: 60,
-		_CountryCodeLowerString[180:183]: 61,
-		_CountryCodeLowerString[183:186]: 62,
-		_CountryCodeLowerString[186:189]: 63,
-		_CountryCodeLowerString[189:192]: 64,
-		_CountryCodeLowerString[192:195]: 65,
-		_CountryCodeLowerString[195:198]: 66,
-		_CountryCodeLowerString[198:201]: 67,
-		_CountryCodeLowerString[201:204]: 68,
-		_CountryCodeLowerString[204:207]: 69,
-		_CountryCodeLowerString[207:210]: 70,
-		_CountryCodeLowerString[210:213]: 71,
-		_CountryCodeLowerString[213:216]: 72,
-		_CountryCodeLowerString[216:219]: 73,
-		_CountryCodeLowerString[219:222]: 74,
-		_CountryCodeLowerString[222:225]: 75,
-		_CountryCodeLowerString[225:228]: 76,
-		_CountryCodeLowerString[228:231]: 77,
-		_CountryCodeLowerString[231:234]: 78,
-		_CountryCodeLowerString[234:237]: 79,
-		_CountryCodeLowerString[237:240]: 80,
-		_CountryCodeLowerString[240:243]: 81,
-		_CountryCodeLowerString[243:246]: 82,
-		_CountryCodeLowerString[246:249]: 83,
-		_CountryCodeLowerString[249:252]: 84,
-		_CountryCodeLowerString[252:255]: 85,
-		_CountryCodeLowerString[255:258]: 86,
-		_CountryCodeLowerString[258:261]: 87,
-		_CountryCodeLowerString[261:264]: 88,
-		_CountryCodeLowerString[264:267]: 89,
-		_CountryCodeLowerString[267:270]: 90,
-		_CountryCodeLowerString[270:273]: 91,
-		_CountryCodeLowerString[273:276]: 92,
-		_CountryCodeLowerString[276:279]: 93,
-		_CountryCodeLowerString[279:282]: 94,
-		_CountryCodeLowerString[282:285]: 95,
-		_CountryCodeLowerString[285:288]: 96,
-		_CountryCodeLowerString[288:291]: 97,
-		_CountryCodeLowerString[291:294]: 98,
-		_CountryCodeLowerString[294:297]: 99,
-		_CountryCodeLowerString[297:300]: 100,
-		_CountryCodeLowerString[300:303]: 101,
-		_CountryCodeLowerString[303:306]: 102,
-		_CountryCodeLowerString[306:309]: 103,
-		_CountryCodeLowerString[309:312]: 104,
-		_CountryCodeLowerString[312:315]: 105,
-		_CountryCodeLowerString[315:318]: 106,
-		_CountryCodeLowerString[318:321]: 107,
-		_CountryCodeLowerString[321:324]: 108,
-		_CountryCodeLowerString[324:327]: 109,
-		_CountryCodeLowerString[327:330]: 110,
-		_CountryCodeLowerString[330:333]: 111,
-		_CountryCodeLowerString[333:336]: 112,
-		_CountryCodeLowerString[336:339]: 113,
-		_CountryCodeLowerString[339:342]: 114,
-		_CountryCodeLowerString[342:345]: 115,
-		_CountryCodeLowerString[345:348]: 116,
-		_CountryCodeLowerString[348:351]: 117,
-		_CountryCodeLowerString[351:354]: 118,
-		_CountryCodeLowerString[354:357]: 119,
-		_CountryCodeLowerString[357:360]: 120,
-		_CountryCodeLowerString[360:363]: 121,
-		_CountryCodeLowerString[363:366]: 122,
-		_CountryCodeLowerString[366:369]: 123,
-		_CountryCodeLowerString[369:372]: 124,
-		_CountryCodeLowerString[372:375]: 125,
-		_CountryCodeLowerString[375:378]: 126,
-		_CountryCodeLowerString[378:381]: 127,
-		_CountryCodeLowerString[381:384]: 128,
-		_CountryCodeLowerString[384:387]: 129,
-		_CountryCodeLowerString[387:390]: 130,
-		_CountryCodeLowerString[390:393]: 131,
-		_CountryCodeLowerString[393:396]: 132,
-		_CountryCodeLowerString[396:399]: 133,
-		_CountryCodeLowerString[399:402]: 134,
-		_CountryCodeLowerString[402:405]: 135,
-		_CountryCodeLowerString[405:408]: 136,
-		_CountryCodeLowerString[408:411]: 137,
-		_CountryCodeLowerString[411:414]: 138,
-		_CountryCodeLowerString[414:417]: 139,
-		_CountryCodeLowerString[417:420]: 140,
-		_CountryCodeLowerString[420:423]: 141,
-		_CountryCodeLowerString[423:426]: 142,
-		_CountryCodeLowerString[426:429]: 143,
-		_CountryCodeLowerString[429:432]: 144,
-		_CountryCodeLowerString[432:435]: 145,
-		_CountryCodeLowerString[435:438]: 146,
-		_CountryCodeLowerString[438:441]: 147,
-		_CountryCodeLowerString[441:444]: 148,
-		_CountryCodeLowerString[444:447]: 149,
-		_CountryCodeLowerString[447:450]: 150,
-		_CountryCodeLowerString[450:453]: 151,
-		_CountryCodeLowerString[453:456]: 152,
-		_CountryCodeLowerString[456:459]: 153,
-		_CountryCodeLowerString[459:462]: 154,
-		_CountryCodeLowerString[462:465]: 155,
-		_CountryCodeLowerString[465:468]: 156,
-		_CountryCodeLowerString[468:471]: 157,
-		_CountryCodeLowerString[471:474]: 158,
-		_CountryCodeLowerString[474:477]: 159,
-		_CountryCodeLowerString[477:480]: 160,
-		_CountryCodeLowerString[480:483]: 161,
-		_CountryCodeLowerString[483:486]: 162,
-		_CountryCodeLowerString[486:489]: 163,
-		_CountryCodeLowerString[489:492]: 164,
-		_CountryCodeLowerString[492:495]: 165,
-		_CountryCodeLowerString[495:498]: 166,
-		_CountryCodeLowerString[498:501]: 167,
-		_CountryCodeLowerString[501:504]: 168,
-		_CountryCodeLowerString[504:507]: 169,
-		_CountryCodeLowerString[507:510]: 170,
-		_CountryCodeLowerString[510:513]: 171,
-		_CountryCodeLowerString[513:516]: 172,
-		_CountryCodeLowerString[516:519]: 173,
-		_CountryCodeLowerString[519:522]: 174,
-		_CountryCodeLowerString[522:525]: 175,
-		_CountryCodeLowerString[525:528]: 176,
-		_CountryCodeLowerString[528:531]: 177,
-		_CountryCodeLowerString[531:534]: 178,
-		_CountryCodeLowerString[534:537]: 179,
-		_CountryCodeLowerString[537:540]: 180,
-		_CountryCodeLowerString[540:543]: 181,
-		_CountryCodeLowerString[543:546]: 182,
-		_CountryCodeLowerString[546:549]: 183,
-		_CountryCodeLowerString[549:552]: 184,
-		_CountryCodeLowerString[552:555]: 185,
-		_CountryCodeLowerString[555:558]: 186,
-		_CountryCodeLowerString[558:561]: 187,
-		_CountryCodeLowerString[561:564]: 188,
-		_CountryCodeLowerString[564:567]: 189,
-		_CountryCodeLowerString[567:570]: 190,
-		_CountryCodeLowerString[570:573]: 191,
-		_CountryCodeLowerString[573:576]: 192,
-		_CountryCodeLowerString[576:579]: 193,
-		_CountryCodeLowerString[579:582]: 194,
-		_CountryCodeLowerString[582:585]: 195,
-		_CountryCodeLowerString[585:588]: 196,
-		_CountryCodeLowerString[588:591]: 197,
-		_CountryCodeLowerString[591:594]: 198,
-		_CountryCodeLowerString[594:597]: 199,
-		_CountryCodeLowerString[597:600]: 200,
-		_CountryCodeLowerString[600:603]: 201,
-		_CountryCodeLowerString[603:606]: 202,
-		_CountryCodeLowerString[606:609]: 203,
-		_CountryCodeLowerString[609:612]: 204,
-		_CountryCodeLowerString[612:615]: 205,
-		_CountryCodeLowerString[615:618]: 206,
-		_CountryCodeLowerString[618:621]: 207,
-		_CountryCodeLowerString[621:624]: 208,
-		_CountryCodeLowerString[624:627]: 209,
-		_CountryCodeLowerString[627:630]: 210,
-		_CountryCodeLowerString[630:633]: 211,
-		_CountryCodeLowerString[633:636]: 212,
-		_CountryCodeLowerString[636:639]: 213,
-		_CountryCodeLowerString[639:642]: 214,
-		_CountryCodeLowerString[642:645]: 215,
-		_CountryCodeLowerString[645:648]: 216,
-		_CountryCodeLowerString[648:651]: 217,
-		_CountryCodeLowerString[651:654]: 218,
-		_CountryCodeLowerString[654:657]: 219,
-		_CountryCodeLowerString[657:660]: 220,
-		_CountryCodeLowerString[660:663]: 221,
-		_CountryCodeLowerString[663:666]: 222,
-		_CountryCodeLowerString[666:669]: 223,
-		_CountryCodeLowerString[669:672]: 224,
-		_CountryCodeLowerString[672:675]: 225,
-		_CountryCodeLowerString[675:678]: 226,
-		_CountryCodeLowerString[678:681]: 227,
-		_CountryCodeLowerString[681:684]: 228,
-		_CountryCodeLowerString[684:687]: 229,
-		_CountryCodeLowerString[687:690]: 230,
-		_CountryCodeLowerString[690:693]: 231,
-		_CountryCodeLowerString[693:696]: 232,
-		_CountryCodeLowerString[696:699]: 233,
-		_CountryCodeLowerString[699:702]: 234,
-		_CountryCodeLowerString[702:705]: 235,
-		_CountryCodeLowerString[705:708]: 236,
-		_CountryCodeLowerString[708:711]: 237,
-		_CountryCodeLowerString[711:714]: 238,
-		_CountryCodeLowerString[714:717]: 239,
-		_CountryCodeLowerString[717:720]: 240,
-	}
 )
 
 // CountryCodeFromString determines the enum value with an exact case match.
 func CountryCodeFromString(raw string) (CountryCode, bool) {
 	v, ok := _CountryCodeStringToValueMap[raw]
-	if !ok {
-		return CountryCode(0), false
-	}
-	return v, true
-}
-
-// CountryCodeFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func CountryCodeFromStringIgnoreCase(raw string) (CountryCode, bool) {
-	v, ok := CountryCodeFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _CountryCodeLowerStringToValueMap[raw]
 	if !ok {
 		return CountryCode(0), false
 	}
@@ -1197,8 +920,7 @@ func (_c *CountryCode) UnmarshalYAML(unmarshal func(interface{}) error) error {
 }
 
 const (
-	_CurrencyString      = "USDEURJPYGBPAUD"
-	_CurrencyLowerString = "usdeurjpygbpaud"
+	_CurrencyString = "USDEURJPYGBPAUD"
 )
 
 var (
@@ -1291,31 +1013,11 @@ var (
 		_CurrencyString[9:12]:  4,
 		_CurrencyString[12:15]: 5,
 	}
-	_CurrencyLowerStringToValueMap = map[string]Currency{
-		_CurrencyLowerString[0:3]:   1,
-		_CurrencyLowerString[3:6]:   2,
-		_CurrencyLowerString[6:9]:   3,
-		_CurrencyLowerString[9:12]:  4,
-		_CurrencyLowerString[12:15]: 5,
-	}
 )
 
 // CurrencyFromString determines the enum value with an exact case match.
 func CurrencyFromString(raw string) (Currency, bool) {
 	v, ok := _CurrencyStringToValueMap[raw]
-	if !ok {
-		return Currency(0), false
-	}
-	return v, true
-}
-
-// CurrencyFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func CurrencyFromStringIgnoreCase(raw string) (Currency, bool) {
-	v, ok := CurrencyFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _CurrencyLowerStringToValueMap[raw]
 	if !ok {
 		return Currency(0), false
 	}
@@ -1484,8 +1186,7 @@ func (_c *Currency) UnmarshalYAML(unmarshal func(interface{}) error) error {
 }
 
 const (
-	_TimezoneString      = "Asia/KabulEurope/TiraneAfrica/AlgiersPacific/Pago_PagoEurope/AndorraAfrica/LuandaAmerica/AnguillaAntarctica/CaseyAntarctica/DavisAntarctica/DumontDUrvilleAntarctica/MawsonAntarctica/McMurdoAntarctica/PalmerAntarctica/RotheraAntarctica/SyowaAntarctica/TrollAntarctica/VostokAmerica/AntiguaAmerica/Argentina/Buenos_AiresAmerica/Argentina/CatamarcaAmerica/Argentina/CordobaAmerica/Argentina/JujuyAmerica/Argentina/La_RiojaAmerica/Argentina/MendozaAmerica/Argentina/Rio_GallegosAmerica/Argentina/SaltaAmerica/Argentina/San_JuanAmerica/Argentina/San_LuisAmerica/Argentina/TucumanAmerica/Argentina/UshuaiaAsia/YerevanAmerica/ArubaAntarctica/MacquarieAustralia/AdelaideAustralia/BrisbaneAustralia/Broken_HillAustralia/DarwinAustralia/EuclaAustralia/HobartAustralia/LindemanAustralia/Lord_HoweAustralia/MelbourneAustralia/PerthAustralia/SydneyEurope/ViennaAsia/BakuAmerica/NassauAsia/BahrainAsia/DhakaAmerica/BarbadosEurope/MinskEurope/BrusselsAmerica/BelizeAfrica/Porto-NovoAtlantic/BermudaAsia/ThimphuAmerica/La_PazAmerica/KralendijkEurope/SarajevoAfrica/GaboroneAmerica/AraguainaAmerica/BahiaAmerica/BelemAmerica/Boa_VistaAmerica/Campo_GrandeAmerica/CuiabaAmerica/EirunepeAmerica/FortalezaAmerica/MaceioAmerica/ManausAmerica/NoronhaAmerica/Porto_VelhoAmerica/RecifeAmerica/Rio_BrancoAmerica/SantaremAmerica/Sao_PauloIndian/ChagosAsia/BruneiEurope/SofiaAfrica/OuagadougouAfrica/BujumburaAsia/Phnom_PenhAfrica/DoualaAmerica/AtikokanAmerica/Blanc-SablonAmerica/Cambridge_BayAmerica/CrestonAmerica/DawsonAmerica/Dawson_CreekAmerica/EdmontonAmerica/Fort_NelsonAmerica/Glace_BayAmerica/Goose_BayAmerica/HalifaxAmerica/InuvikAmerica/IqaluitAmerica/MonctonAmerica/NipigonAmerica/PangnirtungAmerica/Rainy_RiverAmerica/Rankin_InletAmerica/ReginaAmerica/ResoluteAmerica/St_JohnsAmerica/Swift_CurrentAmerica/Thunder_BayAmerica/TorontoAmerica/VancouverAmerica/WhitehorseAmerica/WinnipegAmerica/YellowknifeAtlantic/Cape_VerdeAmerica/CaymanAfrica/BanguiAfrica/NdjamenaAmerica/Punta_ArenasAmerica/SantiagoPacific/EasterAsia/ShanghaiAsia/UrumqiIndian/ChristmasIndian/CocosAmerica/BogotaIndian/ComoroAfrica/BrazzavilleAfrica/KinshasaAfrica/LubumbashiPacific/RarotongaAmerica/Costa_RicaEurope/ZagrebAmerica/HavanaAmerica/CuracaoAsia/FamagustaAsia/NicosiaEurope/PragueAfrica/AbidjanEurope/CopenhagenAfrica/DjiboutiAmerica/DominicaAmerica/Santo_DomingoAmerica/GuayaquilPacific/GalapagosAfrica/CairoAmerica/El_SalvadorAfrica/MalaboAfrica/AsmaraEurope/TallinnAfrica/Addis_AbabaAtlantic/StanleyAtlantic/FaroePacific/FijiEurope/HelsinkiEurope/ParisAmerica/CayennePacific/GambierPacific/MarquesasPacific/TahitiIndian/KerguelenAfrica/LibrevilleAfrica/BanjulAsia/TbilisiEurope/BerlinEurope/BusingenAfrica/AccraEurope/GibraltarEurope/AthensAmerica/DanmarkshavnAmerica/NuukAmerica/ScoresbysundAmerica/ThuleAmerica/GrenadaAmerica/GuadeloupePacific/GuamAmerica/GuatemalaEurope/GuernseyAfrica/ConakryAfrica/BissauAmerica/GuyanaAmerica/Port-au-PrinceEurope/VaticanAmerica/TegucigalpaAsia/Hong_KongEurope/BudapestAtlantic/ReykjavikAsia/KolkataAsia/JakartaAsia/JayapuraAsia/MakassarAsia/PontianakAsia/TehranAsia/BaghdadEurope/DublinEurope/Isle_of_ManAsia/JerusalemEurope/RomeAmerica/JamaicaAsia/TokyoEurope/JerseyAsia/AmmanAsia/AlmatyAsia/AqtauAsia/AqtobeAsia/AtyrauAsia/OralAsia/QostanayAsia/QyzylordaAfrica/NairobiPacific/KantonPacific/KiritimatiPacific/TarawaAsia/PyongyangAsia/SeoulAsia/KuwaitAsia/BishkekAsia/VientianeEurope/RigaAsia/BeirutAfrica/MaseruAfrica/MonroviaAfrica/TripoliEurope/VaduzEurope/VilniusEurope/LuxembourgAsia/MacauEurope/SkopjeIndian/AntananarivoAfrica/BlantyreAsia/Kuala_LumpurAsia/KuchingIndian/MaldivesAfrica/BamakoEurope/MaltaPacific/KwajaleinPacific/MajuroAmerica/MartiniqueAfrica/NouakchottIndian/MauritiusIndian/MayotteAmerica/Bahia_BanderasAmerica/CancunAmerica/ChihuahuaAmerica/HermosilloAmerica/MatamorosAmerica/MazatlanAmerica/MeridaAmerica/Mexico_CityAmerica/MonterreyAmerica/OjinagaAmerica/TijuanaPacific/ChuukPacific/KosraePacific/PohnpeiEurope/ChisinauEurope/MonacoAsia/ChoibalsanAsia/HovdAsia/UlaanbaatarEurope/PodgoricaAmerica/MontserratAfrica/CasablancaAfrica/MaputoAsia/YangonAfrica/WindhoekPacific/NauruAsia/KathmanduEurope/AmsterdamPacific/NoumeaPacific/AucklandPacific/ChathamAmerica/ManaguaAfrica/NiameyAfrica/LagosPacific/NiuePacific/NorfolkPacific/SaipanEurope/OsloAsia/MuscatAsia/KarachiPacific/PalauAsia/GazaAsia/HebronAmerica/PanamaPacific/BougainvillePacific/Port_MoresbyAmerica/AsuncionAmerica/LimaAsia/ManilaPacific/PitcairnEurope/WarsawAtlantic/AzoresAtlantic/MadeiraEurope/LisbonAmerica/Puerto_RicoAsia/QatarEurope/BucharestAsia/AnadyrAsia/BarnaulAsia/ChitaAsia/IrkutskAsia/KamchatkaAsia/KhandygaAsia/KrasnoyarskAsia/MagadanAsia/NovokuznetskAsia/NovosibirskAsia/OmskAsia/SakhalinAsia/SrednekolymskAsia/TomskAsia/Ust-NeraAsia/VladivostokAsia/YakutskAsia/YekaterinburgEurope/AstrakhanEurope/KaliningradEurope/KirovEurope/MoscowEurope/SamaraEurope/SaratovEurope/UlyanovskEurope/VolgogradAfrica/KigaliIndian/ReunionAmerica/St_BarthelemyAtlantic/St_HelenaAmerica/St_KittsAmerica/St_LuciaAmerica/MarigotAmerica/MiquelonAmerica/St_VincentPacific/ApiaEurope/San_MarinoAfrica/Sao_TomeAsia/RiyadhAfrica/DakarEurope/BelgradeIndian/MaheAfrica/FreetownAsia/SingaporeAmerica/Lower_PrincesEurope/BratislavaEurope/LjubljanaPacific/GuadalcanalAfrica/MogadishuAfrica/JohannesburgAtlantic/South_GeorgiaAfrica/JubaAfrica/CeutaAtlantic/CanaryEurope/MadridAsia/ColomboAfrica/KhartoumAmerica/ParamariboArctic/LongyearbyenAfrica/MbabaneEurope/StockholmEurope/ZurichAsia/DamascusAsia/TaipeiAsia/DushanbeAfrica/Dar_es_SalaamAsia/BangkokAsia/DiliAfrica/LomePacific/FakaofoPacific/TongatapuAmerica/Port_of_SpainAfrica/TunisEurope/IstanbulAsia/AshgabatAmerica/Grand_TurkPacific/FunafutiAfrica/KampalaEurope/KievEurope/SimferopolEurope/UzhgorodEurope/ZaporozhyeAsia/DubaiEurope/LondonAmerica/AdakAmerica/AnchorageAmerica/BoiseAmerica/ChicagoAmerica/DenverAmerica/DetroitAmerica/Indiana/IndianapolisAmerica/Indiana/KnoxAmerica/Indiana/MarengoAmerica/Indiana/PetersburgAmerica/Indiana/Tell_CityAmerica/Indiana/VevayAmerica/Indiana/VincennesAmerica/Indiana/WinamacAmerica/JuneauAmerica/Kentucky/LouisvilleAmerica/Kentucky/MonticelloAmerica/Los_AngelesAmerica/MenomineeAmerica/MetlakatlaAmerica/New_YorkAmerica/NomeAmerica/North_Dakota/BeulahAmerica/North_Dakota/CenterAmerica/North_Dakota/New_SalemAmerica/PhoenixAmerica/SitkaAmerica/YakutatPacific/HonoluluPacific/MidwayPacific/WakeAmerica/MontevideoAsia/SamarkandAsia/TashkentPacific/EfateAmerica/CaracasAsia/Ho_Chi_MinhAmerica/TortolaAmerica/St_ThomasPacific/WallisAfrica/El_AaiunAsia/AdenAfrica/LusakaAfrica/HarareEurope/Mariehamn"
-	_TimezoneLowerString = "asia/kabuleurope/tiraneafrica/algierspacific/pago_pagoeurope/andorraafrica/luandaamerica/anguillaantarctica/caseyantarctica/davisantarctica/dumontdurvilleantarctica/mawsonantarctica/mcmurdoantarctica/palmerantarctica/rotheraantarctica/syowaantarctica/trollantarctica/vostokamerica/antiguaamerica/argentina/buenos_airesamerica/argentina/catamarcaamerica/argentina/cordobaamerica/argentina/jujuyamerica/argentina/la_riojaamerica/argentina/mendozaamerica/argentina/rio_gallegosamerica/argentina/saltaamerica/argentina/san_juanamerica/argentina/san_luisamerica/argentina/tucumanamerica/argentina/ushuaiaasia/yerevanamerica/arubaantarctica/macquarieaustralia/adelaideaustralia/brisbaneaustralia/broken_hillaustralia/darwinaustralia/euclaaustralia/hobartaustralia/lindemanaustralia/lord_howeaustralia/melbourneaustralia/perthaustralia/sydneyeurope/viennaasia/bakuamerica/nassauasia/bahrainasia/dhakaamerica/barbadoseurope/minskeurope/brusselsamerica/belizeafrica/porto-novoatlantic/bermudaasia/thimphuamerica/la_pazamerica/kralendijkeurope/sarajevoafrica/gaboroneamerica/araguainaamerica/bahiaamerica/belemamerica/boa_vistaamerica/campo_grandeamerica/cuiabaamerica/eirunepeamerica/fortalezaamerica/maceioamerica/manausamerica/noronhaamerica/porto_velhoamerica/recifeamerica/rio_brancoamerica/santaremamerica/sao_pauloindian/chagosasia/bruneieurope/sofiaafrica/ouagadougouafrica/bujumburaasia/phnom_penhafrica/doualaamerica/atikokanamerica/blanc-sablonamerica/cambridge_bayamerica/crestonamerica/dawsonamerica/dawson_creekamerica/edmontonamerica/fort_nelsonamerica/glace_bayamerica/goose_bayamerica/halifaxamerica/inuvikamerica/iqaluitamerica/monctonamerica/nipigonamerica/pangnirtungamerica/rainy_riveramerica/rankin_inletamerica/reginaamerica/resoluteamerica/st_johnsamerica/swift_currentamerica/thunder_bayamerica/torontoamerica/vancouveramerica/whitehorseamerica/winnipegamerica/yellowknifeatlantic/cape_verdeamerica/caymanafrica/banguiafrica/ndjamenaamerica/punta_arenasamerica/santiagopacific/easterasia/shanghaiasia/urumqiindian/christmasindian/cocosamerica/bogotaindian/comoroafrica/brazzavilleafrica/kinshasaafrica/lubumbashipacific/rarotongaamerica/costa_ricaeurope/zagrebamerica/havanaamerica/curacaoasia/famagustaasia/nicosiaeurope/pragueafrica/abidjaneurope/copenhagenafrica/djiboutiamerica/dominicaamerica/santo_domingoamerica/guayaquilpacific/galapagosafrica/cairoamerica/el_salvadorafrica/malaboafrica/asmaraeurope/tallinnafrica/addis_ababaatlantic/stanleyatlantic/faroepacific/fijieurope/helsinkieurope/parisamerica/cayennepacific/gambierpacific/marquesaspacific/tahitiindian/kerguelenafrica/librevilleafrica/banjulasia/tbilisieurope/berlineurope/busingenafrica/accraeurope/gibraltareurope/athensamerica/danmarkshavnamerica/nuukamerica/scoresbysundamerica/thuleamerica/grenadaamerica/guadeloupepacific/guamamerica/guatemalaeurope/guernseyafrica/conakryafrica/bissauamerica/guyanaamerica/port-au-princeeurope/vaticanamerica/tegucigalpaasia/hong_kongeurope/budapestatlantic/reykjavikasia/kolkataasia/jakartaasia/jayapuraasia/makassarasia/pontianakasia/tehranasia/baghdadeurope/dublineurope/isle_of_manasia/jerusalemeurope/romeamerica/jamaicaasia/tokyoeurope/jerseyasia/ammanasia/almatyasia/aqtauasia/aqtobeasia/atyrauasia/oralasia/qostanayasia/qyzylordaafrica/nairobipacific/kantonpacific/kiritimatipacific/tarawaasia/pyongyangasia/seoulasia/kuwaitasia/bishkekasia/vientianeeurope/rigaasia/beirutafrica/maseruafrica/monroviaafrica/tripolieurope/vaduzeurope/vilniuseurope/luxembourgasia/macaueurope/skopjeindian/antananarivoafrica/blantyreasia/kuala_lumpurasia/kuchingindian/maldivesafrica/bamakoeurope/maltapacific/kwajaleinpacific/majuroamerica/martiniqueafrica/nouakchottindian/mauritiusindian/mayotteamerica/bahia_banderasamerica/cancunamerica/chihuahuaamerica/hermosilloamerica/matamorosamerica/mazatlanamerica/meridaamerica/mexico_cityamerica/monterreyamerica/ojinagaamerica/tijuanapacific/chuukpacific/kosraepacific/pohnpeieurope/chisinaueurope/monacoasia/choibalsanasia/hovdasia/ulaanbaatareurope/podgoricaamerica/montserratafrica/casablancaafrica/maputoasia/yangonafrica/windhoekpacific/nauruasia/kathmandueurope/amsterdampacific/noumeapacific/aucklandpacific/chathamamerica/managuaafrica/niameyafrica/lagospacific/niuepacific/norfolkpacific/saipaneurope/osloasia/muscatasia/karachipacific/palauasia/gazaasia/hebronamerica/panamapacific/bougainvillepacific/port_moresbyamerica/asuncionamerica/limaasia/manilapacific/pitcairneurope/warsawatlantic/azoresatlantic/madeiraeurope/lisbonamerica/puerto_ricoasia/qatareurope/bucharestasia/anadyrasia/barnaulasia/chitaasia/irkutskasia/kamchatkaasia/khandygaasia/krasnoyarskasia/magadanasia/novokuznetskasia/novosibirskasia/omskasia/sakhalinasia/srednekolymskasia/tomskasia/ust-neraasia/vladivostokasia/yakutskasia/yekaterinburgeurope/astrakhaneurope/kaliningradeurope/kiroveurope/moscoweurope/samaraeurope/saratoveurope/ulyanovskeurope/volgogradafrica/kigaliindian/reunionamerica/st_barthelemyatlantic/st_helenaamerica/st_kittsamerica/st_luciaamerica/marigotamerica/miquelonamerica/st_vincentpacific/apiaeurope/san_marinoafrica/sao_tomeasia/riyadhafrica/dakareurope/belgradeindian/maheafrica/freetownasia/singaporeamerica/lower_princeseurope/bratislavaeurope/ljubljanapacific/guadalcanalafrica/mogadishuafrica/johannesburgatlantic/south_georgiaafrica/jubaafrica/ceutaatlantic/canaryeurope/madridasia/colomboafrica/khartoumamerica/paramariboarctic/longyearbyenafrica/mbabaneeurope/stockholmeurope/zurichasia/damascusasia/taipeiasia/dushanbeafrica/dar_es_salaamasia/bangkokasia/diliafrica/lomepacific/fakaofopacific/tongatapuamerica/port_of_spainafrica/tuniseurope/istanbulasia/ashgabatamerica/grand_turkpacific/funafutiafrica/kampalaeurope/kieveurope/simferopoleurope/uzhgorodeurope/zaporozhyeasia/dubaieurope/londonamerica/adakamerica/anchorageamerica/boiseamerica/chicagoamerica/denveramerica/detroitamerica/indiana/indianapolisamerica/indiana/knoxamerica/indiana/marengoamerica/indiana/petersburgamerica/indiana/tell_cityamerica/indiana/vevayamerica/indiana/vincennesamerica/indiana/winamacamerica/juneauamerica/kentucky/louisvilleamerica/kentucky/monticelloamerica/los_angelesamerica/menomineeamerica/metlakatlaamerica/new_yorkamerica/nomeamerica/north_dakota/beulahamerica/north_dakota/centeramerica/north_dakota/new_salemamerica/phoenixamerica/sitkaamerica/yakutatpacific/honolulupacific/midwaypacific/wakeamerica/montevideoasia/samarkandasia/tashkentpacific/efateamerica/caracasasia/ho_chi_minhamerica/tortolaamerica/st_thomaspacific/wallisafrica/el_aaiunasia/adenafrica/lusakaafrica/harareeurope/mariehamn"
+	_TimezoneString = "Asia/KabulEurope/TiraneAfrica/AlgiersPacific/Pago_PagoEurope/AndorraAfrica/LuandaAmerica/AnguillaAntarctica/CaseyAntarctica/DavisAntarctica/DumontDUrvilleAntarctica/MawsonAntarctica/McMurdoAntarctica/PalmerAntarctica/RotheraAntarctica/SyowaAntarctica/TrollAntarctica/VostokAmerica/AntiguaAmerica/Argentina/Buenos_AiresAmerica/Argentina/CatamarcaAmerica/Argentina/CordobaAmerica/Argentina/JujuyAmerica/Argentina/La_RiojaAmerica/Argentina/MendozaAmerica/Argentina/Rio_GallegosAmerica/Argentina/SaltaAmerica/Argentina/San_JuanAmerica/Argentina/San_LuisAmerica/Argentina/TucumanAmerica/Argentina/UshuaiaAsia/YerevanAmerica/ArubaAntarctica/MacquarieAustralia/AdelaideAustralia/BrisbaneAustralia/Broken_HillAustralia/DarwinAustralia/EuclaAustralia/HobartAustralia/LindemanAustralia/Lord_HoweAustralia/MelbourneAustralia/PerthAustralia/SydneyEurope/ViennaAsia/BakuAmerica/NassauAsia/BahrainAsia/DhakaAmerica/BarbadosEurope/MinskEurope/BrusselsAmerica/BelizeAfrica/Porto-NovoAtlantic/BermudaAsia/ThimphuAmerica/La_PazAmerica/KralendijkEurope/SarajevoAfrica/GaboroneAmerica/AraguainaAmerica/BahiaAmerica/BelemAmerica/Boa_VistaAmerica/Campo_GrandeAmerica/CuiabaAmerica/EirunepeAmerica/FortalezaAmerica/MaceioAmerica/ManausAmerica/NoronhaAmerica/Porto_VelhoAmerica/RecifeAmerica/Rio_BrancoAmerica/SantaremAmerica/Sao_PauloIndian/ChagosAsia/BruneiEurope/SofiaAfrica/OuagadougouAfrica/BujumburaAsia/Phnom_PenhAfrica/DoualaAmerica/AtikokanAmerica/Blanc-SablonAmerica/Cambridge_BayAmerica/CrestonAmerica/DawsonAmerica/Dawson_CreekAmerica/EdmontonAmerica/Fort_NelsonAmerica/Glace_BayAmerica/Goose_BayAmerica/HalifaxAmerica/InuvikAmerica/IqaluitAmerica/MonctonAmerica/NipigonAmerica/PangnirtungAmerica/Rainy_RiverAmerica/Rankin_InletAmerica/ReginaAmerica/ResoluteAmerica/St_JohnsAmerica/Swift_CurrentAmerica/Thunder_BayAmerica/TorontoAmerica/VancouverAmerica/WhitehorseAmerica/WinnipegAmerica/YellowknifeAtlantic/Cape_VerdeAmerica/CaymanAfrica/BanguiAfrica/NdjamenaAmerica/Punta_ArenasAmerica/SantiagoPacific/EasterAsia/ShanghaiAsia/UrumqiIndian/ChristmasIndian/CocosAmerica/BogotaIndian/ComoroAfrica/BrazzavilleAfrica/KinshasaAfrica/LubumbashiPacific/RarotongaAmerica/Costa_RicaEurope/ZagrebAmerica/HavanaAmerica/CuracaoAsia/FamagustaAsia/NicosiaEurope/PragueAfrica/AbidjanEurope/CopenhagenAfrica/DjiboutiAmerica/DominicaAmerica/Santo_DomingoAmerica/GuayaquilPacific/GalapagosAfrica/CairoAmerica/El_SalvadorAfrica/MalaboAfrica/AsmaraEurope/TallinnAfrica/Addis_AbabaAtlantic/StanleyAtlantic/FaroePacific/FijiEurope/HelsinkiEurope/ParisAmerica/CayennePacific/GambierPacific/MarquesasPacific/TahitiIndian/KerguelenAfrica/LibrevilleAfrica/BanjulAsia/TbilisiEurope/BerlinEurope/BusingenAfrica/AccraEurope/GibraltarEurope/AthensAmerica/DanmarkshavnAmerica/NuukAmerica/ScoresbysundAmerica/ThuleAmerica/GrenadaAmerica/GuadeloupePacific/GuamAmerica/GuatemalaEurope/GuernseyAfrica/ConakryAfrica/BissauAmerica/GuyanaAmerica/Port-au-PrinceEurope/VaticanAmerica/TegucigalpaAsia/Hong_KongEurope/BudapestAtlantic/ReykjavikAsia/KolkataAsia/JakartaAsia/JayapuraAsia/MakassarAsia/PontianakAsia/TehranAsia/BaghdadEurope/DublinEurope/Isle_of_ManAsia/JerusalemEurope/RomeAmerica/JamaicaAsia/TokyoEurope/JerseyAsia/AmmanAsia/AlmatyAsia/AqtauAsia/AqtobeAsia/AtyrauAsia/OralAsia/QostanayAsia/QyzylordaAfrica/NairobiPacific/KantonPacific/KiritimatiPacific/TarawaAsia/PyongyangAsia/SeoulAsia/KuwaitAsia/BishkekAsia/VientianeEurope/RigaAsia/BeirutAfrica/MaseruAfrica/MonroviaAfrica/TripoliEurope/VaduzEurope/VilniusEurope/LuxembourgAsia/MacauEurope/SkopjeIndian/AntananarivoAfrica/BlantyreAsia/Kuala_LumpurAsia/KuchingIndian/MaldivesAfrica/BamakoEurope/MaltaPacific/KwajaleinPacific/MajuroAmerica/MartiniqueAfrica/NouakchottIndian/MauritiusIndian/MayotteAmerica/Bahia_BanderasAmerica/CancunAmerica/ChihuahuaAmerica/HermosilloAmerica/MatamorosAmerica/MazatlanAmerica/MeridaAmerica/Mexico_CityAmerica/MonterreyAmerica/OjinagaAmerica/TijuanaPacific/ChuukPacific/KosraePacific/PohnpeiEurope/ChisinauEurope/MonacoAsia/ChoibalsanAsia/HovdAsia/UlaanbaatarEurope/PodgoricaAmerica/MontserratAfrica/CasablancaAfrica/MaputoAsia/YangonAfrica/WindhoekPacific/NauruAsia/KathmanduEurope/AmsterdamPacific/NoumeaPacific/AucklandPacific/ChathamAmerica/ManaguaAfrica/NiameyAfrica/LagosPacific/NiuePacific/NorfolkPacific/SaipanEurope/OsloAsia/MuscatAsia/KarachiPacific/PalauAsia/GazaAsia/HebronAmerica/PanamaPacific/BougainvillePacific/Port_MoresbyAmerica/AsuncionAmerica/LimaAsia/ManilaPacific/PitcairnEurope/WarsawAtlantic/AzoresAtlantic/MadeiraEurope/LisbonAmerica/Puerto_RicoAsia/QatarEurope/BucharestAsia/AnadyrAsia/BarnaulAsia/ChitaAsia/IrkutskAsia/KamchatkaAsia/KhandygaAsia/KrasnoyarskAsia/MagadanAsia/NovokuznetskAsia/NovosibirskAsia/OmskAsia/SakhalinAsia/SrednekolymskAsia/TomskAsia/Ust-NeraAsia/VladivostokAsia/YakutskAsia/YekaterinburgEurope/AstrakhanEurope/KaliningradEurope/KirovEurope/MoscowEurope/SamaraEurope/SaratovEurope/UlyanovskEurope/VolgogradAfrica/KigaliIndian/ReunionAmerica/St_BarthelemyAtlantic/St_HelenaAmerica/St_KittsAmerica/St_LuciaAmerica/MarigotAmerica/MiquelonAmerica/St_VincentPacific/ApiaEurope/San_MarinoAfrica/Sao_TomeAsia/RiyadhAfrica/DakarEurope/BelgradeIndian/MaheAfrica/FreetownAsia/SingaporeAmerica/Lower_PrincesEurope/BratislavaEurope/LjubljanaPacific/GuadalcanalAfrica/MogadishuAfrica/JohannesburgAtlantic/South_GeorgiaAfrica/JubaAfrica/CeutaAtlantic/CanaryEurope/MadridAsia/ColomboAfrica/KhartoumAmerica/ParamariboArctic/LongyearbyenAfrica/MbabaneEurope/StockholmEurope/ZurichAsia/DamascusAsia/TaipeiAsia/DushanbeAfrica/Dar_es_SalaamAsia/BangkokAsia/DiliAfrica/LomePacific/FakaofoPacific/TongatapuAmerica/Port_of_SpainAfrica/TunisEurope/IstanbulAsia/AshgabatAmerica/Grand_TurkPacific/FunafutiAfrica/KampalaEurope/KievEurope/SimferopolEurope/UzhgorodEurope/ZaporozhyeAsia/DubaiEurope/LondonAmerica/AdakAmerica/AnchorageAmerica/BoiseAmerica/ChicagoAmerica/DenverAmerica/DetroitAmerica/Indiana/IndianapolisAmerica/Indiana/KnoxAmerica/Indiana/MarengoAmerica/Indiana/PetersburgAmerica/Indiana/Tell_CityAmerica/Indiana/VevayAmerica/Indiana/VincennesAmerica/Indiana/WinamacAmerica/JuneauAmerica/Kentucky/LouisvilleAmerica/Kentucky/MonticelloAmerica/Los_AngelesAmerica/MenomineeAmerica/MetlakatlaAmerica/New_YorkAmerica/NomeAmerica/North_Dakota/BeulahAmerica/North_Dakota/CenterAmerica/North_Dakota/New_SalemAmerica/PhoenixAmerica/SitkaAmerica/YakutatPacific/HonoluluPacific/MidwayPacific/WakeAmerica/MontevideoAsia/SamarkandAsia/TashkentPacific/EfateAmerica/CaracasAsia/Ho_Chi_MinhAmerica/TortolaAmerica/St_ThomasPacific/WallisAfrica/El_AaiunAsia/AdenAfrica/LusakaAfrica/HarareEurope/Mariehamn"
 )
 
 var (
@@ -1956,450 +1657,11 @@ var (
 		_TimezoneString[6540:6553]: 423,
 		_TimezoneString[6553:6569]: 424,
 	}
-	_TimezoneLowerStringToValueMap = map[string]Timezone{
-		_TimezoneLowerString[0:10]:      1,
-		_TimezoneLowerString[10:23]:     2,
-		_TimezoneLowerString[23:37]:     3,
-		_TimezoneLowerString[37:54]:     4,
-		_TimezoneLowerString[54:68]:     5,
-		_TimezoneLowerString[68:81]:     6,
-		_TimezoneLowerString[81:97]:     7,
-		_TimezoneLowerString[97:113]:    8,
-		_TimezoneLowerString[113:129]:   9,
-		_TimezoneLowerString[129:154]:   10,
-		_TimezoneLowerString[154:171]:   11,
-		_TimezoneLowerString[171:189]:   12,
-		_TimezoneLowerString[189:206]:   13,
-		_TimezoneLowerString[206:224]:   14,
-		_TimezoneLowerString[224:240]:   15,
-		_TimezoneLowerString[240:256]:   16,
-		_TimezoneLowerString[256:273]:   17,
-		_TimezoneLowerString[273:288]:   18,
-		_TimezoneLowerString[288:318]:   19,
-		_TimezoneLowerString[318:345]:   20,
-		_TimezoneLowerString[345:370]:   21,
-		_TimezoneLowerString[370:393]:   22,
-		_TimezoneLowerString[393:419]:   23,
-		_TimezoneLowerString[419:444]:   24,
-		_TimezoneLowerString[444:474]:   25,
-		_TimezoneLowerString[474:497]:   26,
-		_TimezoneLowerString[497:523]:   27,
-		_TimezoneLowerString[523:549]:   28,
-		_TimezoneLowerString[549:574]:   29,
-		_TimezoneLowerString[574:599]:   30,
-		_TimezoneLowerString[599:611]:   31,
-		_TimezoneLowerString[611:624]:   32,
-		_TimezoneLowerString[624:644]:   33,
-		_TimezoneLowerString[644:662]:   34,
-		_TimezoneLowerString[662:680]:   35,
-		_TimezoneLowerString[680:701]:   36,
-		_TimezoneLowerString[701:717]:   37,
-		_TimezoneLowerString[717:732]:   38,
-		_TimezoneLowerString[732:748]:   39,
-		_TimezoneLowerString[748:766]:   40,
-		_TimezoneLowerString[766:785]:   41,
-		_TimezoneLowerString[785:804]:   42,
-		_TimezoneLowerString[804:819]:   43,
-		_TimezoneLowerString[819:835]:   44,
-		_TimezoneLowerString[835:848]:   45,
-		_TimezoneLowerString[848:857]:   46,
-		_TimezoneLowerString[857:871]:   47,
-		_TimezoneLowerString[871:883]:   48,
-		_TimezoneLowerString[883:893]:   49,
-		_TimezoneLowerString[893:909]:   50,
-		_TimezoneLowerString[909:921]:   51,
-		_TimezoneLowerString[921:936]:   52,
-		_TimezoneLowerString[936:950]:   53,
-		_TimezoneLowerString[950:967]:   54,
-		_TimezoneLowerString[967:983]:   55,
-		_TimezoneLowerString[983:995]:   56,
-		_TimezoneLowerString[995:1009]:  57,
-		_TimezoneLowerString[1009:1027]: 58,
-		_TimezoneLowerString[1027:1042]: 59,
-		_TimezoneLowerString[1042:1057]: 60,
-		_TimezoneLowerString[1057:1074]: 61,
-		_TimezoneLowerString[1074:1087]: 62,
-		_TimezoneLowerString[1087:1100]: 63,
-		_TimezoneLowerString[1100:1117]: 64,
-		_TimezoneLowerString[1117:1137]: 65,
-		_TimezoneLowerString[1137:1151]: 66,
-		_TimezoneLowerString[1151:1167]: 67,
-		_TimezoneLowerString[1167:1184]: 68,
-		_TimezoneLowerString[1184:1198]: 69,
-		_TimezoneLowerString[1198:1212]: 70,
-		_TimezoneLowerString[1212:1227]: 71,
-		_TimezoneLowerString[1227:1246]: 72,
-		_TimezoneLowerString[1246:1260]: 73,
-		_TimezoneLowerString[1260:1278]: 74,
-		_TimezoneLowerString[1278:1294]: 75,
-		_TimezoneLowerString[1294:1311]: 76,
-		_TimezoneLowerString[1311:1324]: 77,
-		_TimezoneLowerString[1324:1335]: 78,
-		_TimezoneLowerString[1335:1347]: 79,
-		_TimezoneLowerString[1347:1365]: 80,
-		_TimezoneLowerString[1365:1381]: 81,
-		_TimezoneLowerString[1381:1396]: 82,
-		_TimezoneLowerString[1396:1409]: 83,
-		_TimezoneLowerString[1409:1425]: 84,
-		_TimezoneLowerString[1425:1445]: 85,
-		_TimezoneLowerString[1445:1466]: 86,
-		_TimezoneLowerString[1466:1481]: 87,
-		_TimezoneLowerString[1481:1495]: 88,
-		_TimezoneLowerString[1495:1515]: 89,
-		_TimezoneLowerString[1515:1531]: 90,
-		_TimezoneLowerString[1531:1550]: 91,
-		_TimezoneLowerString[1550:1567]: 92,
-		_TimezoneLowerString[1567:1584]: 93,
-		_TimezoneLowerString[1584:1599]: 94,
-		_TimezoneLowerString[1599:1613]: 95,
-		_TimezoneLowerString[1613:1628]: 96,
-		_TimezoneLowerString[1628:1643]: 97,
-		_TimezoneLowerString[1643:1658]: 98,
-		_TimezoneLowerString[1658:1677]: 99,
-		_TimezoneLowerString[1677:1696]: 100,
-		_TimezoneLowerString[1696:1716]: 101,
-		_TimezoneLowerString[1716:1730]: 102,
-		_TimezoneLowerString[1730:1746]: 103,
-		_TimezoneLowerString[1746:1762]: 104,
-		_TimezoneLowerString[1762:1783]: 105,
-		_TimezoneLowerString[1783:1802]: 106,
-		_TimezoneLowerString[1802:1817]: 107,
-		_TimezoneLowerString[1817:1834]: 108,
-		_TimezoneLowerString[1834:1852]: 109,
-		_TimezoneLowerString[1852:1868]: 110,
-		_TimezoneLowerString[1868:1887]: 111,
-		_TimezoneLowerString[1887:1906]: 112,
-		_TimezoneLowerString[1906:1920]: 113,
-		_TimezoneLowerString[1920:1933]: 114,
-		_TimezoneLowerString[1933:1948]: 115,
-		_TimezoneLowerString[1948:1968]: 116,
-		_TimezoneLowerString[1968:1984]: 117,
-		_TimezoneLowerString[1984:1998]: 118,
-		_TimezoneLowerString[1998:2011]: 119,
-		_TimezoneLowerString[2011:2022]: 120,
-		_TimezoneLowerString[2022:2038]: 121,
-		_TimezoneLowerString[2038:2050]: 122,
-		_TimezoneLowerString[2050:2064]: 123,
-		_TimezoneLowerString[2064:2077]: 124,
-		_TimezoneLowerString[2077:2095]: 125,
-		_TimezoneLowerString[2095:2110]: 126,
-		_TimezoneLowerString[2110:2127]: 127,
-		_TimezoneLowerString[2127:2144]: 128,
-		_TimezoneLowerString[2144:2162]: 129,
-		_TimezoneLowerString[2162:2175]: 130,
-		_TimezoneLowerString[2175:2189]: 131,
-		_TimezoneLowerString[2189:2204]: 132,
-		_TimezoneLowerString[2204:2218]: 133,
-		_TimezoneLowerString[2218:2230]: 134,
-		_TimezoneLowerString[2230:2243]: 135,
-		_TimezoneLowerString[2243:2257]: 136,
-		_TimezoneLowerString[2257:2274]: 137,
-		_TimezoneLowerString[2274:2289]: 138,
-		_TimezoneLowerString[2289:2305]: 139,
-		_TimezoneLowerString[2305:2326]: 140,
-		_TimezoneLowerString[2326:2343]: 141,
-		_TimezoneLowerString[2343:2360]: 142,
-		_TimezoneLowerString[2360:2372]: 143,
-		_TimezoneLowerString[2372:2391]: 144,
-		_TimezoneLowerString[2391:2404]: 145,
-		_TimezoneLowerString[2404:2417]: 146,
-		_TimezoneLowerString[2417:2431]: 147,
-		_TimezoneLowerString[2431:2449]: 148,
-		_TimezoneLowerString[2449:2465]: 149,
-		_TimezoneLowerString[2465:2479]: 150,
-		_TimezoneLowerString[2479:2491]: 151,
-		_TimezoneLowerString[2491:2506]: 152,
-		_TimezoneLowerString[2506:2518]: 153,
-		_TimezoneLowerString[2518:2533]: 154,
-		_TimezoneLowerString[2533:2548]: 155,
-		_TimezoneLowerString[2548:2565]: 156,
-		_TimezoneLowerString[2565:2579]: 157,
-		_TimezoneLowerString[2579:2595]: 158,
-		_TimezoneLowerString[2595:2612]: 159,
-		_TimezoneLowerString[2612:2625]: 160,
-		_TimezoneLowerString[2625:2637]: 161,
-		_TimezoneLowerString[2637:2650]: 162,
-		_TimezoneLowerString[2650:2665]: 163,
-		_TimezoneLowerString[2665:2677]: 164,
-		_TimezoneLowerString[2677:2693]: 165,
-		_TimezoneLowerString[2693:2706]: 166,
-		_TimezoneLowerString[2706:2726]: 167,
-		_TimezoneLowerString[2726:2738]: 168,
-		_TimezoneLowerString[2738:2758]: 169,
-		_TimezoneLowerString[2758:2771]: 170,
-		_TimezoneLowerString[2771:2786]: 171,
-		_TimezoneLowerString[2786:2804]: 172,
-		_TimezoneLowerString[2804:2816]: 173,
-		_TimezoneLowerString[2816:2833]: 174,
-		_TimezoneLowerString[2833:2848]: 175,
-		_TimezoneLowerString[2848:2862]: 176,
-		_TimezoneLowerString[2862:2875]: 177,
-		_TimezoneLowerString[2875:2889]: 178,
-		_TimezoneLowerString[2889:2911]: 179,
-		_TimezoneLowerString[2911:2925]: 180,
-		_TimezoneLowerString[2925:2944]: 181,
-		_TimezoneLowerString[2944:2958]: 182,
-		_TimezoneLowerString[2958:2973]: 183,
-		_TimezoneLowerString[2973:2991]: 184,
-		_TimezoneLowerString[2991:3003]: 185,
-		_TimezoneLowerString[3003:3015]: 186,
-		_TimezoneLowerString[3015:3028]: 187,
-		_TimezoneLowerString[3028:3041]: 188,
-		_TimezoneLowerString[3041:3055]: 189,
-		_TimezoneLowerString[3055:3066]: 190,
-		_TimezoneLowerString[3066:3078]: 191,
-		_TimezoneLowerString[3078:3091]: 192,
-		_TimezoneLowerString[3091:3109]: 193,
-		_TimezoneLowerString[3109:3123]: 194,
-		_TimezoneLowerString[3123:3134]: 195,
-		_TimezoneLowerString[3134:3149]: 196,
-		_TimezoneLowerString[3149:3159]: 197,
-		_TimezoneLowerString[3159:3172]: 198,
-		_TimezoneLowerString[3172:3182]: 199,
-		_TimezoneLowerString[3182:3193]: 200,
-		_TimezoneLowerString[3193:3203]: 201,
-		_TimezoneLowerString[3203:3214]: 202,
-		_TimezoneLowerString[3214:3225]: 203,
-		_TimezoneLowerString[3225:3234]: 204,
-		_TimezoneLowerString[3234:3247]: 205,
-		_TimezoneLowerString[3247:3261]: 206,
-		_TimezoneLowerString[3261:3275]: 207,
-		_TimezoneLowerString[3275:3289]: 208,
-		_TimezoneLowerString[3289:3307]: 209,
-		_TimezoneLowerString[3307:3321]: 210,
-		_TimezoneLowerString[3321:3335]: 211,
-		_TimezoneLowerString[3335:3345]: 212,
-		_TimezoneLowerString[3345:3356]: 213,
-		_TimezoneLowerString[3356:3368]: 214,
-		_TimezoneLowerString[3368:3382]: 215,
-		_TimezoneLowerString[3382:3393]: 216,
-		_TimezoneLowerString[3393:3404]: 217,
-		_TimezoneLowerString[3404:3417]: 218,
-		_TimezoneLowerString[3417:3432]: 219,
-		_TimezoneLowerString[3432:3446]: 220,
-		_TimezoneLowerString[3446:3458]: 221,
-		_TimezoneLowerString[3458:3472]: 222,
-		_TimezoneLowerString[3472:3489]: 223,
-		_TimezoneLowerString[3489:3499]: 224,
-		_TimezoneLowerString[3499:3512]: 225,
-		_TimezoneLowerString[3512:3531]: 226,
-		_TimezoneLowerString[3531:3546]: 227,
-		_TimezoneLowerString[3546:3563]: 228,
-		_TimezoneLowerString[3563:3575]: 229,
-		_TimezoneLowerString[3575:3590]: 230,
-		_TimezoneLowerString[3590:3603]: 231,
-		_TimezoneLowerString[3603:3615]: 232,
-		_TimezoneLowerString[3615:3632]: 233,
-		_TimezoneLowerString[3632:3646]: 234,
-		_TimezoneLowerString[3646:3664]: 235,
-		_TimezoneLowerString[3664:3681]: 236,
-		_TimezoneLowerString[3681:3697]: 237,
-		_TimezoneLowerString[3697:3711]: 238,
-		_TimezoneLowerString[3711:3733]: 239,
-		_TimezoneLowerString[3733:3747]: 240,
-		_TimezoneLowerString[3747:3764]: 241,
-		_TimezoneLowerString[3764:3782]: 242,
-		_TimezoneLowerString[3782:3799]: 243,
-		_TimezoneLowerString[3799:3815]: 244,
-		_TimezoneLowerString[3815:3829]: 245,
-		_TimezoneLowerString[3829:3848]: 246,
-		_TimezoneLowerString[3848:3865]: 247,
-		_TimezoneLowerString[3865:3880]: 248,
-		_TimezoneLowerString[3880:3895]: 249,
-		_TimezoneLowerString[3895:3908]: 250,
-		_TimezoneLowerString[3908:3922]: 251,
-		_TimezoneLowerString[3922:3937]: 252,
-		_TimezoneLowerString[3937:3952]: 253,
-		_TimezoneLowerString[3952:3965]: 254,
-		_TimezoneLowerString[3965:3980]: 255,
-		_TimezoneLowerString[3980:3989]: 256,
-		_TimezoneLowerString[3989:4005]: 257,
-		_TimezoneLowerString[4005:4021]: 258,
-		_TimezoneLowerString[4021:4039]: 259,
-		_TimezoneLowerString[4039:4056]: 260,
-		_TimezoneLowerString[4056:4069]: 261,
-		_TimezoneLowerString[4069:4080]: 262,
-		_TimezoneLowerString[4080:4095]: 263,
-		_TimezoneLowerString[4095:4108]: 264,
-		_TimezoneLowerString[4108:4122]: 265,
-		_TimezoneLowerString[4122:4138]: 266,
-		_TimezoneLowerString[4138:4152]: 267,
-		_TimezoneLowerString[4152:4168]: 268,
-		_TimezoneLowerString[4168:4183]: 269,
-		_TimezoneLowerString[4183:4198]: 270,
-		_TimezoneLowerString[4198:4211]: 271,
-		_TimezoneLowerString[4211:4223]: 272,
-		_TimezoneLowerString[4223:4235]: 273,
-		_TimezoneLowerString[4235:4250]: 274,
-		_TimezoneLowerString[4250:4264]: 275,
-		_TimezoneLowerString[4264:4275]: 276,
-		_TimezoneLowerString[4275:4286]: 277,
-		_TimezoneLowerString[4286:4298]: 278,
-		_TimezoneLowerString[4298:4311]: 279,
-		_TimezoneLowerString[4311:4320]: 280,
-		_TimezoneLowerString[4320:4331]: 281,
-		_TimezoneLowerString[4331:4345]: 282,
-		_TimezoneLowerString[4345:4365]: 283,
-		_TimezoneLowerString[4365:4385]: 284,
-		_TimezoneLowerString[4385:4401]: 285,
-		_TimezoneLowerString[4401:4413]: 286,
-		_TimezoneLowerString[4413:4424]: 287,
-		_TimezoneLowerString[4424:4440]: 288,
-		_TimezoneLowerString[4440:4453]: 289,
-		_TimezoneLowerString[4453:4468]: 290,
-		_TimezoneLowerString[4468:4484]: 291,
-		_TimezoneLowerString[4484:4497]: 292,
-		_TimezoneLowerString[4497:4516]: 293,
-		_TimezoneLowerString[4516:4526]: 294,
-		_TimezoneLowerString[4526:4542]: 295,
-		_TimezoneLowerString[4542:4553]: 296,
-		_TimezoneLowerString[4553:4565]: 297,
-		_TimezoneLowerString[4565:4575]: 298,
-		_TimezoneLowerString[4575:4587]: 299,
-		_TimezoneLowerString[4587:4601]: 300,
-		_TimezoneLowerString[4601:4614]: 301,
-		_TimezoneLowerString[4614:4630]: 302,
-		_TimezoneLowerString[4630:4642]: 303,
-		_TimezoneLowerString[4642:4659]: 304,
-		_TimezoneLowerString[4659:4675]: 305,
-		_TimezoneLowerString[4675:4684]: 306,
-		_TimezoneLowerString[4684:4697]: 307,
-		_TimezoneLowerString[4697:4715]: 308,
-		_TimezoneLowerString[4715:4725]: 309,
-		_TimezoneLowerString[4725:4738]: 310,
-		_TimezoneLowerString[4738:4754]: 311,
-		_TimezoneLowerString[4754:4766]: 312,
-		_TimezoneLowerString[4766:4784]: 313,
-		_TimezoneLowerString[4784:4800]: 314,
-		_TimezoneLowerString[4800:4818]: 315,
-		_TimezoneLowerString[4818:4830]: 316,
-		_TimezoneLowerString[4830:4843]: 317,
-		_TimezoneLowerString[4843:4856]: 318,
-		_TimezoneLowerString[4856:4870]: 319,
-		_TimezoneLowerString[4870:4886]: 320,
-		_TimezoneLowerString[4886:4902]: 321,
-		_TimezoneLowerString[4902:4915]: 322,
-		_TimezoneLowerString[4915:4929]: 323,
-		_TimezoneLowerString[4929:4950]: 324,
-		_TimezoneLowerString[4950:4968]: 325,
-		_TimezoneLowerString[4968:4984]: 326,
-		_TimezoneLowerString[4984:5000]: 327,
-		_TimezoneLowerString[5000:5015]: 328,
-		_TimezoneLowerString[5015:5031]: 329,
-		_TimezoneLowerString[5031:5049]: 330,
-		_TimezoneLowerString[5049:5061]: 331,
-		_TimezoneLowerString[5061:5078]: 332,
-		_TimezoneLowerString[5078:5093]: 333,
-		_TimezoneLowerString[5093:5104]: 334,
-		_TimezoneLowerString[5104:5116]: 335,
-		_TimezoneLowerString[5116:5131]: 336,
-		_TimezoneLowerString[5131:5142]: 337,
-		_TimezoneLowerString[5142:5157]: 338,
-		_TimezoneLowerString[5157:5171]: 339,
-		_TimezoneLowerString[5171:5192]: 340,
-		_TimezoneLowerString[5192:5209]: 341,
-		_TimezoneLowerString[5209:5225]: 342,
-		_TimezoneLowerString[5225:5244]: 343,
-		_TimezoneLowerString[5244:5260]: 344,
-		_TimezoneLowerString[5260:5279]: 345,
-		_TimezoneLowerString[5279:5301]: 346,
-		_TimezoneLowerString[5301:5312]: 347,
-		_TimezoneLowerString[5312:5324]: 348,
-		_TimezoneLowerString[5324:5339]: 349,
-		_TimezoneLowerString[5339:5352]: 350,
-		_TimezoneLowerString[5352:5364]: 351,
-		_TimezoneLowerString[5364:5379]: 352,
-		_TimezoneLowerString[5379:5397]: 353,
-		_TimezoneLowerString[5397:5416]: 354,
-		_TimezoneLowerString[5416:5430]: 355,
-		_TimezoneLowerString[5430:5446]: 356,
-		_TimezoneLowerString[5446:5459]: 357,
-		_TimezoneLowerString[5459:5472]: 358,
-		_TimezoneLowerString[5472:5483]: 359,
-		_TimezoneLowerString[5483:5496]: 360,
-		_TimezoneLowerString[5496:5516]: 361,
-		_TimezoneLowerString[5516:5528]: 362,
-		_TimezoneLowerString[5528:5537]: 363,
-		_TimezoneLowerString[5537:5548]: 364,
-		_TimezoneLowerString[5548:5563]: 365,
-		_TimezoneLowerString[5563:5580]: 366,
-		_TimezoneLowerString[5580:5601]: 367,
-		_TimezoneLowerString[5601:5613]: 368,
-		_TimezoneLowerString[5613:5628]: 369,
-		_TimezoneLowerString[5628:5641]: 370,
-		_TimezoneLowerString[5641:5659]: 371,
-		_TimezoneLowerString[5659:5675]: 372,
-		_TimezoneLowerString[5675:5689]: 373,
-		_TimezoneLowerString[5689:5700]: 374,
-		_TimezoneLowerString[5700:5717]: 375,
-		_TimezoneLowerString[5717:5732]: 376,
-		_TimezoneLowerString[5732:5749]: 377,
-		_TimezoneLowerString[5749:5759]: 378,
-		_TimezoneLowerString[5759:5772]: 379,
-		_TimezoneLowerString[5772:5784]: 380,
-		_TimezoneLowerString[5784:5801]: 381,
-		_TimezoneLowerString[5801:5814]: 382,
-		_TimezoneLowerString[5814:5829]: 383,
-		_TimezoneLowerString[5829:5843]: 384,
-		_TimezoneLowerString[5843:5858]: 385,
-		_TimezoneLowerString[5858:5886]: 386,
-		_TimezoneLowerString[5886:5906]: 387,
-		_TimezoneLowerString[5906:5929]: 388,
-		_TimezoneLowerString[5929:5955]: 389,
-		_TimezoneLowerString[5955:5980]: 390,
-		_TimezoneLowerString[5980:6001]: 391,
-		_TimezoneLowerString[6001:6026]: 392,
-		_TimezoneLowerString[6026:6049]: 393,
-		_TimezoneLowerString[6049:6063]: 394,
-		_TimezoneLowerString[6063:6090]: 395,
-		_TimezoneLowerString[6090:6117]: 396,
-		_TimezoneLowerString[6117:6136]: 397,
-		_TimezoneLowerString[6136:6153]: 398,
-		_TimezoneLowerString[6153:6171]: 399,
-		_TimezoneLowerString[6171:6187]: 400,
-		_TimezoneLowerString[6187:6199]: 401,
-		_TimezoneLowerString[6199:6226]: 402,
-		_TimezoneLowerString[6226:6253]: 403,
-		_TimezoneLowerString[6253:6283]: 404,
-		_TimezoneLowerString[6283:6298]: 405,
-		_TimezoneLowerString[6298:6311]: 406,
-		_TimezoneLowerString[6311:6326]: 407,
-		_TimezoneLowerString[6326:6342]: 408,
-		_TimezoneLowerString[6342:6356]: 409,
-		_TimezoneLowerString[6356:6368]: 410,
-		_TimezoneLowerString[6368:6386]: 411,
-		_TimezoneLowerString[6386:6400]: 412,
-		_TimezoneLowerString[6400:6413]: 413,
-		_TimezoneLowerString[6413:6426]: 414,
-		_TimezoneLowerString[6426:6441]: 415,
-		_TimezoneLowerString[6441:6457]: 416,
-		_TimezoneLowerString[6457:6472]: 417,
-		_TimezoneLowerString[6472:6489]: 418,
-		_TimezoneLowerString[6489:6503]: 419,
-		_TimezoneLowerString[6503:6518]: 420,
-		_TimezoneLowerString[6518:6527]: 421,
-		_TimezoneLowerString[6527:6540]: 422,
-		_TimezoneLowerString[6540:6553]: 423,
-		_TimezoneLowerString[6553:6569]: 424,
-	}
 )
 
 // TimezoneFromString determines the enum value with an exact case match.
 func TimezoneFromString(raw string) (Timezone, bool) {
 	v, ok := _TimezoneStringToValueMap[raw]
-	if !ok {
-		return Timezone(0), false
-	}
-	return v, true
-}
-
-// TimezoneFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func TimezoneFromStringIgnoreCase(raw string) (Timezone, bool) {
-	v, ok := TimezoneFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _TimezoneLowerStringToValueMap[raw]
 	if !ok {
 		return Timezone(0), false
 	}
@@ -2568,8 +1830,7 @@ func (_t *Timezone) UnmarshalYAML(unmarshal func(interface{}) error) error {
 }
 
 const (
-	_UserRoleString      = "standardeditorrevieweradmin"
-	_UserRoleLowerString = "standardeditorrevieweradmin"
+	_UserRoleString = "standardeditorrevieweradmin"
 )
 
 var (
@@ -2631,12 +1892,6 @@ var (
 		_UserRoleString[14:22]: UserRoleReviewer,
 		_UserRoleString[22:27]: UserRoleAdmin,
 	}
-	_UserRoleLowerStringToValueMap = map[string]UserRole{
-		_UserRoleLowerString[0:8]:   UserRoleStandard,
-		_UserRoleLowerString[8:14]:  UserRoleEditor,
-		_UserRoleLowerString[14:22]: UserRoleReviewer,
-		_UserRoleLowerString[22:27]: UserRoleAdmin,
-	}
 )
 
 // UserRoleFromString determines the enum value with an exact case match.
@@ -2645,22 +1900,6 @@ func UserRoleFromString(raw string) (UserRole, bool) {
 		return UserRole(0), true
 	}
 	v, ok := _UserRoleStringToValueMap[raw]
-	if !ok {
-		return UserRole(0), false
-	}
-	return v, true
-}
-
-// UserRoleFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func UserRoleFromStringIgnoreCase(raw string) (UserRole, bool) {
-	if len(raw) == 0 {
-		return UserRole(0), true
-	}
-	v, ok := UserRoleFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _UserRoleLowerStringToValueMap[raw]
 	if !ok {
 		return UserRole(0), false
 	}

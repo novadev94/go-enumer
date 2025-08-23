@@ -17,8 +17,7 @@ var (
 )
 
 const (
-	_PillAliasedString      = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
-	_PillAliasedLowerString = "placeboaspirinibuprofenparacetamolacetaminophenvitamin-c"
+	_PillAliasedString = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
 )
 
 var (
@@ -84,32 +83,11 @@ var (
 		_PillAliasedString[34:47]: PillAliasedAcetaminophen,
 		_PillAliasedString[47:56]: PillAliasedVitaminC,
 	}
-	_PillAliasedLowerStringToValueMap = map[string]PillAliased{
-		_PillAliasedLowerString[0:7]:   PillAliasedPlacebo,
-		_PillAliasedLowerString[7:14]:  PillAliasedAspirin,
-		_PillAliasedLowerString[14:23]: PillAliasedIbuprofen,
-		_PillAliasedLowerString[23:34]: PillAliasedParacetamol,
-		_PillAliasedLowerString[34:47]: PillAliasedAcetaminophen,
-		_PillAliasedLowerString[47:56]: PillAliasedVitaminC,
-	}
 )
 
 // PillAliasedFromString determines the enum value with an exact case match.
 func PillAliasedFromString(raw string) (PillAliased, bool) {
 	v, ok := _PillAliasedStringToValueMap[raw]
-	if !ok {
-		return PillAliased(0), false
-	}
-	return v, true
-}
-
-// PillAliasedFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func PillAliasedFromStringIgnoreCase(raw string) (PillAliased, bool) {
-	v, ok := PillAliasedFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _PillAliasedLowerStringToValueMap[raw]
 	if !ok {
 		return PillAliased(0), false
 	}
@@ -279,8 +257,7 @@ func (_p *PillAliased) UnmarshalYAML(n *yaml.Node) error {
 }
 
 const (
-	_PillUnsignedString      = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
-	_PillUnsignedLowerString = "placeboaspirinibuprofenparacetamolacetaminophenvitamin-c"
+	_PillUnsignedString = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
 )
 
 var (
@@ -346,32 +323,11 @@ var (
 		_PillUnsignedString[34:47]: PillUnsignedAcetaminophen,
 		_PillUnsignedString[47:56]: PillUnsignedVitaminC,
 	}
-	_PillUnsignedLowerStringToValueMap = map[string]PillUnsigned{
-		_PillUnsignedLowerString[0:7]:   PillUnsignedPlacebo,
-		_PillUnsignedLowerString[7:14]:  PillUnsignedAspirin,
-		_PillUnsignedLowerString[14:23]: PillUnsignedIbuprofen,
-		_PillUnsignedLowerString[23:34]: PillUnsignedParacetamol,
-		_PillUnsignedLowerString[34:47]: PillUnsignedAcetaminophen,
-		_PillUnsignedLowerString[47:56]: PillUnsignedVitaminC,
-	}
 )
 
 // PillUnsignedFromString determines the enum value with an exact case match.
 func PillUnsignedFromString(raw string) (PillUnsigned, bool) {
 	v, ok := _PillUnsignedStringToValueMap[raw]
-	if !ok {
-		return PillUnsigned(0), false
-	}
-	return v, true
-}
-
-// PillUnsignedFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func PillUnsignedFromStringIgnoreCase(raw string) (PillUnsigned, bool) {
-	v, ok := PillUnsignedFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _PillUnsignedLowerStringToValueMap[raw]
 	if !ok {
 		return PillUnsigned(0), false
 	}
@@ -541,8 +497,7 @@ func (_p *PillUnsigned) UnmarshalYAML(n *yaml.Node) error {
 }
 
 const (
-	_PillUnsigned16String      = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
-	_PillUnsigned16LowerString = "placeboaspirinibuprofenparacetamolacetaminophenvitamin-c"
+	_PillUnsigned16String = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
 )
 
 var (
@@ -608,32 +563,11 @@ var (
 		_PillUnsigned16String[34:47]: PillUnsigned16Acetaminophen,
 		_PillUnsigned16String[47:56]: PillUnsigned16VitaminC,
 	}
-	_PillUnsigned16LowerStringToValueMap = map[string]PillUnsigned16{
-		_PillUnsigned16LowerString[0:7]:   PillUnsigned16Placebo,
-		_PillUnsigned16LowerString[7:14]:  PillUnsigned16Aspirin,
-		_PillUnsigned16LowerString[14:23]: PillUnsigned16Ibuprofen,
-		_PillUnsigned16LowerString[23:34]: PillUnsigned16Paracetamol,
-		_PillUnsigned16LowerString[34:47]: PillUnsigned16Acetaminophen,
-		_PillUnsigned16LowerString[47:56]: PillUnsigned16VitaminC,
-	}
 )
 
 // PillUnsigned16FromString determines the enum value with an exact case match.
 func PillUnsigned16FromString(raw string) (PillUnsigned16, bool) {
 	v, ok := _PillUnsigned16StringToValueMap[raw]
-	if !ok {
-		return PillUnsigned16(0), false
-	}
-	return v, true
-}
-
-// PillUnsigned16FromStringIgnoreCase determines the enum value with a case-insensitive match.
-func PillUnsigned16FromStringIgnoreCase(raw string) (PillUnsigned16, bool) {
-	v, ok := PillUnsigned16FromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _PillUnsigned16LowerStringToValueMap[raw]
 	if !ok {
 		return PillUnsigned16(0), false
 	}
@@ -803,8 +737,7 @@ func (_p *PillUnsigned16) UnmarshalYAML(n *yaml.Node) error {
 }
 
 const (
-	_PillUnsigned32String      = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
-	_PillUnsigned32LowerString = "placeboaspirinibuprofenparacetamolacetaminophenvitamin-c"
+	_PillUnsigned32String = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
 )
 
 var (
@@ -870,32 +803,11 @@ var (
 		_PillUnsigned32String[34:47]: PillUnsigned32Acetaminophen,
 		_PillUnsigned32String[47:56]: PillUnsigned32VitaminC,
 	}
-	_PillUnsigned32LowerStringToValueMap = map[string]PillUnsigned32{
-		_PillUnsigned32LowerString[0:7]:   PillUnsigned32Placebo,
-		_PillUnsigned32LowerString[7:14]:  PillUnsigned32Aspirin,
-		_PillUnsigned32LowerString[14:23]: PillUnsigned32Ibuprofen,
-		_PillUnsigned32LowerString[23:34]: PillUnsigned32Paracetamol,
-		_PillUnsigned32LowerString[34:47]: PillUnsigned32Acetaminophen,
-		_PillUnsigned32LowerString[47:56]: PillUnsigned32VitaminC,
-	}
 )
 
 // PillUnsigned32FromString determines the enum value with an exact case match.
 func PillUnsigned32FromString(raw string) (PillUnsigned32, bool) {
 	v, ok := _PillUnsigned32StringToValueMap[raw]
-	if !ok {
-		return PillUnsigned32(0), false
-	}
-	return v, true
-}
-
-// PillUnsigned32FromStringIgnoreCase determines the enum value with a case-insensitive match.
-func PillUnsigned32FromStringIgnoreCase(raw string) (PillUnsigned32, bool) {
-	v, ok := PillUnsigned32FromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _PillUnsigned32LowerStringToValueMap[raw]
 	if !ok {
 		return PillUnsigned32(0), false
 	}
@@ -1065,8 +977,7 @@ func (_p *PillUnsigned32) UnmarshalYAML(n *yaml.Node) error {
 }
 
 const (
-	_PillUnsigned64String      = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
-	_PillUnsigned64LowerString = "placeboaspirinibuprofenparacetamolacetaminophenvitamin-c"
+	_PillUnsigned64String = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
 )
 
 var (
@@ -1132,32 +1043,11 @@ var (
 		_PillUnsigned64String[34:47]: PillUnsigned64Acetaminophen,
 		_PillUnsigned64String[47:56]: PillUnsigned64VitaminC,
 	}
-	_PillUnsigned64LowerStringToValueMap = map[string]PillUnsigned64{
-		_PillUnsigned64LowerString[0:7]:   PillUnsigned64Placebo,
-		_PillUnsigned64LowerString[7:14]:  PillUnsigned64Aspirin,
-		_PillUnsigned64LowerString[14:23]: PillUnsigned64Ibuprofen,
-		_PillUnsigned64LowerString[23:34]: PillUnsigned64Paracetamol,
-		_PillUnsigned64LowerString[34:47]: PillUnsigned64Acetaminophen,
-		_PillUnsigned64LowerString[47:56]: PillUnsigned64VitaminC,
-	}
 )
 
 // PillUnsigned64FromString determines the enum value with an exact case match.
 func PillUnsigned64FromString(raw string) (PillUnsigned64, bool) {
 	v, ok := _PillUnsigned64StringToValueMap[raw]
-	if !ok {
-		return PillUnsigned64(0), false
-	}
-	return v, true
-}
-
-// PillUnsigned64FromStringIgnoreCase determines the enum value with a case-insensitive match.
-func PillUnsigned64FromStringIgnoreCase(raw string) (PillUnsigned64, bool) {
-	v, ok := PillUnsigned64FromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _PillUnsigned64LowerStringToValueMap[raw]
 	if !ok {
 		return PillUnsigned64(0), false
 	}
@@ -1327,8 +1217,7 @@ func (_p *PillUnsigned64) UnmarshalYAML(n *yaml.Node) error {
 }
 
 const (
-	_PillUnsigned8String      = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
-	_PillUnsigned8LowerString = "placeboaspirinibuprofenparacetamolacetaminophenvitamin-c"
+	_PillUnsigned8String = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
 )
 
 var (
@@ -1394,32 +1283,11 @@ var (
 		_PillUnsigned8String[34:47]: PillUnsigned8Acetaminophen,
 		_PillUnsigned8String[47:56]: PillUnsigned8VitaminC,
 	}
-	_PillUnsigned8LowerStringToValueMap = map[string]PillUnsigned8{
-		_PillUnsigned8LowerString[0:7]:   PillUnsigned8Placebo,
-		_PillUnsigned8LowerString[7:14]:  PillUnsigned8Aspirin,
-		_PillUnsigned8LowerString[14:23]: PillUnsigned8Ibuprofen,
-		_PillUnsigned8LowerString[23:34]: PillUnsigned8Paracetamol,
-		_PillUnsigned8LowerString[34:47]: PillUnsigned8Acetaminophen,
-		_PillUnsigned8LowerString[47:56]: PillUnsigned8VitaminC,
-	}
 )
 
 // PillUnsigned8FromString determines the enum value with an exact case match.
 func PillUnsigned8FromString(raw string) (PillUnsigned8, bool) {
 	v, ok := _PillUnsigned8StringToValueMap[raw]
-	if !ok {
-		return PillUnsigned8(0), false
-	}
-	return v, true
-}
-
-// PillUnsigned8FromStringIgnoreCase determines the enum value with a case-insensitive match.
-func PillUnsigned8FromStringIgnoreCase(raw string) (PillUnsigned8, bool) {
-	v, ok := PillUnsigned8FromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _PillUnsigned8LowerStringToValueMap[raw]
 	if !ok {
 		return PillUnsigned8(0), false
 	}

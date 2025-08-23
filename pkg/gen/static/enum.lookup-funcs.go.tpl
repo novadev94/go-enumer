@@ -7,11 +7,13 @@ var (
 		_{{ $ts.Name }}String[{{ $v.Position }}:{{ add $v.Position $v.Length }}]: {{ if $ts.IsFromCsvSource }}{{ $v.Value }}{{ else }}{{ $v.ConstName }}{{ end }},
 {{- end }}
 	}
+{{- if $ts.SupportIgnoreCase }}
 	_{{ $ts.Name }}LowerStringToValueMap = map[string]{{ $ts.Name }}{
 {{- range $v := $ts.Values }}
 		_{{ $ts.Name }}LowerString[{{ $v.Position }}:{{ add $v.Position $v.Length }}]: {{ if $ts.IsFromCsvSource }}{{ $v.Value }}{{ else }}{{ $v.ConstName }}{{ end }},
 {{- end }}
 	}
+{{- end }}
 )
 
 // {{ $ts.Name }}FromString determines the enum value with an exact case match.
@@ -28,6 +30,7 @@ func {{ $ts.Name }}FromString(raw string) ({{ $ts.Name }}, bool) {
 	return v, true
 }
 
+{{- if $ts.SupportIgnoreCase }}
 // {{ $ts.Name }}FromStringIgnoreCase determines the enum value with a case-insensitive match.
 func {{ $ts.Name }}FromStringIgnoreCase(raw string) ({{ $ts.Name }}, bool) {
 {{- if $ts.SupportUndefined }}
@@ -45,5 +48,6 @@ func {{ $ts.Name }}FromStringIgnoreCase(raw string) ({{ $ts.Name }}, bool) {
 	}
 	return v, true
 }
+{{- end }}
 
 {{ end -}}

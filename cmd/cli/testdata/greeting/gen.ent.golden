@@ -12,8 +12,7 @@ var (
 )
 
 const (
-	_GreetingString      = "WorldMars"
-	_GreetingLowerString = "worldmars"
+	_GreetingString = "WorldMars"
 )
 
 var (
@@ -71,28 +70,11 @@ var (
 		_GreetingString[0:5]: GreetingWorld,
 		_GreetingString[5:9]: GreetingMars,
 	}
-	_GreetingLowerStringToValueMap = map[string]Greeting{
-		_GreetingLowerString[0:5]: GreetingWorld,
-		_GreetingLowerString[5:9]: GreetingMars,
-	}
 )
 
 // GreetingFromString determines the enum value with an exact case match.
 func GreetingFromString(raw string) (Greeting, bool) {
 	v, ok := _GreetingStringToValueMap[raw]
-	if !ok {
-		return Greeting(0), false
-	}
-	return v, true
-}
-
-// GreetingFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func GreetingFromStringIgnoreCase(raw string) (Greeting, bool) {
-	v, ok := GreetingFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _GreetingLowerStringToValueMap[raw]
 	if !ok {
 		return Greeting(0), false
 	}

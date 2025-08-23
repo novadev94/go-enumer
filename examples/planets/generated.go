@@ -19,8 +19,7 @@ var (
 )
 
 const (
-	_PlanetString      = "MarsPlutoVenusMercuryJupiterSaturnUranusNeptune"
-	_PlanetLowerString = "marsplutovenusmercuryjupitersaturnuranusneptune"
+	_PlanetString = "MarsPlutoVenusMercuryJupiterSaturnUranusNeptune"
 )
 
 var (
@@ -90,34 +89,11 @@ var (
 		_PlanetString[34:40]: PlanetUranus,
 		_PlanetString[40:47]: PlanetNeptune,
 	}
-	_PlanetLowerStringToValueMap = map[string]Planet{
-		_PlanetLowerString[0:4]:   PlanetMars,
-		_PlanetLowerString[4:9]:   PlanetPluto,
-		_PlanetLowerString[9:14]:  PlanetVenus,
-		_PlanetLowerString[14:21]: PlanetMercury,
-		_PlanetLowerString[21:28]: PlanetJupiter,
-		_PlanetLowerString[28:34]: PlanetSaturn,
-		_PlanetLowerString[34:40]: PlanetUranus,
-		_PlanetLowerString[40:47]: PlanetNeptune,
-	}
 )
 
 // PlanetFromString determines the enum value with an exact case match.
 func PlanetFromString(raw string) (Planet, bool) {
 	v, ok := _PlanetStringToValueMap[raw]
-	if !ok {
-		return Planet(0), false
-	}
-	return v, true
-}
-
-// PlanetFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func PlanetFromStringIgnoreCase(raw string) (Planet, bool) {
-	v, ok := PlanetFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _PlanetLowerStringToValueMap[raw]
 	if !ok {
 		return Planet(0), false
 	}
@@ -314,8 +290,7 @@ func (_p *Planet) UnmarshalYAML(unmarshal func(interface{}) error) error {
 }
 
 const (
-	_PlanetSupportUndefinedString      = "MarsPlutoVenusMercuryJupiterSaturnUranusNeptune"
-	_PlanetSupportUndefinedLowerString = "marsplutovenusmercuryjupitersaturnuranusneptune"
+	_PlanetSupportUndefinedString = "MarsPlutoVenusMercuryJupiterSaturnUranusNeptune"
 )
 
 var (
@@ -388,16 +363,6 @@ var (
 		_PlanetSupportUndefinedString[34:40]: PlanetSupportUndefinedUranus,
 		_PlanetSupportUndefinedString[40:47]: PlanetSupportUndefinedNeptune,
 	}
-	_PlanetSupportUndefinedLowerStringToValueMap = map[string]PlanetSupportUndefined{
-		_PlanetSupportUndefinedLowerString[0:4]:   PlanetSupportUndefinedMars,
-		_PlanetSupportUndefinedLowerString[4:9]:   PlanetSupportUndefinedPluto,
-		_PlanetSupportUndefinedLowerString[9:14]:  PlanetSupportUndefinedVenus,
-		_PlanetSupportUndefinedLowerString[14:21]: PlanetSupportUndefinedMercury,
-		_PlanetSupportUndefinedLowerString[21:28]: PlanetSupportUndefinedJupiter,
-		_PlanetSupportUndefinedLowerString[28:34]: PlanetSupportUndefinedSaturn,
-		_PlanetSupportUndefinedLowerString[34:40]: PlanetSupportUndefinedUranus,
-		_PlanetSupportUndefinedLowerString[40:47]: PlanetSupportUndefinedNeptune,
-	}
 )
 
 // PlanetSupportUndefinedFromString determines the enum value with an exact case match.
@@ -406,22 +371,6 @@ func PlanetSupportUndefinedFromString(raw string) (PlanetSupportUndefined, bool)
 		return PlanetSupportUndefined(0), true
 	}
 	v, ok := _PlanetSupportUndefinedStringToValueMap[raw]
-	if !ok {
-		return PlanetSupportUndefined(0), false
-	}
-	return v, true
-}
-
-// PlanetSupportUndefinedFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func PlanetSupportUndefinedFromStringIgnoreCase(raw string) (PlanetSupportUndefined, bool) {
-	if len(raw) == 0 {
-		return PlanetSupportUndefined(0), true
-	}
-	v, ok := PlanetSupportUndefinedFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _PlanetSupportUndefinedLowerStringToValueMap[raw]
 	if !ok {
 		return PlanetSupportUndefined(0), false
 	}
@@ -605,8 +554,7 @@ func (_p *PlanetSupportUndefined) UnmarshalYAML(unmarshal func(interface{}) erro
 }
 
 const (
-	_PlanetSupportUndefinedWithDefaultString      = "EarthMarsPlutoVenusMercuryJupiterSaturnUranusNeptune"
-	_PlanetSupportUndefinedWithDefaultLowerString = "earthmarsplutovenusmercuryjupitersaturnuranusneptune"
+	_PlanetSupportUndefinedWithDefaultString = "EarthMarsPlutoVenusMercuryJupiterSaturnUranusNeptune"
 )
 
 var (
@@ -678,17 +626,6 @@ var (
 		_PlanetSupportUndefinedWithDefaultString[39:45]: PlanetSupportUndefinedWithDefaultUranus,
 		_PlanetSupportUndefinedWithDefaultString[45:52]: PlanetSupportUndefinedWithDefaultNeptune,
 	}
-	_PlanetSupportUndefinedWithDefaultLowerStringToValueMap = map[string]PlanetSupportUndefinedWithDefault{
-		_PlanetSupportUndefinedWithDefaultLowerString[0:5]:   PlanetSupportUndefinedWithDefaultEarth,
-		_PlanetSupportUndefinedWithDefaultLowerString[5:9]:   PlanetSupportUndefinedWithDefaultMars,
-		_PlanetSupportUndefinedWithDefaultLowerString[9:14]:  PlanetSupportUndefinedWithDefaultPluto,
-		_PlanetSupportUndefinedWithDefaultLowerString[14:19]: PlanetSupportUndefinedWithDefaultVenus,
-		_PlanetSupportUndefinedWithDefaultLowerString[19:26]: PlanetSupportUndefinedWithDefaultMercury,
-		_PlanetSupportUndefinedWithDefaultLowerString[26:33]: PlanetSupportUndefinedWithDefaultJupiter,
-		_PlanetSupportUndefinedWithDefaultLowerString[33:39]: PlanetSupportUndefinedWithDefaultSaturn,
-		_PlanetSupportUndefinedWithDefaultLowerString[39:45]: PlanetSupportUndefinedWithDefaultUranus,
-		_PlanetSupportUndefinedWithDefaultLowerString[45:52]: PlanetSupportUndefinedWithDefaultNeptune,
-	}
 )
 
 // PlanetSupportUndefinedWithDefaultFromString determines the enum value with an exact case match.
@@ -697,22 +634,6 @@ func PlanetSupportUndefinedWithDefaultFromString(raw string) (PlanetSupportUndef
 		return PlanetSupportUndefinedWithDefault(0), true
 	}
 	v, ok := _PlanetSupportUndefinedWithDefaultStringToValueMap[raw]
-	if !ok {
-		return PlanetSupportUndefinedWithDefault(0), false
-	}
-	return v, true
-}
-
-// PlanetSupportUndefinedWithDefaultFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func PlanetSupportUndefinedWithDefaultFromStringIgnoreCase(raw string) (PlanetSupportUndefinedWithDefault, bool) {
-	if len(raw) == 0 {
-		return PlanetSupportUndefinedWithDefault(0), true
-	}
-	v, ok := PlanetSupportUndefinedWithDefaultFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _PlanetSupportUndefinedWithDefaultLowerStringToValueMap[raw]
 	if !ok {
 		return PlanetSupportUndefinedWithDefault(0), false
 	}
@@ -890,8 +811,7 @@ func (_p *PlanetSupportUndefinedWithDefault) UnmarshalYAML(unmarshal func(interf
 }
 
 const (
-	_PlanetWithDefaultString      = "EarthMarsPlutoVenusMercuryJupiterSaturnUranusNeptune"
-	_PlanetWithDefaultLowerString = "earthmarsplutovenusmercuryjupitersaturnuranusneptune"
+	_PlanetWithDefaultString = "EarthMarsPlutoVenusMercuryJupiterSaturnUranusNeptune"
 )
 
 var (
@@ -963,35 +883,11 @@ var (
 		_PlanetWithDefaultString[39:45]: PlanetWithDefaultUranus,
 		_PlanetWithDefaultString[45:52]: PlanetWithDefaultNeptune,
 	}
-	_PlanetWithDefaultLowerStringToValueMap = map[string]PlanetWithDefault{
-		_PlanetWithDefaultLowerString[0:5]:   PlanetWithDefaultEarth,
-		_PlanetWithDefaultLowerString[5:9]:   PlanetWithDefaultMars,
-		_PlanetWithDefaultLowerString[9:14]:  PlanetWithDefaultPluto,
-		_PlanetWithDefaultLowerString[14:19]: PlanetWithDefaultVenus,
-		_PlanetWithDefaultLowerString[19:26]: PlanetWithDefaultMercury,
-		_PlanetWithDefaultLowerString[26:33]: PlanetWithDefaultJupiter,
-		_PlanetWithDefaultLowerString[33:39]: PlanetWithDefaultSaturn,
-		_PlanetWithDefaultLowerString[39:45]: PlanetWithDefaultUranus,
-		_PlanetWithDefaultLowerString[45:52]: PlanetWithDefaultNeptune,
-	}
 )
 
 // PlanetWithDefaultFromString determines the enum value with an exact case match.
 func PlanetWithDefaultFromString(raw string) (PlanetWithDefault, bool) {
 	v, ok := _PlanetWithDefaultStringToValueMap[raw]
-	if !ok {
-		return PlanetWithDefault(0), false
-	}
-	return v, true
-}
-
-// PlanetWithDefaultFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func PlanetWithDefaultFromStringIgnoreCase(raw string) (PlanetWithDefault, bool) {
-	v, ok := PlanetWithDefaultFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _PlanetWithDefaultLowerStringToValueMap[raw]
 	if !ok {
 		return PlanetWithDefault(0), false
 	}

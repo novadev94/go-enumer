@@ -19,8 +19,7 @@ var (
 )
 
 const (
-	_GreetingString      = "Россия中國日本한국ČeskáRepublika𝜋"
-	_GreetingLowerString = "россия中國日本한국českárepublika𝜋"
+	_GreetingString = "Россия中國日本한국ČeskáRepublika𝜋"
 )
 
 var (
@@ -89,14 +88,6 @@ var (
 		_GreetingString[30:46]: GreetingČeskáRepublika,
 		_GreetingString[46:50]: Greeting𝜋,
 	}
-	_GreetingLowerStringToValueMap = map[string]Greeting{
-		_GreetingLowerString[0:12]:  GreetingРоссия,
-		_GreetingLowerString[12:18]: Greeting中國,
-		_GreetingLowerString[18:24]: Greeting日本,
-		_GreetingLowerString[24:30]: Greeting한국,
-		_GreetingLowerString[30:46]: GreetingČeskáRepublika,
-		_GreetingLowerString[46:50]: Greeting𝜋,
-	}
 )
 
 // GreetingFromString determines the enum value with an exact case match.
@@ -105,22 +96,6 @@ func GreetingFromString(raw string) (Greeting, bool) {
 		return Greeting(0), true
 	}
 	v, ok := _GreetingStringToValueMap[raw]
-	if !ok {
-		return Greeting(0), false
-	}
-	return v, true
-}
-
-// GreetingFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func GreetingFromStringIgnoreCase(raw string) (Greeting, bool) {
-	if len(raw) == 0 {
-		return Greeting(0), true
-	}
-	v, ok := GreetingFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _GreetingLowerStringToValueMap[raw]
 	if !ok {
 		return Greeting(0), false
 	}
@@ -309,8 +284,7 @@ func (Greeting) Values() []string {
 }
 
 const (
-	_GreetingWithDefaultString      = "WorldРоссия中國日本한국ČeskáRepublika𝜋"
-	_GreetingWithDefaultLowerString = "worldроссия中國日本한국českárepublika𝜋"
+	_GreetingWithDefaultString = "WorldРоссия中國日本한국ČeskáRepublika𝜋"
 )
 
 var (
@@ -378,15 +352,6 @@ var (
 		_GreetingWithDefaultString[35:51]: GreetingWithDefaultČeskáRepublika,
 		_GreetingWithDefaultString[51:55]: GreetingWithDefault𝜋,
 	}
-	_GreetingWithDefaultLowerStringToValueMap = map[string]GreetingWithDefault{
-		_GreetingWithDefaultLowerString[0:5]:   GreetingWithDefaultWorld,
-		_GreetingWithDefaultLowerString[5:17]:  GreetingWithDefaultРоссия,
-		_GreetingWithDefaultLowerString[17:23]: GreetingWithDefault中國,
-		_GreetingWithDefaultLowerString[23:29]: GreetingWithDefault日本,
-		_GreetingWithDefaultLowerString[29:35]: GreetingWithDefault한국,
-		_GreetingWithDefaultLowerString[35:51]: GreetingWithDefaultČeskáRepublika,
-		_GreetingWithDefaultLowerString[51:55]: GreetingWithDefault𝜋,
-	}
 )
 
 // GreetingWithDefaultFromString determines the enum value with an exact case match.
@@ -395,22 +360,6 @@ func GreetingWithDefaultFromString(raw string) (GreetingWithDefault, bool) {
 		return GreetingWithDefault(0), true
 	}
 	v, ok := _GreetingWithDefaultStringToValueMap[raw]
-	if !ok {
-		return GreetingWithDefault(0), false
-	}
-	return v, true
-}
-
-// GreetingWithDefaultFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func GreetingWithDefaultFromStringIgnoreCase(raw string) (GreetingWithDefault, bool) {
-	if len(raw) == 0 {
-		return GreetingWithDefault(0), true
-	}
-	v, ok := GreetingWithDefaultFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _GreetingWithDefaultLowerStringToValueMap[raw]
 	if !ok {
 		return GreetingWithDefault(0), false
 	}

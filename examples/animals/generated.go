@@ -17,8 +17,7 @@ var (
 )
 
 const (
-	_AnimalString      = "DogCatSealSeaLionIceBear"
-	_AnimalLowerString = "dogcatsealsealionicebear"
+	_AnimalString = "DogCatSealSeaLionIceBear"
 )
 
 var (
@@ -82,31 +81,11 @@ var (
 		_AnimalString[10:17]: AnimalSeaLion,
 		_AnimalString[17:24]: AnimalIceBear,
 	}
-	_AnimalLowerStringToValueMap = map[string]Animal{
-		_AnimalLowerString[0:3]:   AnimalDog,
-		_AnimalLowerString[3:6]:   AnimalCat,
-		_AnimalLowerString[6:10]:  AnimalSeal,
-		_AnimalLowerString[10:17]: AnimalSeaLion,
-		_AnimalLowerString[17:24]: AnimalIceBear,
-	}
 )
 
 // AnimalFromString determines the enum value with an exact case match.
 func AnimalFromString(raw string) (Animal, bool) {
 	v, ok := _AnimalStringToValueMap[raw]
-	if !ok {
-		return Animal(0), false
-	}
-	return v, true
-}
-
-// AnimalFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func AnimalFromStringIgnoreCase(raw string) (Animal, bool) {
-	v, ok := AnimalFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _AnimalLowerStringToValueMap[raw]
 	if !ok {
 		return Animal(0), false
 	}
@@ -276,8 +255,7 @@ func (_a *Animal) UnmarshalYAML(n *yaml.Node) error {
 }
 
 const (
-	_BirdString      = "ALBATROSSHUMMING_BIRDDARWINS_FINCHOSTRICHKING_FISHER"
-	_BirdLowerString = "albatrosshumming_birddarwins_finchostrichking_fisher"
+	_BirdString = "ALBATROSSHUMMING_BIRDDARWINS_FINCHOSTRICHKING_FISHER"
 )
 
 var (
@@ -341,31 +319,11 @@ var (
 		_BirdString[34:41]: BirdOstrich,
 		_BirdString[41:52]: BirdKingFisher,
 	}
-	_BirdLowerStringToValueMap = map[string]Bird{
-		_BirdLowerString[0:9]:   BirdAlbatross,
-		_BirdLowerString[9:21]:  BirdHummingBird,
-		_BirdLowerString[21:34]: BirdDarwinsFinch,
-		_BirdLowerString[34:41]: BirdOstrich,
-		_BirdLowerString[41:52]: BirdKingFisher,
-	}
 )
 
 // BirdFromString determines the enum value with an exact case match.
 func BirdFromString(raw string) (Bird, bool) {
 	v, ok := _BirdStringToValueMap[raw]
-	if !ok {
-		return Bird(0), false
-	}
-	return v, true
-}
-
-// BirdFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func BirdFromStringIgnoreCase(raw string) (Bird, bool) {
-	v, ok := BirdFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _BirdLowerStringToValueMap[raw]
 	if !ok {
 		return Bird(0), false
 	}
@@ -535,8 +493,7 @@ func (_b *Bird) UnmarshalYAML(n *yaml.Node) error {
 }
 
 const (
-	_FishString      = "giant_grouperhagfishreedfishbowfincatfishhorn_shark"
-	_FishLowerString = "giant_grouperhagfishreedfishbowfincatfishhorn_shark"
+	_FishString = "giant_grouperhagfishreedfishbowfincatfishhorn_shark"
 )
 
 var (
@@ -602,32 +559,11 @@ var (
 		_FishString[34:41]: FishCatfish,
 		_FishString[41:51]: FishHornShark,
 	}
-	_FishLowerStringToValueMap = map[string]Fish{
-		_FishLowerString[0:13]:  FishGiantGrouper,
-		_FishLowerString[13:20]: FishHagfish,
-		_FishLowerString[20:28]: FishReedfish,
-		_FishLowerString[28:34]: FishBowfin,
-		_FishLowerString[34:41]: FishCatfish,
-		_FishLowerString[41:51]: FishHornShark,
-	}
 )
 
 // FishFromString determines the enum value with an exact case match.
 func FishFromString(raw string) (Fish, bool) {
 	v, ok := _FishStringToValueMap[raw]
-	if !ok {
-		return Fish(0), false
-	}
-	return v, true
-}
-
-// FishFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func FishFromStringIgnoreCase(raw string) (Fish, bool) {
-	v, ok := FishFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _FishLowerStringToValueMap[raw]
 	if !ok {
 		return Fish(0), false
 	}
@@ -797,8 +733,7 @@ func (_f *Fish) UnmarshalYAML(n *yaml.Node) error {
 }
 
 const (
-	_MammalString      = "BUMBLEBEE-BATBLUE-WHALEBOWHEAD-WHALE"
-	_MammalLowerString = "bumblebee-batblue-whalebowhead-whale"
+	_MammalString = "BUMBLEBEE-BATBLUE-WHALEBOWHEAD-WHALE"
 )
 
 var (
@@ -858,29 +793,11 @@ var (
 		_MammalString[13:23]: MammalBlueWhale,
 		_MammalString[23:36]: MammalBowheadWhale,
 	}
-	_MammalLowerStringToValueMap = map[string]Mammal{
-		_MammalLowerString[0:13]:  MammalBumblebeeBat,
-		_MammalLowerString[13:23]: MammalBlueWhale,
-		_MammalLowerString[23:36]: MammalBowheadWhale,
-	}
 )
 
 // MammalFromString determines the enum value with an exact case match.
 func MammalFromString(raw string) (Mammal, bool) {
 	v, ok := _MammalStringToValueMap[raw]
-	if !ok {
-		return Mammal(0), false
-	}
-	return v, true
-}
-
-// MammalFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func MammalFromStringIgnoreCase(raw string) (Mammal, bool) {
-	v, ok := MammalFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _MammalLowerStringToValueMap[raw]
 	if !ok {
 		return Mammal(0), false
 	}
@@ -1050,8 +967,7 @@ func (_m *Mammal) UnmarshalYAML(n *yaml.Node) error {
 }
 
 const (
-	_ReptileString      = "saltwaterCrocodilebeardedDragonchameleoncomodoDragon"
-	_ReptileLowerString = "saltwatercrocodilebeardeddragonchameleoncomododragon"
+	_ReptileString = "saltwaterCrocodilebeardedDragonchameleoncomodoDragon"
 )
 
 var (
@@ -1113,30 +1029,11 @@ var (
 		_ReptileString[31:40]: ReptileChameleon,
 		_ReptileString[40:52]: ReptileComodoDragon,
 	}
-	_ReptileLowerStringToValueMap = map[string]Reptile{
-		_ReptileLowerString[0:18]:  ReptileSaltwaterCrocodile,
-		_ReptileLowerString[18:31]: ReptileBeardedDragon,
-		_ReptileLowerString[31:40]: ReptileChameleon,
-		_ReptileLowerString[40:52]: ReptileComodoDragon,
-	}
 )
 
 // ReptileFromString determines the enum value with an exact case match.
 func ReptileFromString(raw string) (Reptile, bool) {
 	v, ok := _ReptileStringToValueMap[raw]
-	if !ok {
-		return Reptile(0), false
-	}
-	return v, true
-}
-
-// ReptileFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func ReptileFromStringIgnoreCase(raw string) (Reptile, bool) {
-	v, ok := ReptileFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _ReptileLowerStringToValueMap[raw]
 	if !ok {
 		return Reptile(0), false
 	}

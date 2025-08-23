@@ -151,8 +151,7 @@ func (BookingState) Values() []string {
 }
 
 const (
-	_BookingStateWithConfigString      = "CreatedUnavailableFailedCanceledNotFoundDeleted"
-	_BookingStateWithConfigLowerString = "createdunavailablefailedcancelednotfounddeleted"
+	_BookingStateWithConfigString = "CreatedUnavailableFailedCanceledNotFoundDeleted"
 )
 
 var (
@@ -225,14 +224,6 @@ var (
 		_BookingStateWithConfigString[32:40]: 4,
 		_BookingStateWithConfigString[40:47]: 5,
 	}
-	_BookingStateWithConfigLowerStringToValueMap = map[string]BookingStateWithConfig{
-		_BookingStateWithConfigLowerString[0:7]:   0,
-		_BookingStateWithConfigLowerString[7:18]:  1,
-		_BookingStateWithConfigLowerString[18:24]: 2,
-		_BookingStateWithConfigLowerString[24:32]: 3,
-		_BookingStateWithConfigLowerString[32:40]: 4,
-		_BookingStateWithConfigLowerString[40:47]: 5,
-	}
 )
 
 // BookingStateWithConfigFromString determines the enum value with an exact case match.
@@ -241,22 +232,6 @@ func BookingStateWithConfigFromString(raw string) (BookingStateWithConfig, bool)
 		return BookingStateWithConfig(0), true
 	}
 	v, ok := _BookingStateWithConfigStringToValueMap[raw]
-	if !ok {
-		return BookingStateWithConfig(0), false
-	}
-	return v, true
-}
-
-// BookingStateWithConfigFromStringIgnoreCase determines the enum value with a case-insensitive match.
-func BookingStateWithConfigFromStringIgnoreCase(raw string) (BookingStateWithConfig, bool) {
-	if len(raw) == 0 {
-		return BookingStateWithConfig(0), true
-	}
-	v, ok := BookingStateWithConfigFromString(raw)
-	if ok {
-		return v, ok
-	}
-	v, ok = _BookingStateWithConfigLowerStringToValueMap[raw]
 	if !ok {
 		return BookingStateWithConfig(0), false
 	}

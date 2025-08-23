@@ -116,12 +116,13 @@ func (r *renderer) renderForTypeSpec(buf *bytes.Buffer, ts *enumer.EnumType) err
 	{ // write consts
 		type TplData struct {
 			Enum
+			SupportIgnoreCase      bool
 			AggregatedValueStrings string
 		}
 
 		data := TplData{
-			Enum: enum,
-			AggregatedValueStrings: slices.ReduceSeed(ts.Spec.Values, &bytes.Buffer{}, func(v *enumer.EnumTypeSpecValue, acc *bytes.Buffer) *bytes.Buffer {
+			Enum:              enum,
+			SupportIgnoreCase: ts.Config.Options.SupportedFeatures.Contains(config.SupportIgnoreCase), AggregatedValueStrings: slices.ReduceSeed(ts.Spec.Values, &bytes.Buffer{}, func(v *enumer.EnumTypeSpecValue, acc *bytes.Buffer) *bytes.Buffer {
 				acc.WriteString(v.EnumValue)
 				return acc
 			}).String(),
@@ -190,11 +191,13 @@ func (r *renderer) renderForTypeSpec(buf *bytes.Buffer, ts *enumer.EnumType) err
 	{ // value mappings and lookup
 		type TplData struct {
 			Enum
-			SupportUndefined bool
+			SupportIgnoreCase bool
+			SupportUndefined  bool
 		}
 		data := TplData{
-			Enum:             enum,
-			SupportUndefined: ts.Config.Options.SupportedFeatures.Contains(config.SupportUndefined),
+			Enum:              enum,
+			SupportIgnoreCase: ts.Config.Options.SupportedFeatures.Contains(config.SupportIgnoreCase),
+			SupportUndefined:  ts.Config.Options.SupportedFeatures.Contains(config.SupportUndefined),
 		}
 
 		if err := enumTpl.ExecuteTemplate(buf, "enum.lookup-funcs.go.tpl", map[string]any{"Type": data}); err != nil {

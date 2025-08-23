@@ -281,7 +281,7 @@ When `go-enumer` is applied to a type, it will generate:
     when you need to read enum values from command line arguments, from a configuration file, or
     from a REST API request... In short, from those places where using the real enum value (an integer) would
     be almost meaningless or hard to trace or use by a human. `raw` string is case sensitive.
-  - Function `<EnumType>FromStringIgnoreCase(raw string)`: we can not always guarantee the case matching because some systems out of our reach
+  - (Feature `ignore-case`) Function `<EnumType>FromStringIgnoreCase(raw string)`: we can not always guarantee the case matching because some systems out of our reach
     are insensitive to exact case matching. In these situations `<EnumType>FromStringIgnoreCase(raw string)` comes in handy.
     It acts the same as `<EnumType>FromString(raw string)` with the little difference of `raw` being case insensitive.
   - Function `<EnumType>Values()`: returns a slice with all the numeric values of the enum, ignoring any alternative values.
