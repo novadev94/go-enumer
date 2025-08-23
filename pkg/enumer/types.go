@@ -174,11 +174,11 @@ func (e *EnumType) LoadSpec(fset *token.FileSet) error {
 func (e *EnumType) LoadSimpleBlockSpec() error {
 	spec := &EnumTypeSpec{Type: SimpleBlockSpec, Values: make([]*EnumTypeSpecValue, len(e.ConstBlock.Specs))}
 
-	slices.Range(e.ConstBlock.Specs, func(v *EnumValueSpec, idx int) {
+	for idx, v := range e.ConstBlock.Specs {
 		enumValue := v.Node.Names[0].Name
 		enumValue = strings.TrimPrefix(enumValue, e.Name().Name)
 		spec.Values[idx] = &EnumTypeSpecValue{ID: v.Value, EnumValue: enumValue, ConstSpec: v}
-	})
+	}
 
 	e.Spec = e.detectAlternativeValues(spec)
 	return nil
@@ -198,13 +198,11 @@ func (e *EnumType) LoadFileSpec(fset *token.FileSet) error {
 }
 
 func (e *EnumType) detectAlternativeValues(spec *EnumTypeSpec) *EnumTypeSpec {
-	slices.Range(spec.Values, func(v *EnumTypeSpecValue, idx int) {
-		if idx == 0 {
-			return
-		}
-		prev := spec.Values[idx-1]
-		v.IsAlternative = prev.ID == v.ID
-	})
+	definedValues := make(map[uint64]struct{}, len(spec.Values))
+	for _, v := range spec.Values {
+		_, v.IsAlternative = definedValues[v.ID]
+		definedValues[v.ID] = struct{}{}
+	}
 	return spec
 }
 
@@ -435,7 +433,7 @@ func (e *EnumType) ValidateSpec(fset *token.FileSet, typesInfo *types.Info) erro
 
 	// assert order of values
 	ok := slices.None(e.Spec.Values, func(v *EnumTypeSpecValue, idx int) bool {
-		if idx == 0 {
+		if idx == 0 || v.IsAlternative {
 			return false
 		}
 		prev := e.Spec.Values[idx-1].ID
