@@ -1,7 +1,7 @@
 package gen
 
 import (
-	"github.com/mvrahden/go-enumer/pkg/enumer"
+	"github.com/novadev94/go-enumer/pkg/enumer"
 )
 
 type File struct {

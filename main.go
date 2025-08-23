@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/mvrahden/go-enumer/cmd/cli"
+	"github.com/novadev94/go-enumer/cmd/cli"
 )
 
 func main() {

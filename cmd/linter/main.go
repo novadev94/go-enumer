@@ -3,7 +3,7 @@ package main
 import (
 	"golang.org/x/tools/go/analysis/singlechecker"
 
-	"github.com/mvrahden/go-enumer/pkg/linter"
+	"github.com/novadev94/go-enumer/pkg/linter"
 )
 
 func main() {

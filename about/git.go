@@ -7,7 +7,7 @@ import (
 
 const (
 	Application = "go-enumer"
-	Repo        = "github.com/mvrahden/go-enumer"
+	Repo        = "github.com/novadev94/go-enumer"
 )
 
 var (

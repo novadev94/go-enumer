@@ -8,9 +8,9 @@ import (
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"
 
-	"github.com/mvrahden/go-enumer/config"
-	"github.com/mvrahden/go-enumer/pkg/enumer"
-	"github.com/mvrahden/go-enumer/pkg/utils/slices"
+	"github.com/novadev94/go-enumer/config"
+	"github.com/novadev94/go-enumer/pkg/enumer"
+	"github.com/novadev94/go-enumer/pkg/utils/slices"
 )
 
 // Config the enum linter configuration.

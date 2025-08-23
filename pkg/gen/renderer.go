@@ -8,10 +8,10 @@ import (
 	"text/template"
 
 	"github.com/ettle/strcase"
-	"github.com/mvrahden/go-enumer/about"
-	"github.com/mvrahden/go-enumer/config"
-	"github.com/mvrahden/go-enumer/pkg/enumer"
-	"github.com/mvrahden/go-enumer/pkg/utils/slices"
+	"github.com/novadev94/go-enumer/about"
+	"github.com/novadev94/go-enumer/config"
+	"github.com/novadev94/go-enumer/pkg/enumer"
+	"github.com/novadev94/go-enumer/pkg/utils/slices"
 )
 
 //go:embed static

@@ -1,6 +1,8 @@
 # go-enumer <!-- omit in toc -->
 
-[![Go](https://github.com/mvrahden/go-enumer/actions/workflows/go.yaml/badge.svg)](https://github.com/mvrahden/go-enumer/actions/workflows/go.yaml)
+[![Go](https://github.com/novadev94/go-enumer/actions/workflows/go.yaml/badge.svg)](https://github.com/novadev94/go-enumer/actions/workflows/go.yaml)
+
+This is a fork of the original [go-enumer](https://github.com/mvrahden/go-enumer), customized to my personal needs.
 
 `go-enumer` is a tool to generate Go code upgrading Go constants to enums.
 It can also extract an enum definition from CSV files and turn it into Go enums.
@@ -139,7 +141,7 @@ The following example will generate `json` interfaces for practically all enums 
 ```go
 package mypackage
 
-//go:generate go run github.com/mvrahden/go-enumer -serializers=json
+//go:generate go run github.com/novadev94/go-enumer -serializers=json
 
 /* ... */
 
@@ -318,7 +320,7 @@ You can add:
 
 Following is a list of known issues:
 
-- **Skipped calls to `UnmarshalJSON`**:  
+- **Skipped calls to `UnmarshalJSON`**:
   When using `encoding/json` the enum unmarshaling will not be triggered if there's no `key`-`value` pair for the enum within the JSON payload.
   This will lead to a zero value enum instead of a deserialized enum.
   If no subsequent validation is performed and no default value is defined this will cause a failing validation upon subsequent serialization.

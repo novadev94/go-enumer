@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/mvrahden/go-enumer/cmd/cli"
+	"github.com/novadev94/go-enumer/cmd/cli"
 	"github.com/stretchr/testify/require"
 )
 

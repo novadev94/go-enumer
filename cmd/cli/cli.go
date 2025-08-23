@@ -10,9 +10,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/mvrahden/go-enumer/config"
-	"github.com/mvrahden/go-enumer/pkg/enumer"
-	"github.com/mvrahden/go-enumer/pkg/gen"
+	"github.com/novadev94/go-enumer/config"
+	"github.com/novadev94/go-enumer/pkg/enumer"
+	"github.com/novadev94/go-enumer/pkg/gen"
 )
 
 const (

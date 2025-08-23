@@ -11,9 +11,9 @@ import (
 	goinspect "golang.org/x/tools/go/ast/inspector"
 	"golang.org/x/tools/go/packages"
 
-	"github.com/mvrahden/go-enumer/config"
-	"github.com/mvrahden/go-enumer/pkg/enumer"
-	"github.com/mvrahden/go-enumer/pkg/utils/slices"
+	"github.com/novadev94/go-enumer/config"
+	"github.com/novadev94/go-enumer/pkg/enumer"
+	"github.com/novadev94/go-enumer/pkg/utils/slices"
 )
 
 var (

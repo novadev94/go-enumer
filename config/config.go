@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	env "github.com/ilyakaznacheev/cleanenv"
-	"github.com/mvrahden/go-enumer/pkg/utils/slices"
+	"github.com/novadev94/go-enumer/pkg/utils/slices"
 )
 
 const (

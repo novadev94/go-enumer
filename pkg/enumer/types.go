@@ -16,8 +16,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/mvrahden/go-enumer/config"
-	"github.com/mvrahden/go-enumer/pkg/utils/slices"
+	"github.com/novadev94/go-enumer/config"
+	"github.com/novadev94/go-enumer/pkg/utils/slices"
 )
 
 type EnumTypeConfig struct {

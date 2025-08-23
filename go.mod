@@ -1,4 +1,4 @@
-module github.com/mvrahden/go-enumer
+module github.com/novadev94/go-enumer
 
 go 1.23.0
 

@@ -9,8 +9,8 @@ import (
 
 	"golang.org/x/tools/go/analysis/analysistest"
 
-	"github.com/mvrahden/go-enumer/pkg/enumer"
-	"github.com/mvrahden/go-enumer/pkg/utils"
+	"github.com/novadev94/go-enumer/pkg/enumer"
+	"github.com/novadev94/go-enumer/pkg/utils"
 )
 
 func init() {

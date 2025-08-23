@@ -3,7 +3,7 @@ package project
 import (
 	"fmt"
 
-	"github.com/mvrahden/go-enumer/pkg/utils"
+	"github.com/novadev94/go-enumer/pkg/utils"
 )
 
 func ExampleCountryCode() {

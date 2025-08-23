@@ -3,7 +3,7 @@ package cli
 import (
 	"testing"
 
-	"github.com/mvrahden/go-enumer/config"
+	"github.com/novadev94/go-enumer/config"
 	"github.com/stretchr/testify/require"
 )
 
