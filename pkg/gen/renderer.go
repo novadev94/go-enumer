@@ -69,7 +69,9 @@ func (r *renderer) renderForTypeSpec(buf *bytes.Buffer, ts *enumer.EnumType) err
 	util := newRenderUtil(ts.Config.Options)
 
 	for _, v := range ts.Spec.Values {
-		v.EnumValue = util.transform(v.EnumValue)
+		if !v.NoTransform {
+			v.EnumValue = util.transform(v.EnumValue)
+		}
 	}
 
 	type EnumValue struct {
@@ -193,11 +195,13 @@ func (r *renderer) renderForTypeSpec(buf *bytes.Buffer, ts *enumer.EnumType) err
 			Enum
 			SupportIgnoreCase bool
 			SupportUndefined  bool
+			HasEmptyString    bool
 		}
 		data := TplData{
 			Enum:              enum,
 			SupportIgnoreCase: ts.Config.Options.SupportedFeatures.Contains(config.SupportIgnoreCase),
 			SupportUndefined:  ts.Config.Options.SupportedFeatures.Contains(config.SupportUndefined),
+			HasEmptyString:    slices.Any(ts.Spec.Values, func(v *enumer.EnumTypeSpecValue, _ int) bool { return v.EnumValue == "" }),
 		}
 
 		if err := enumTpl.ExecuteTemplate(buf, "enum.lookup-funcs.go.tpl", map[string]any{"Type": data}); err != nil {
@@ -212,6 +216,7 @@ func (r *renderer) renderForTypeSpec(buf *bytes.Buffer, ts *enumer.EnumType) err
 			Serializers                     []string
 			SupportIgnoreCase               bool
 			SupportUndefined                bool
+			HasEmptyString                  bool
 		}
 		data := TplData{
 			Name:                            enum.Name,
@@ -219,6 +224,7 @@ func (r *renderer) renderForTypeSpec(buf *bytes.Buffer, ts *enumer.EnumType) err
 			Serializers:                     ts.Config.Options.Serializers,
 			SupportIgnoreCase:               ts.Config.Options.SupportedFeatures.Contains(config.SupportIgnoreCase),
 			SupportUndefined:                ts.Config.Options.SupportedFeatures.Contains(config.SupportUndefined),
+			HasEmptyString:                  slices.Any(ts.Spec.Values, func(v *enumer.EnumTypeSpecValue, _ int) bool { return v.EnumValue == "" }),
 		}
 
 		if err := enumTpl.ExecuteTemplate(buf, "enum.serializers.go.tpl", map[string]any{"Type": data}); err != nil {

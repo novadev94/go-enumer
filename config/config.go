@@ -24,6 +24,7 @@ const (
 	SupportUndefined    = "undefined"
 	SupportIgnoreCase   = "ignore-case"
 	SupportEntInterface = "ent"
+	SupportLineComment  = "line-comment"
 )
 
 type Args Options

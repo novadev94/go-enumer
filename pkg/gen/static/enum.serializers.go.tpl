@@ -34,7 +34,7 @@ func ({{ receiver $ts.Name }} {{ $ts.Name }}) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for {{ $ts.Name }}.
 func ({{ receiver $ts.Name }} *{{ $ts.Name }}) UnmarshalBinary(text []byte) error {
 	str := string(text)
-{{- if not $ts.SupportUndefined }}
+{{- if and (not $ts.SupportUndefined) (not $ts.HasEmptyString) }}
 	if len(str) == 0 {
 		return fmt.Errorf("{{ $ts.Name }} cannot be derived from empty string")
 	}
@@ -71,7 +71,7 @@ func ({{ receiver $ts.Name }} *{{ $ts.Name }}) UnmarshalBSONValue(t bsontype.Typ
 	if !ok {
 		return fmt.Errorf("failed reading value as string, got %q", data)
 	}
-{{- if not $ts.SupportUndefined }}
+{{- if and (not $ts.SupportUndefined) (not $ts.HasEmptyString) }}
 	if len(str) == 0 {
 		return fmt.Errorf("{{ $ts.Name }} cannot be derived from empty string")
 	}
@@ -106,7 +106,7 @@ func ({{ receiver $ts.Name }} *{{ $ts.Name }}) UnmarshalGQL(value interface{}) e
 	default:
 		return fmt.Errorf("invalid value of {{ $ts.Name }}: %[1]T(%[1]v)", value)
 	}
-{{- if not $ts.SupportUndefined }}
+{{- if and (not $ts.SupportUndefined) (not $ts.HasEmptyString) }}
 	if len(str) == 0 {
 		return fmt.Errorf("{{ $ts.Name }} cannot be derived from empty string")
 	}
@@ -135,7 +135,7 @@ func ({{ receiver $ts.Name }} *{{ $ts.Name }}) UnmarshalJSON(data []byte) error 
 	if err := json.Unmarshal(data, &str); err != nil {
 		return fmt.Errorf("{{ $ts.Name }} should be a string, got %q", data)
 	}
-{{- if not $ts.SupportUndefined }}
+{{- if and (not $ts.SupportUndefined) (not $ts.HasEmptyString) }}
 	if len(str) == 0 {
 		return fmt.Errorf("{{ $ts.Name }} cannot be derived from empty string")
 	}
@@ -179,7 +179,7 @@ func ({{ receiver $ts.Name }} *{{ $ts.Name }}) Scan(value interface{}) error {
 	default:
 		return fmt.Errorf("invalid value of {{ $ts.Name }}: %[1]T(%[1]v)", value)
 	}
-{{- if not $ts.SupportUndefined }}
+{{- if and (not $ts.SupportUndefined) (not $ts.HasEmptyString) }}
 	if len(str) == 0 {
 		return fmt.Errorf("{{ $ts.Name }} cannot be derived from empty string")
 	}
@@ -205,7 +205,7 @@ func ({{ receiver $ts.Name }} {{ $ts.Name }}) MarshalText() ([]byte, error) {
 // UnmarshalText implements the encoding.TextUnmarshaler interface for {{ $ts.Name }}.
 func ({{ receiver $ts.Name }} *{{ $ts.Name }}) UnmarshalText(text []byte) error {
 	str := string(text)
-{{- if not $ts.SupportUndefined }}
+{{- if and (not $ts.SupportUndefined) (not $ts.HasEmptyString) }}
 	if len(str) == 0 {
 		return fmt.Errorf("{{ $ts.Name }} cannot be derived from empty string")
 	}
@@ -245,7 +245,7 @@ func ({{ receiver $ts.Name }} *{{ $ts.Name }}) UnmarshalYAML(unmarshal func(inte
 		return err
 	}
 {{- end }}
-{{- if not $ts.SupportUndefined }}
+{{- if and (not $ts.SupportUndefined) (not $ts.HasEmptyString) }}
 	if len(str) == 0 {
 		return fmt.Errorf("{{ $ts.Name }} cannot be derived from empty string")
 	}

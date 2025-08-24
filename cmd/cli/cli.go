@@ -31,7 +31,7 @@ func parseFlags(args []string, cArgs *config.Args, scanPath, outputFile *string,
 	flags.StringVar(outputFile, ArgumentKeyOutputFile, "enumer", "the filename of the generated file; defaults to \"enumer\" which results in \"enumer.go\".")
 	flags.StringVar(&cArgs.TransformStrategy, ArgumentKeyTransformStrategy, "noop", "string transformation (camel|pascal|kebab|snake|... see README.md); defaults to \"noop\" which applies no transormation to the enum values.")
 	flags.Var(&cArgs.Serializers, ArgumentKeySerializers, "a list of opt-in serializers (binary-int|binary-str|text|json|sql|yaml).")
-	flags.Var(&cArgs.SupportedFeatures, ArgumentKeySupport, "a list of opt-in supported features (undefined|ignore-case|ent).")
+	flags.Var(&cArgs.SupportedFeatures, ArgumentKeySupport, "a list of opt-in supported features (undefined|ignore-case|ent|line-comment).")
 	flags.StringVar(scanPath, ArgumentKeyScanDirectory, "", "directory of target package; defaults to CWD.")
 	flags.BoolVar(keepFile, ArgumentKeyKeepFile, false, "for testing purposes: prevents deleting existing enumer file; defaults to `false`.")
 	return flags.Parse(args)

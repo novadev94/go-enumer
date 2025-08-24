@@ -28,6 +28,7 @@ type EnumTypeSpec struct {
 type EnumTypeSpecValue struct {
 	ID            uint64
 	EnumValue     string
+	NoTransform   bool
 	IsAlternative bool           // hint: an alternative value
 	ConstSpec     *EnumValueSpec // hint: if derived from const value
 }

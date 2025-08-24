@@ -174,10 +174,21 @@ func (e *EnumType) LoadSpec(fset *token.FileSet) error {
 func (e *EnumType) LoadSimpleBlockSpec() error {
 	spec := &EnumTypeSpec{Type: SimpleBlockSpec, Values: make([]*EnumTypeSpecValue, len(e.ConstBlock.Specs))}
 
+	lineComment := e.Config.Options.SupportedFeatures.Contains(config.SupportLineComment)
 	for idx, v := range e.ConstBlock.Specs {
-		enumValue := v.Node.Names[0].Name
-		enumValue = strings.TrimPrefix(enumValue, e.Name().Name)
-		spec.Values[idx] = &EnumTypeSpecValue{ID: v.Value, EnumValue: enumValue, ConstSpec: v}
+		valueSpec := &EnumTypeSpecValue{ID: v.Value, ConstSpec: v}
+		if c := v.Node.Comment; lineComment && c != nil && len(c.List) == 1 {
+			enumValue := strings.TrimSpace(c.Text())
+			unquoted, err := strconv.Unquote(enumValue)
+			if err == nil {
+				enumValue = unquoted
+				valueSpec.NoTransform = true
+			}
+			valueSpec.EnumValue = enumValue
+		} else {
+			valueSpec.EnumValue = strings.TrimPrefix(v.Node.Names[0].Name, e.Name().Name)
+		}
+		spec.Values[idx] = valueSpec
 	}
 
 	e.Spec = e.detectAlternativeValues(spec)

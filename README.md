@@ -316,6 +316,7 @@ You can add:
   - `undefined`, see ["undefined"-value](#the-undefined-feature)
   - `ignore-case`, adds support for case-insensitive lookup
   - `ent`, adds interface support for [entgo.io](https://github.com/ent/ent)
+  - `line-comment`, uses line comment for enum strings
 
 ## Caveats
 
