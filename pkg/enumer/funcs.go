@@ -57,14 +57,6 @@ func DetermineEnumType(node ast.Node, typesInfo *types.Info, genFile *ast.File) 
 		if !ok {
 			return nil, -1, nil // not a type spec
 		}
-		typ, ok := typesInfo.TypeOf(ts.Type).(*types.Basic)
-		if !ok {
-			typ, ok = typesInfo.TypeOf(ts.Type).Underlying().(*types.Basic)
-		}
-		if !ok || typ.Kind() < types.Uint || typ.Kind() > types.Uint64 {
-			// TODO: evaluate if this error return is correct at this point (we still don't know if it is an enum spec)
-			return nil, node.Pos(), errors.New("enum types must be of any unsigned integer type") // not a type spec
-		}
 
 		// find magic comment
 		magic := slices.Filter(decl.Doc.List, func(v *ast.Comment, idx int) bool {
@@ -76,6 +68,16 @@ func DetermineEnumType(node ast.Node, typesInfo *types.Info, genFile *ast.File) 
 		if len(magic) > 1 {
 			return nil, node.Pos(), errors.New("at most one magic comment permitted per enum type")
 		}
+
+		typ, ok := typesInfo.TypeOf(ts.Type).(*types.Basic)
+		if !ok {
+			typ, ok = typesInfo.TypeOf(ts.Type).Underlying().(*types.Basic)
+		}
+		if !ok || typ.Kind() < types.Uint || typ.Kind() > types.Uint64 {
+			// TODO: evaluate if this error return is correct at this point (we still don't know if it is an enum spec)
+			return nil, node.Pos(), errors.New("enum types must be of any unsigned integer type") // not a type spec
+		}
+
 		// assert magic comment position
 		if decl.Doc.List[len(decl.Doc.List)-1] != magic[0] {
 			return nil, magic[0].Pos(), errors.New("magic comment must be last row of doc string for enum type")
