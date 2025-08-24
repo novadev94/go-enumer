@@ -293,6 +293,7 @@ When `go-enumer` is applied to a type, it will generate:
 - The flag `serializers` in addition with any of the following values, additional methods for serialization are added.
   Valid values are:
 
+  - `binary-int` makes the enum conform to the `encoding.BinaryMarshaler` and `encoding.BinaryUnmarshaler` interfaces using its integer values.
   - `binary-str` makes the enum conform to the `encoding.BinaryMarshaler` and `encoding.BinaryUnmarshaler` interfaces using its string values.
   - `bson` makes the enum conform to the `bson.MarshalBSONValue` and `bson.UnmarshalBSONValue` interfaces.
   - `graphql` makes the enum conform to the `graphql.Marshaler` and `graphql.Unmarshaler` interfaces.

@@ -9,6 +9,7 @@ import (
 )
 
 const (
+	SerializerBinaryInt = "binary-int"
 	SerializerBinaryStr = "binary-str"
 	SerializerBSON      = "bson"
 	SerializerGQL       = "graphql"

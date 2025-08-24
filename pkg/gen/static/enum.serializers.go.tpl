@@ -1,5 +1,27 @@
 {{- /* Declare binary interface for enum type */ -}}
 {{- with $ts := .Type -}}
+{{- if contains $ts.Serializers "binary-int" }}
+// MarshalBinary implements the encoding.BinaryMarshaler interface for {{ $ts.Name }}.
+func ({{ receiver $ts.Name }} {{ $ts.Name }}) MarshalBinary() ([]byte, error) {
+	if err := {{ receiver $ts.Name }}.Validate(); err != nil {
+		return nil, fmt.Errorf("Cannot marshal value %q as {{ $ts.Name }}. %w", {{ receiver $ts.Name }}, err)
+	}
+	return binary.AppendUvarint(nil, uint64({{ receiver $ts.Name }})), nil
+}
+
+// UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for {{ $ts.Name }}.
+func ({{ receiver $ts.Name }} *{{ $ts.Name }}) UnmarshalBinary(bytes []byte) error {
+	value, n := binary.Uvarint(bytes)
+	if n <= 0 {
+		return fmt.Errorf("{{ $ts.Name }} cannot be derived from bytes %q", bytes)
+	}
+    *{{ receiver $ts.Name }} = {{ $ts.Name }}(value)
+	if err := {{ receiver $ts.Name }}.Validate(); err != nil {
+		return fmt.Errorf("Cannot unmarshal value %q as {{ $ts.Name }}. %w", {{ receiver $ts.Name }}, err)
+	}
+	return nil
+}
+{{ end }}
 {{- if contains $ts.Serializers "binary-str" }}
 // MarshalBinary implements the encoding.BinaryMarshaler interface for {{ $ts.Name }}.
 func ({{ receiver $ts.Name }} {{ $ts.Name }}) MarshalBinary() ([]byte, error) {
