@@ -1,6 +1,6 @@
 {{- /* Declare binary interface for enum type */ -}}
 {{- with $ts := .Type -}}
-{{- if contains $ts.Serializers "binary" }}
+{{- if contains $ts.Serializers "binary-str" }}
 // MarshalBinary implements the encoding.BinaryMarshaler interface for {{ $ts.Name }}.
 func ({{ receiver $ts.Name }} {{ $ts.Name }}) MarshalBinary() ([]byte, error) {
 	if err := {{ receiver $ts.Name }}.Validate(); err != nil {

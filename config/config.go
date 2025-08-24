@@ -9,14 +9,14 @@ import (
 )
 
 const (
-	SerializerBinary = "binary"
-	SerializerBSON   = "bson"
-	SerializerGQL    = "graphql"
-	SerializerJSON   = "json"
-	SerializerSQL    = "sql"
-	SerializerText   = "text"
-	SerializerYaml   = "yaml"
-	SerializerYamlV3 = "yaml.v3"
+	SerializerBinaryStr = "binary-str"
+	SerializerBSON      = "bson"
+	SerializerGQL       = "graphql"
+	SerializerJSON      = "json"
+	SerializerSQL       = "sql"
+	SerializerText      = "text"
+	SerializerYaml      = "yaml"
+	SerializerYamlV3    = "yaml.v3"
 )
 
 const (

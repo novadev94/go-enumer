@@ -89,7 +89,7 @@ func assertSerializers[T any](t *testing.T, tC TestCase, cfg TestConfig, seriali
 
 func assertSerializer[T any](t *testing.T, tC TestCase, cfg TestConfig, serializer string) {
 	switch serializer {
-	case "binary":
+	case "binary-str":
 		t.Run("MarhsalBinary", func(t *testing.T) {
 			enum := tC.Enum.(interface {
 				MarshalBinary() (data []byte, err error)
@@ -238,7 +238,7 @@ func assertDeserializers[T any](t *testing.T, tC TestCase, cfg TestConfig, deser
 // `zeroValuer` helps to constructor non-"nil" instances of pointer type T.
 func assertDeserializer[T any](t *testing.T, tC TestCase, cfg TestConfig, deserializer string) {
 	switch deserializer {
-	case "binary":
+	case "binary-str":
 		t.Run("UnmarshalBinary", func(t *testing.T) {
 			enum := zeroValuer[T]()
 			err := (any)(enum).(interface {
@@ -396,7 +396,7 @@ func assertDeserializer[T any](t *testing.T, tC TestCase, cfg TestConfig, deseri
 func assertMissingSerializer[T any](t *testing.T, serializer string) {
 	var ok bool
 	switch serializer {
-	case "binary":
+	case "binary-str":
 		t.Run("MarhsalBinary", func(t *testing.T) {
 			var enum T
 			_, ok = (any)(enum).(interface {
@@ -453,7 +453,7 @@ func assertMissingSerializer[T any](t *testing.T, serializer string) {
 func assertMissingDeserializer[T any](t *testing.T, deserializer string) {
 	var ok bool
 	switch deserializer {
-	case "binary":
+	case "binary-str":
 		t.Run("UnmarshalBinary", func(t *testing.T) {
 			_, ok = (any)(zeroValuer[T]()).(interface {
 				UnmarshalBinary(data []byte) error
