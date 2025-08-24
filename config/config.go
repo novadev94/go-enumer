@@ -42,6 +42,22 @@ func (o *Options) Clone() *Options {
 	return (*Options)(&args)
 }
 
+func (o *Options) MergeWithParent(p *Options) {
+	if o.TransformStrategy == "" {
+		o.TransformStrategy = p.TransformStrategy
+	}
+	if sl := o.Serializers; len(sl) > 0 && sl[0] == "!" {
+		o.Serializers = sl[1:]
+	} else {
+		o.Serializers = append(sl, p.Serializers...).ensureUnique()
+	}
+	if sl := o.SupportedFeatures; len(sl) > 0 && sl[0] == "!" {
+		o.SupportedFeatures = sl[1:]
+	} else {
+		o.SupportedFeatures = append(sl, p.SupportedFeatures...).ensureUnique()
+	}
+}
+
 type stringList []string
 
 func (sl stringList) Contains(s string) bool {

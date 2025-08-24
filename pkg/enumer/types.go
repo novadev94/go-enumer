@@ -27,10 +27,6 @@ type EnumTypeConfig struct {
 	FromSource string
 }
 
-func DefaultConfig(cfg *config.Options) *EnumTypeConfig {
-	return &EnumTypeConfig{Options: cfg.Clone()}
-}
-
 type EnumType struct {
 	Node       *ast.GenDecl
 	Config     *EnumTypeConfig
@@ -90,19 +86,20 @@ var ExtractCommentString = func(c *ast.Comment) string {
 	return c.Text
 }
 
-func (e *EnumType) ParseMagicComment(mc *ast.Comment, opts *config.Options) error {
+func (e *EnumType) ParseMagicComment(mc *ast.Comment, pOpts *config.Options) error {
 	doc := ExtractCommentString(mc)
 
-	cfg := DefaultConfig(opts)
+	var opts *config.Options
+	cfg := &EnumTypeConfig{}
 
 	if args := strings.Split(doc, " "); len(args) > 1 {
+		opts = &config.Options{}
 		args = args[1:] /* hint: parse w/o magic marker */
 		var f flag.FlagSet
 		f.SetOutput(io.Discard) // silence flagset StdErr output
-
-		f.StringVar(&cfg.Options.TransformStrategy, "transform", cfg.Options.TransformStrategy, "")
-		f.Var(&cfg.Options.Serializers, "serializers", "")
-		f.Var(&cfg.Options.SupportedFeatures, "support", "")
+		f.StringVar(&opts.TransformStrategy, "transform", "", "")
+		f.Var(&opts.Serializers, "serializers", "")
+		f.Var(&opts.SupportedFeatures, "support", "")
 		f.StringVar(&cfg.FromSource, "from", "", "")
 		err := f.Parse(args)
 		if err != nil {
@@ -115,7 +112,12 @@ func (e *EnumType) ParseMagicComment(mc *ast.Comment, opts *config.Options) erro
 			// report non-flag arguments
 			return fmt.Errorf("unknown args %v", f.Args())
 		}
+		opts.MergeWithParent(pOpts)
+
+	} else {
+		opts = pOpts.Clone()
 	}
+	cfg.Options = opts
 
 	if len(cfg.FromSource) > 0 {
 		if !strings.HasSuffix(cfg.FromSource, ".csv") {
