@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strconv"
 )
 
 var (
@@ -64,6 +65,10 @@ func (_b BookingState) String() string {
 	if !_b.IsValid() {
 		return fmt.Sprintf("BookingState(%d)", _b)
 	}
+	return _BookingStateStringValue(_b)
+}
+
+func _BookingStateStringValue(_b BookingState) string {
 	idx := uint(_b)
 	return _BookingStateStrings[idx]
 }
@@ -124,7 +129,7 @@ func (_b BookingState) MarshalYAML() (interface{}, error) {
 	if err := _b.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as BookingState. %w", _b, err)
 	}
-	return _b.String(), nil
+	return _BookingStateStringValue(_b), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for BookingState.
@@ -151,7 +156,8 @@ func (BookingState) Values() []string {
 }
 
 const (
-	_BookingStateWithConfigString = "CreatedUnavailableFailedCanceledNotFoundDeleted"
+	_BookingStateWithConfigString      = "CreatedUnavailableFailedCanceledNotFoundDeleted"
+	_BookingStateWithConfigLowerString = "createdunavailablefailedcancelednotfounddeleted"
 )
 
 var (
@@ -201,6 +207,10 @@ func (_b BookingStateWithConfig) String() string {
 	if !_b.IsValid() {
 		return fmt.Sprintf("BookingStateWithConfig(%d)", _b)
 	}
+	return _BookingStateWithConfigStringValue(_b)
+}
+
+func _BookingStateWithConfigStringValue(_b BookingStateWithConfig) string {
 	idx := uint(_b)
 	return _BookingStateWithConfigStrings[idx]
 }
@@ -224,6 +234,14 @@ var (
 		_BookingStateWithConfigString[32:40]: 4,
 		_BookingStateWithConfigString[40:47]: 5,
 	}
+	_BookingStateWithConfigLowerStringToValueMap = map[string]BookingStateWithConfig{
+		_BookingStateWithConfigLowerString[0:7]:   0,
+		_BookingStateWithConfigLowerString[7:18]:  1,
+		_BookingStateWithConfigLowerString[18:24]: 2,
+		_BookingStateWithConfigLowerString[24:32]: 3,
+		_BookingStateWithConfigLowerString[32:40]: 4,
+		_BookingStateWithConfigLowerString[40:47]: 5,
+	}
 )
 
 // BookingStateWithConfigFromString determines the enum value with an exact case match.
@@ -238,12 +256,29 @@ func BookingStateWithConfigFromString(raw string) (BookingStateWithConfig, bool)
 	return v, true
 }
 
+// BookingStateWithConfigFromStringIgnoreCase determines the enum value with a case-insensitive match.
+func BookingStateWithConfigFromStringIgnoreCase(raw string) (BookingStateWithConfig, bool) {
+	if len(raw) == 0 {
+		return BookingStateWithConfig(0), true
+	}
+	v, ok := BookingStateWithConfigFromString(raw)
+	if ok {
+		return v, ok
+	}
+	v, ok = _BookingStateWithConfigLowerStringToValueMap[raw]
+	if !ok {
+		return BookingStateWithConfig(0), false
+	}
+	return v, true
+}
+
 // MarshalJSON implements the json.Marshaler interface for BookingStateWithConfig.
 func (_b BookingStateWithConfig) MarshalJSON() ([]byte, error) {
 	if err := _b.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as BookingStateWithConfig. %w", _b, err)
 	}
-	return json.Marshal(_b.String())
+	str := _BookingStateWithConfigStringValue(_b)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for BookingStateWithConfig.
@@ -254,7 +289,7 @@ func (_b *BookingStateWithConfig) UnmarshalJSON(data []byte) error {
 	}
 
 	var ok bool
-	*_b, ok = BookingStateWithConfigFromString(str)
+	*_b, ok = BookingStateWithConfigFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a BookingStateWithConfig", str)
 	}
@@ -266,7 +301,7 @@ func (_b BookingStateWithConfig) MarshalYAML() (interface{}, error) {
 	if err := _b.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as BookingStateWithConfig. %w", _b, err)
 	}
-	return _b.String(), nil
+	return _BookingStateWithConfigStringValue(_b), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for BookingStateWithConfig.
@@ -277,7 +312,7 @@ func (_b *BookingStateWithConfig) UnmarshalYAML(unmarshal func(interface{}) erro
 	}
 
 	var ok bool
-	*_b, ok = BookingStateWithConfigFromString(str)
+	*_b, ok = BookingStateWithConfigFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a BookingStateWithConfig", str)
 	}
@@ -336,6 +371,10 @@ func (_b BookingStateWithConstants) String() string {
 	if !_b.IsValid() {
 		return fmt.Sprintf("BookingStateWithConstants(%d)", _b)
 	}
+	return _BookingStateWithConstantsStringValue(_b)
+}
+
+func _BookingStateWithConstantsStringValue(_b BookingStateWithConstants) string {
 	idx := uint(_b)
 	return _BookingStateWithConstantsStrings[idx]
 }
@@ -396,7 +435,7 @@ func (_b BookingStateWithConstants) MarshalYAML() (interface{}, error) {
 	if err := _b.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as BookingStateWithConstants. %w", _b, err)
 	}
-	return _b.String(), nil
+	return _BookingStateWithConstantsStringValue(_b), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for BookingStateWithConstants.

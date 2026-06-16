@@ -135,6 +135,7 @@ But the `//go:enum` directive does not exclusively serve as a marker to detect e
 By supplying it with a finegrained configuration on an enum type level, we have the ability to overwrite the global `generate` configuration.
 
 The following example will generate `json` interfaces for practically all enums it will detect, except for this specific `Greeting` enum, where it will generate both `json` and `yaml` interfaces.
+Prefix a `serializers` or `support` list with `!` when the enum type should replace inherited options instead of mixing them in.
 
 > The comment directive currently offers support for all configuration options, which are available on a global configuration level.
 
@@ -298,6 +299,7 @@ When `go-enumer` is applied to a type, it will generate:
   - `bson` makes the enum conform to the `bson.MarshalBSONValue` and `bson.UnmarshalBSONValue` interfaces.
   - `graphql` makes the enum conform to the `graphql.Marshaler` and `graphql.Unmarshaler` interfaces.
   - `json` makes the enum conform to the `json.Marshaler` and `json.Unmarshaler` interfaces.
+    `MarshalJSON` emits valid quoted JSON strings without `encoding/json`'s extra HTML escaping for `<`, `>` and `&`.
   - `sql` makes the enum conform to the `sql.Scanner` and `sql.Valuer` interfaces.
   - `text` makes the enum conform to the `encoding.TextMarshaler` and `encoding.TextUnmarshaler` interfaces.
     **Note:** If you use your enum values as keys in a map and you encode the map as *JSON*,

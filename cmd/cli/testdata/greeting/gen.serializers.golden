@@ -65,24 +65,24 @@ func (_g Greeting) String() string {
 	if !_g.IsValid() {
 		return fmt.Sprintf("Greeting(%d)", _g)
 	}
+	return _GreetingStringValue(_g)
+}
+
+func _GreetingStringValue(_g Greeting) string {
 	idx := uint(_g)
 	return _GreetingStrings[idx]
 }
 
-var (
-	_GreetingStringToValueMap = map[string]Greeting{
-		_GreetingString[0:5]: GreetingWorld,
-		_GreetingString[5:9]: GreetingMars,
-	}
-)
-
 // GreetingFromString determines the enum value with an exact case match.
 func GreetingFromString(raw string) (Greeting, bool) {
-	v, ok := _GreetingStringToValueMap[raw]
-	if !ok {
+	switch raw {
+	case _GreetingString[0:5]:
+		return GreetingWorld, true
+	case _GreetingString[5:9]:
+		return GreetingMars, true
+	default:
 		return Greeting(0), false
 	}
-	return v, true
 }
 
 // MarshalBinary implements the encoding.BinaryMarshaler interface for Greeting.
@@ -90,7 +90,7 @@ func (_g Greeting) MarshalBinary() ([]byte, error) {
 	if err := _g.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Greeting. %w", _g, err)
 	}
-	return []byte(_g.String()), nil
+	return []byte(_GreetingStringValue(_g)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for Greeting.
@@ -110,7 +110,8 @@ func (_g *Greeting) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for Greeting.
 func (_g Greeting) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_g.String()))
+	str := _g.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for Greeting.
@@ -143,7 +144,8 @@ func (_g Greeting) MarshalJSON() ([]byte, error) {
 	if err := _g.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Greeting. %w", _g, err)
 	}
-	return json.Marshal(_g.String())
+	str := _GreetingStringValue(_g)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for Greeting.
@@ -169,7 +171,7 @@ func (_g Greeting) Value() (driver.Value, error) {
 	if err := _g.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as Greeting. %w", _g, err)
 	}
-	return _g.String(), nil
+	return _GreetingStringValue(_g), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for Greeting.
@@ -202,7 +204,7 @@ func (_g Greeting) MarshalText() ([]byte, error) {
 	if err := _g.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Greeting. %w", _g, err)
 	}
-	return []byte(_g.String()), nil
+	return []byte(_GreetingStringValue(_g)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for Greeting.
@@ -225,7 +227,7 @@ func (_g Greeting) MarshalYAML() (interface{}, error) {
 	if err := _g.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Greeting. %w", _g, err)
 	}
-	return _g.String(), nil
+	return _GreetingStringValue(_g), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for Greeting.

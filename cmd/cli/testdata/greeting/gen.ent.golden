@@ -61,24 +61,24 @@ func (_g Greeting) String() string {
 	if !_g.IsValid() {
 		return fmt.Sprintf("Greeting(%d)", _g)
 	}
+	return _GreetingStringValue(_g)
+}
+
+func _GreetingStringValue(_g Greeting) string {
 	idx := uint(_g)
 	return _GreetingStrings[idx]
 }
 
-var (
-	_GreetingStringToValueMap = map[string]Greeting{
-		_GreetingString[0:5]: GreetingWorld,
-		_GreetingString[5:9]: GreetingMars,
-	}
-)
-
 // GreetingFromString determines the enum value with an exact case match.
 func GreetingFromString(raw string) (Greeting, bool) {
-	v, ok := _GreetingStringToValueMap[raw]
-	if !ok {
+	switch raw {
+	case _GreetingString[0:5]:
+		return GreetingWorld, true
+	case _GreetingString[5:9]:
+		return GreetingMars, true
+	default:
 		return Greeting(0), false
 	}
-	return v, true
 }
 
 // Values returns a slice of all String values of the enum.

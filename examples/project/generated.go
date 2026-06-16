@@ -68,6 +68,10 @@ func (_a AccountState) String() string {
 	if !_a.IsValid() {
 		return fmt.Sprintf("AccountState(%d)", _a)
 	}
+	return _AccountStateStringValue(_a)
+}
+
+func _AccountStateStringValue(_a AccountState) string {
 	idx := uint(_a)
 	return _AccountStateStrings[idx]
 }
@@ -96,7 +100,8 @@ func (_a AccountState) MarshalJSON() ([]byte, error) {
 	if err := _a.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as AccountState. %w", _a, err)
 	}
-	return json.Marshal(_a.String())
+	str := _AccountStateStringValue(_a)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for AccountState.
@@ -122,7 +127,7 @@ func (_a AccountState) Value() (driver.Value, error) {
 	if err := _a.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as AccountState. %w", _a, err)
 	}
-	return _a.String(), nil
+	return _AccountStateStringValue(_a), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for AccountState.
@@ -440,6 +445,10 @@ func (_c CountryCode) String() string {
 	if !_c.IsValid() {
 		return fmt.Sprintf("CountryCode(%d)", _c)
 	}
+	return _CountryCodeStringValue(_c)
+}
+
+func _CountryCodeStringValue(_c CountryCode) string {
 	idx := uint(_c) - 1
 	return _CountryCodeStrings[idx]
 }
@@ -763,7 +772,7 @@ func (_c CountryCode) MarshalBinary() ([]byte, error) {
 	if err := _c.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as CountryCode. %w", _c, err)
 	}
-	return []byte(_c.String()), nil
+	return []byte(_CountryCodeStringValue(_c)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for CountryCode.
@@ -783,7 +792,8 @@ func (_c *CountryCode) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for CountryCode.
 func (_c CountryCode) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_c.String()))
+	str := _c.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for CountryCode.
@@ -816,7 +826,8 @@ func (_c CountryCode) MarshalJSON() ([]byte, error) {
 	if err := _c.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as CountryCode. %w", _c, err)
 	}
-	return json.Marshal(_c.String())
+	str := _CountryCodeStringValue(_c)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for CountryCode.
@@ -842,7 +853,7 @@ func (_c CountryCode) Value() (driver.Value, error) {
 	if err := _c.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as CountryCode. %w", _c, err)
 	}
-	return _c.String(), nil
+	return _CountryCodeStringValue(_c), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for CountryCode.
@@ -875,7 +886,7 @@ func (_c CountryCode) MarshalText() ([]byte, error) {
 	if err := _c.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as CountryCode. %w", _c, err)
 	}
-	return []byte(_c.String()), nil
+	return []byte(_CountryCodeStringValue(_c)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for CountryCode.
@@ -898,7 +909,7 @@ func (_c CountryCode) MarshalYAML() (interface{}, error) {
 	if err := _c.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as CountryCode. %w", _c, err)
 	}
-	return _c.String(), nil
+	return _CountryCodeStringValue(_c), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for CountryCode.
@@ -971,6 +982,10 @@ func (_c Currency) String() string {
 	if !_c.IsValid() {
 		return fmt.Sprintf("Currency(%d)", _c)
 	}
+	return _CurrencyStringValue(_c)
+}
+
+func _CurrencyStringValue(_c Currency) string {
 	idx := uint(_c) - 1
 	return _CurrencyStrings[idx]
 }
@@ -1029,7 +1044,7 @@ func (_c Currency) MarshalBinary() ([]byte, error) {
 	if err := _c.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Currency. %w", _c, err)
 	}
-	return []byte(_c.String()), nil
+	return []byte(_CurrencyStringValue(_c)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for Currency.
@@ -1049,7 +1064,8 @@ func (_c *Currency) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for Currency.
 func (_c Currency) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_c.String()))
+	str := _c.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for Currency.
@@ -1082,7 +1098,8 @@ func (_c Currency) MarshalJSON() ([]byte, error) {
 	if err := _c.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Currency. %w", _c, err)
 	}
-	return json.Marshal(_c.String())
+	str := _CurrencyStringValue(_c)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for Currency.
@@ -1108,7 +1125,7 @@ func (_c Currency) Value() (driver.Value, error) {
 	if err := _c.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as Currency. %w", _c, err)
 	}
-	return _c.String(), nil
+	return _CurrencyStringValue(_c), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for Currency.
@@ -1141,7 +1158,7 @@ func (_c Currency) MarshalText() ([]byte, error) {
 	if err := _c.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Currency. %w", _c, err)
 	}
-	return []byte(_c.String()), nil
+	return []byte(_CurrencyStringValue(_c)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for Currency.
@@ -1164,7 +1181,7 @@ func (_c Currency) MarshalYAML() (interface{}, error) {
 	if err := _c.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Currency. %w", _c, err)
 	}
-	return _c.String(), nil
+	return _CurrencyStringValue(_c), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for Currency.
@@ -1226,6 +1243,10 @@ func (_t Timezone) String() string {
 	if !_t.IsValid() {
 		return fmt.Sprintf("Timezone(%d)", _t)
 	}
+	return _TimezoneStringValue(_t)
+}
+
+func _TimezoneStringValue(_t Timezone) string {
 	idx := uint(_t) - 1
 	return _TimezoneStrings[idx]
 }
@@ -1673,7 +1694,7 @@ func (_t Timezone) MarshalBinary() ([]byte, error) {
 	if err := _t.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Timezone. %w", _t, err)
 	}
-	return []byte(_t.String()), nil
+	return []byte(_TimezoneStringValue(_t)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for Timezone.
@@ -1693,7 +1714,8 @@ func (_t *Timezone) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for Timezone.
 func (_t Timezone) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_t.String()))
+	str := _t.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for Timezone.
@@ -1726,7 +1748,8 @@ func (_t Timezone) MarshalJSON() ([]byte, error) {
 	if err := _t.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Timezone. %w", _t, err)
 	}
-	return json.Marshal(_t.String())
+	str := _TimezoneStringValue(_t)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for Timezone.
@@ -1752,7 +1775,7 @@ func (_t Timezone) Value() (driver.Value, error) {
 	if err := _t.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as Timezone. %w", _t, err)
 	}
-	return _t.String(), nil
+	return _TimezoneStringValue(_t), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for Timezone.
@@ -1785,7 +1808,7 @@ func (_t Timezone) MarshalText() ([]byte, error) {
 	if err := _t.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Timezone. %w", _t, err)
 	}
-	return []byte(_t.String()), nil
+	return []byte(_TimezoneStringValue(_t)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for Timezone.
@@ -1808,7 +1831,7 @@ func (_t Timezone) MarshalYAML() (interface{}, error) {
 	if err := _t.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Timezone. %w", _t, err)
 	}
-	return _t.String(), nil
+	return _TimezoneStringValue(_t), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for Timezone.
@@ -1881,29 +1904,31 @@ func (_u UserRole) String() string {
 	if !_u.IsValid() {
 		return fmt.Sprintf("UserRole(%d)", _u)
 	}
+	return _UserRoleStringValue(_u)
+}
+
+func _UserRoleStringValue(_u UserRole) string {
 	idx := uint(_u)
 	return _UserRoleStrings[idx]
 }
-
-var (
-	_UserRoleStringToValueMap = map[string]UserRole{
-		_UserRoleString[0:8]:   UserRoleStandard,
-		_UserRoleString[8:14]:  UserRoleEditor,
-		_UserRoleString[14:22]: UserRoleReviewer,
-		_UserRoleString[22:27]: UserRoleAdmin,
-	}
-)
 
 // UserRoleFromString determines the enum value with an exact case match.
 func UserRoleFromString(raw string) (UserRole, bool) {
 	if len(raw) == 0 {
 		return UserRole(0), true
 	}
-	v, ok := _UserRoleStringToValueMap[raw]
-	if !ok {
+	switch raw {
+	case _UserRoleString[0:8]:
+		return UserRoleStandard, true
+	case _UserRoleString[8:14]:
+		return UserRoleEditor, true
+	case _UserRoleString[14:22]:
+		return UserRoleReviewer, true
+	case _UserRoleString[22:27]:
+		return UserRoleAdmin, true
+	default:
 		return UserRole(0), false
 	}
-	return v, true
 }
 
 // MarshalBinary implements the encoding.BinaryMarshaler interface for UserRole.
@@ -1911,7 +1936,7 @@ func (_u UserRole) MarshalBinary() ([]byte, error) {
 	if err := _u.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as UserRole. %w", _u, err)
 	}
-	return []byte(_u.String()), nil
+	return []byte(_UserRoleStringValue(_u)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for UserRole.
@@ -1928,7 +1953,8 @@ func (_u *UserRole) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for UserRole.
 func (_u UserRole) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_u.String()))
+	str := _u.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for UserRole.
@@ -1959,7 +1985,8 @@ func (_u UserRole) MarshalJSON() ([]byte, error) {
 	if err := _u.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as UserRole. %w", _u, err)
 	}
-	return json.Marshal(_u.String())
+	str := _UserRoleStringValue(_u)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for UserRole.
@@ -1982,7 +2009,7 @@ func (_u UserRole) Value() (driver.Value, error) {
 	if err := _u.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as UserRole. %w", _u, err)
 	}
-	return _u.String(), nil
+	return _UserRoleStringValue(_u), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for UserRole.
@@ -2013,7 +2040,7 @@ func (_u UserRole) MarshalText() ([]byte, error) {
 	if err := _u.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as UserRole. %w", _u, err)
 	}
-	return []byte(_u.String()), nil
+	return []byte(_UserRoleStringValue(_u)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for UserRole.
@@ -2033,7 +2060,7 @@ func (_u UserRole) MarshalYAML() (interface{}, error) {
 	if err := _u.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as UserRole. %w", _u, err)
 	}
-	return _u.String(), nil
+	return _UserRoleStringValue(_u), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for UserRole.

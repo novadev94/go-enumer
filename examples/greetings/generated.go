@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/bsontype"
 	"go.mongodb.org/mongo-driver/x/bsonx/bsoncore"
 	"io"
@@ -19,7 +18,8 @@ var (
 )
 
 const (
-	_GreetingString = "Россия中國日本한국ČeskáRepublika𝜋"
+	_GreetingString      = "Россия中國日本한국ČeskáRepublika𝜋"
+	_GreetingLowerString = "россия中國日本한국českárepublika𝜋"
 )
 
 var (
@@ -72,6 +72,10 @@ func (_g Greeting) String() string {
 	if !_g.IsValid() {
 		return fmt.Sprintf("Greeting(%d)", _g)
 	}
+	return _GreetingStringValue(_g)
+}
+
+func _GreetingStringValue(_g Greeting) string {
 	if _g == 0 {
 		return ""
 	}
@@ -88,6 +92,14 @@ var (
 		_GreetingString[30:46]: GreetingČeskáRepublika,
 		_GreetingString[46:50]: Greeting𝜋,
 	}
+	_GreetingLowerStringToValueMap = map[string]Greeting{
+		_GreetingLowerString[0:12]:  GreetingРоссия,
+		_GreetingLowerString[12:18]: Greeting中國,
+		_GreetingLowerString[18:24]: Greeting日本,
+		_GreetingLowerString[24:30]: Greeting한국,
+		_GreetingLowerString[30:46]: GreetingČeskáRepublika,
+		_GreetingLowerString[46:50]: Greeting𝜋,
+	}
 )
 
 // GreetingFromString determines the enum value with an exact case match.
@@ -102,12 +114,28 @@ func GreetingFromString(raw string) (Greeting, bool) {
 	return v, true
 }
 
+// GreetingFromStringIgnoreCase determines the enum value with a case-insensitive match.
+func GreetingFromStringIgnoreCase(raw string) (Greeting, bool) {
+	if len(raw) == 0 {
+		return Greeting(0), true
+	}
+	v, ok := GreetingFromString(raw)
+	if ok {
+		return v, ok
+	}
+	v, ok = _GreetingLowerStringToValueMap[raw]
+	if !ok {
+		return Greeting(0), false
+	}
+	return v, true
+}
+
 // MarshalBinary implements the encoding.BinaryMarshaler interface for Greeting.
 func (_g Greeting) MarshalBinary() ([]byte, error) {
 	if err := _g.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Greeting. %w", _g, err)
 	}
-	return []byte(_g.String()), nil
+	return []byte(_GreetingStringValue(_g)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for Greeting.
@@ -115,7 +143,7 @@ func (_g *Greeting) UnmarshalBinary(text []byte) error {
 	str := string(text)
 
 	var ok bool
-	*_g, ok = GreetingFromString(str)
+	*_g, ok = GreetingFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a Greeting", str)
 	}
@@ -130,7 +158,9 @@ func (_g Greeting) MarshalBSONValue() (bsontype.Type, []byte, error) {
 	if _g == 0 {
 		return bsontype.Undefined, nil, nil
 	}
-	return bson.MarshalValue(_g.String())
+	str := _GreetingStringValue(_g)
+	data := make([]byte, 0, 4+len(str)+1)
+	return bsontype.String, bsoncore.AppendString(data, str), nil
 }
 
 // UnmarshalBSONValue implements the bson.ValueUnmarshaler interface for Greeting.
@@ -143,7 +173,7 @@ func (_g *Greeting) UnmarshalBSONValue(t bsontype.Type, data []byte) error {
 		return fmt.Errorf("failed reading value as string, got %q", data)
 	}
 
-	*_g, ok = GreetingFromString(str)
+	*_g, ok = GreetingFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a Greeting", str)
 	}
@@ -152,7 +182,8 @@ func (_g *Greeting) UnmarshalBSONValue(t bsontype.Type, data []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for Greeting.
 func (_g Greeting) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_g.String()))
+	str := _g.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for Greeting.
@@ -171,7 +202,7 @@ func (_g *Greeting) UnmarshalGQL(value interface{}) error {
 	}
 
 	var ok bool
-	*_g, ok = GreetingFromString(str)
+	*_g, ok = GreetingFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a Greeting", str)
 	}
@@ -183,7 +214,8 @@ func (_g Greeting) MarshalJSON() ([]byte, error) {
 	if err := _g.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Greeting. %w", _g, err)
 	}
-	return json.Marshal(_g.String())
+	str := _GreetingStringValue(_g)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for Greeting.
@@ -194,7 +226,7 @@ func (_g *Greeting) UnmarshalJSON(data []byte) error {
 	}
 
 	var ok bool
-	*_g, ok = GreetingFromString(str)
+	*_g, ok = GreetingFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a Greeting", str)
 	}
@@ -209,7 +241,7 @@ func (_g Greeting) Value() (driver.Value, error) {
 	if _g == 0 {
 		return nil, nil
 	}
-	return _g.String(), nil
+	return _GreetingStringValue(_g), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for Greeting.
@@ -228,7 +260,7 @@ func (_g *Greeting) Scan(value interface{}) error {
 	}
 
 	var ok bool
-	*_g, ok = GreetingFromString(str)
+	*_g, ok = GreetingFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a Greeting", str)
 	}
@@ -240,7 +272,7 @@ func (_g Greeting) MarshalText() ([]byte, error) {
 	if err := _g.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Greeting. %w", _g, err)
 	}
-	return []byte(_g.String()), nil
+	return []byte(_GreetingStringValue(_g)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for Greeting.
@@ -248,7 +280,7 @@ func (_g *Greeting) UnmarshalText(text []byte) error {
 	str := string(text)
 
 	var ok bool
-	*_g, ok = GreetingFromString(str)
+	*_g, ok = GreetingFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a Greeting", str)
 	}
@@ -260,7 +292,7 @@ func (_g Greeting) MarshalYAML() (interface{}, error) {
 	if err := _g.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Greeting. %w", _g, err)
 	}
-	return _g.String(), nil
+	return _GreetingStringValue(_g), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for Greeting.
@@ -271,7 +303,7 @@ func (_g *Greeting) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	}
 
 	var ok bool
-	*_g, ok = GreetingFromString(str)
+	*_g, ok = GreetingFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a Greeting", str)
 	}
@@ -284,7 +316,8 @@ func (Greeting) Values() []string {
 }
 
 const (
-	_GreetingWithDefaultString = "WorldРоссия中國日本한국ČeskáRepublika𝜋"
+	_GreetingWithDefaultString      = "WorldРоссия中國日本한국ČeskáRepublika𝜋"
+	_GreetingWithDefaultLowerString = "worldроссия中國日本한국českárepublika𝜋"
 )
 
 var (
@@ -338,6 +371,10 @@ func (_g GreetingWithDefault) String() string {
 	if !_g.IsValid() {
 		return fmt.Sprintf("GreetingWithDefault(%d)", _g)
 	}
+	return _GreetingWithDefaultStringValue(_g)
+}
+
+func _GreetingWithDefaultStringValue(_g GreetingWithDefault) string {
 	idx := uint(_g)
 	return _GreetingWithDefaultStrings[idx]
 }
@@ -351,6 +388,15 @@ var (
 		_GreetingWithDefaultString[29:35]: GreetingWithDefault한국,
 		_GreetingWithDefaultString[35:51]: GreetingWithDefaultČeskáRepublika,
 		_GreetingWithDefaultString[51:55]: GreetingWithDefault𝜋,
+	}
+	_GreetingWithDefaultLowerStringToValueMap = map[string]GreetingWithDefault{
+		_GreetingWithDefaultLowerString[0:5]:   GreetingWithDefaultWorld,
+		_GreetingWithDefaultLowerString[5:17]:  GreetingWithDefaultРоссия,
+		_GreetingWithDefaultLowerString[17:23]: GreetingWithDefault中國,
+		_GreetingWithDefaultLowerString[23:29]: GreetingWithDefault日本,
+		_GreetingWithDefaultLowerString[29:35]: GreetingWithDefault한국,
+		_GreetingWithDefaultLowerString[35:51]: GreetingWithDefaultČeskáRepublika,
+		_GreetingWithDefaultLowerString[51:55]: GreetingWithDefault𝜋,
 	}
 )
 
@@ -366,12 +412,28 @@ func GreetingWithDefaultFromString(raw string) (GreetingWithDefault, bool) {
 	return v, true
 }
 
+// GreetingWithDefaultFromStringIgnoreCase determines the enum value with a case-insensitive match.
+func GreetingWithDefaultFromStringIgnoreCase(raw string) (GreetingWithDefault, bool) {
+	if len(raw) == 0 {
+		return GreetingWithDefault(0), true
+	}
+	v, ok := GreetingWithDefaultFromString(raw)
+	if ok {
+		return v, ok
+	}
+	v, ok = _GreetingWithDefaultLowerStringToValueMap[raw]
+	if !ok {
+		return GreetingWithDefault(0), false
+	}
+	return v, true
+}
+
 // MarshalBinary implements the encoding.BinaryMarshaler interface for GreetingWithDefault.
 func (_g GreetingWithDefault) MarshalBinary() ([]byte, error) {
 	if err := _g.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as GreetingWithDefault. %w", _g, err)
 	}
-	return []byte(_g.String()), nil
+	return []byte(_GreetingWithDefaultStringValue(_g)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for GreetingWithDefault.
@@ -379,7 +441,7 @@ func (_g *GreetingWithDefault) UnmarshalBinary(text []byte) error {
 	str := string(text)
 
 	var ok bool
-	*_g, ok = GreetingWithDefaultFromString(str)
+	*_g, ok = GreetingWithDefaultFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a GreetingWithDefault", str)
 	}
@@ -391,7 +453,9 @@ func (_g GreetingWithDefault) MarshalBSONValue() (bsontype.Type, []byte, error) 
 	if err := _g.Validate(); err != nil {
 		return 0, nil, fmt.Errorf("Cannot marshal value %q as GreetingWithDefault. %w", _g, err)
 	}
-	return bson.MarshalValue(_g.String())
+	str := _GreetingWithDefaultStringValue(_g)
+	data := make([]byte, 0, 4+len(str)+1)
+	return bsontype.String, bsoncore.AppendString(data, str), nil
 }
 
 // UnmarshalBSONValue implements the bson.ValueUnmarshaler interface for GreetingWithDefault.
@@ -404,7 +468,7 @@ func (_g *GreetingWithDefault) UnmarshalBSONValue(t bsontype.Type, data []byte) 
 		return fmt.Errorf("failed reading value as string, got %q", data)
 	}
 
-	*_g, ok = GreetingWithDefaultFromString(str)
+	*_g, ok = GreetingWithDefaultFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a GreetingWithDefault", str)
 	}
@@ -413,7 +477,8 @@ func (_g *GreetingWithDefault) UnmarshalBSONValue(t bsontype.Type, data []byte) 
 
 // MarshalGQL implements the graphql.Marshaler interface for GreetingWithDefault.
 func (_g GreetingWithDefault) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_g.String()))
+	str := _g.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for GreetingWithDefault.
@@ -432,7 +497,7 @@ func (_g *GreetingWithDefault) UnmarshalGQL(value interface{}) error {
 	}
 
 	var ok bool
-	*_g, ok = GreetingWithDefaultFromString(str)
+	*_g, ok = GreetingWithDefaultFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a GreetingWithDefault", str)
 	}
@@ -444,7 +509,8 @@ func (_g GreetingWithDefault) MarshalJSON() ([]byte, error) {
 	if err := _g.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as GreetingWithDefault. %w", _g, err)
 	}
-	return json.Marshal(_g.String())
+	str := _GreetingWithDefaultStringValue(_g)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for GreetingWithDefault.
@@ -455,7 +521,7 @@ func (_g *GreetingWithDefault) UnmarshalJSON(data []byte) error {
 	}
 
 	var ok bool
-	*_g, ok = GreetingWithDefaultFromString(str)
+	*_g, ok = GreetingWithDefaultFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a GreetingWithDefault", str)
 	}
@@ -467,7 +533,7 @@ func (_g GreetingWithDefault) Value() (driver.Value, error) {
 	if err := _g.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as GreetingWithDefault. %w", _g, err)
 	}
-	return _g.String(), nil
+	return _GreetingWithDefaultStringValue(_g), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for GreetingWithDefault.
@@ -486,7 +552,7 @@ func (_g *GreetingWithDefault) Scan(value interface{}) error {
 	}
 
 	var ok bool
-	*_g, ok = GreetingWithDefaultFromString(str)
+	*_g, ok = GreetingWithDefaultFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a GreetingWithDefault", str)
 	}
@@ -498,7 +564,7 @@ func (_g GreetingWithDefault) MarshalText() ([]byte, error) {
 	if err := _g.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as GreetingWithDefault. %w", _g, err)
 	}
-	return []byte(_g.String()), nil
+	return []byte(_GreetingWithDefaultStringValue(_g)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for GreetingWithDefault.
@@ -506,7 +572,7 @@ func (_g *GreetingWithDefault) UnmarshalText(text []byte) error {
 	str := string(text)
 
 	var ok bool
-	*_g, ok = GreetingWithDefaultFromString(str)
+	*_g, ok = GreetingWithDefaultFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a GreetingWithDefault", str)
 	}
@@ -518,7 +584,7 @@ func (_g GreetingWithDefault) MarshalYAML() (interface{}, error) {
 	if err := _g.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as GreetingWithDefault. %w", _g, err)
 	}
-	return _g.String(), nil
+	return _GreetingWithDefaultStringValue(_g), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for GreetingWithDefault.
@@ -529,7 +595,7 @@ func (_g *GreetingWithDefault) UnmarshalYAML(unmarshal func(interface{}) error) 
 	}
 
 	var ok bool
-	*_g, ok = GreetingWithDefaultFromString(str)
+	*_g, ok = GreetingWithDefaultFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a GreetingWithDefault", str)
 	}

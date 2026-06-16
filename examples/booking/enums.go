@@ -5,7 +5,7 @@ package booking
 type BookingState uint
 
 // BookingStateWithConfig will have its own configuration.
-//go:enum -from=booking.csv -serializers=json,yaml -support=undefined
+//go:enum -from=booking.csv -serializers=json,yaml -support=!,undefined,ignore-case
 type BookingStateWithConfig uint
 
 // BookingStateWithConstants will have a subset (compared to CSV source)

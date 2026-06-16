@@ -15,7 +15,7 @@ func ({{ receiver $ts.Name }} *{{ $ts.Name }}) UnmarshalBinary(bytes []byte) err
 	if n <= 0 {
 		return fmt.Errorf("{{ $ts.Name }} cannot be derived from bytes %q", bytes)
 	}
-    *{{ receiver $ts.Name }} = {{ $ts.Name }}(value)
+	*{{ receiver $ts.Name }} = {{ $ts.Name }}(value)
 	if err := {{ receiver $ts.Name }}.Validate(); err != nil {
 		return fmt.Errorf("Cannot unmarshal value %q as {{ $ts.Name }}. %w", {{ receiver $ts.Name }}, err)
 	}
@@ -28,7 +28,7 @@ func ({{ receiver $ts.Name }} {{ $ts.Name }}) MarshalBinary() ([]byte, error) {
 	if err := {{ receiver $ts.Name }}.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as {{ $ts.Name }}. %w", {{ receiver $ts.Name }}, err)
 	}
-	return []byte({{ receiver $ts.Name }}.String()), nil
+	return []byte(_{{ $ts.Name }}StringValue({{ receiver $ts.Name }})), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for {{ $ts.Name }}.
@@ -59,7 +59,9 @@ func ({{ receiver $ts.Name }} {{ $ts.Name }}) MarshalBSONValue() (bsontype.Type,
 		return bsontype.Undefined, nil, nil
 	}
 {{- end }}
-	return bson.MarshalValue({{ receiver $ts.Name }}.String())
+	str := _{{ $ts.Name }}StringValue({{ receiver $ts.Name }})
+	data := make([]byte, 0, 4+len(str)+1)
+	return bsontype.String, bsoncore.AppendString(data, str), nil
 }
 
 // UnmarshalBSONValue implements the bson.ValueUnmarshaler interface for {{ $ts.Name }}.
@@ -87,7 +89,8 @@ func ({{ receiver $ts.Name }} *{{ $ts.Name }}) UnmarshalBSONValue(t bsontype.Typ
 {{- if contains $ts.Serializers "graphql" }}
 // MarshalGQL implements the graphql.Marshaler interface for {{ $ts.Name }}.
 func ({{ receiver $ts.Name }} {{ $ts.Name }}) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote({{ receiver $ts.Name }}.String()))
+	str := {{ receiver $ts.Name }}.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for {{ $ts.Name }}.
@@ -126,7 +129,8 @@ func ({{ receiver $ts.Name }} {{ $ts.Name }}) MarshalJSON() ([]byte, error) {
 	if err := {{ receiver $ts.Name }}.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as {{ $ts.Name }}. %w", {{ receiver $ts.Name }}, err)
 	}
-	return json.Marshal({{ receiver $ts.Name }}.String())
+	str := _{{ $ts.Name }}StringValue({{ receiver $ts.Name }})
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for {{ $ts.Name }}.
@@ -160,7 +164,7 @@ func ({{ receiver $ts.Name }} {{ $ts.Name }}) Value() (driver.Value, error) {
 		return nil, nil
 	}
 {{- end }}
-	return {{ receiver $ts.Name }}.String(), nil
+	return _{{ $ts.Name }}StringValue({{ receiver $ts.Name }}), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for {{ $ts.Name }}.
@@ -199,7 +203,7 @@ func ({{ receiver $ts.Name }} {{ $ts.Name }}) MarshalText() ([]byte, error) {
 	if err := {{ receiver $ts.Name }}.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as {{ $ts.Name }}. %w", {{ receiver $ts.Name }}, err)
 	}
-	return []byte({{ receiver $ts.Name }}.String()), nil
+	return []byte(_{{ $ts.Name }}StringValue({{ receiver $ts.Name }})), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for {{ $ts.Name }}.
@@ -226,7 +230,7 @@ func ({{ receiver $ts.Name }} {{ $ts.Name }}) MarshalYAML() (interface{}, error)
 	if err := {{ receiver $ts.Name }}.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as {{ $ts.Name }}. %w", {{ receiver $ts.Name }}, err)
 	}
-	return {{ receiver $ts.Name }}.String(), nil
+	return _{{ $ts.Name }}StringValue({{ receiver $ts.Name }}), nil
 }
 
 {{ if $serializeYamlV3 -}}

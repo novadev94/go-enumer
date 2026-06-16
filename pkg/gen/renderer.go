@@ -22,6 +22,9 @@ var (
 	enumTpl   = template.Must(template.New("enum").Funcs(tplFuncs).ParseFS(templates, "static/enum.*"))
 )
 
+// switchLookupValueLimit keeps generated linear switch lookups on cases where they beat map lookups.
+const switchLookupValueLimit = 4
+
 type renderer struct{}
 
 func NewRenderer(cfg *config.Options) *renderer {
@@ -196,12 +199,14 @@ func (r *renderer) renderForTypeSpec(buf *bytes.Buffer, ts *enumer.EnumType) err
 			SupportIgnoreCase bool
 			SupportUndefined  bool
 			HasEmptyString    bool
+			UseSwitchLookup   bool
 		}
 		data := TplData{
 			Enum:              enum,
 			SupportIgnoreCase: ts.Config.Options.SupportedFeatures.Contains(config.SupportIgnoreCase),
 			SupportUndefined:  ts.Config.Options.SupportedFeatures.Contains(config.SupportUndefined),
 			HasEmptyString:    slices.Any(ts.Spec.Values, func(v *enumer.EnumTypeSpecValue, _ int) bool { return v.EnumValue == "" }),
+			UseSwitchLookup:   len(ts.Spec.Values) <= switchLookupValueLimit,
 		}
 
 		if err := enumTpl.ExecuteTemplate(buf, "enum.lookup-funcs.go.tpl", map[string]any{"Type": data}); err != nil {

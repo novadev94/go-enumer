@@ -169,7 +169,6 @@ func (i inspector) determineImports(f *File) {
 			case config.SerializerBinaryInt:
 				f.Imports = append(f.Imports, &Import{Path: "encoding/binary"})
 			case config.SerializerBSON:
-				f.Imports = append(f.Imports, &Import{Path: "go.mongodb.org/mongo-driver/bson"})
 				f.Imports = append(f.Imports, &Import{Path: "go.mongodb.org/mongo-driver/bson/bsontype"})
 				f.Imports = append(f.Imports, &Import{Path: "go.mongodb.org/mongo-driver/x/bsonx/bsoncore"})
 			case config.SerializerGQL:
@@ -177,6 +176,7 @@ func (i inspector) determineImports(f *File) {
 				f.Imports = append(f.Imports, &Import{Path: "strconv"})
 			case config.SerializerJSON:
 				f.Imports = append(f.Imports, &Import{Path: "encoding/json"})
+				f.Imports = append(f.Imports, &Import{Path: "strconv"})
 			case config.SerializerSQL:
 				f.Imports = append(f.Imports, &Import{Path: "database/sql/driver"})
 			case config.SerializerYamlV3:

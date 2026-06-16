@@ -1,3 +1,4 @@
 ---
 transform: upper-kebab
 serializers: [binary-str, graphql, json, sql, text, yaml.v3]
+support: [ignore-case]

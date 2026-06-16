@@ -69,6 +69,10 @@ func (_a Animal) String() string {
 	if !_a.IsValid() {
 		return fmt.Sprintf("Animal(%d)", _a)
 	}
+	return _AnimalStringValue(_a)
+}
+
+func _AnimalStringValue(_a Animal) string {
 	idx := uint(_a)
 	return _AnimalStrings[idx]
 }
@@ -97,7 +101,7 @@ func (_a Animal) MarshalBinary() ([]byte, error) {
 	if err := _a.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Animal. %w", _a, err)
 	}
-	return []byte(_a.String()), nil
+	return []byte(_AnimalStringValue(_a)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for Animal.
@@ -117,7 +121,8 @@ func (_a *Animal) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for Animal.
 func (_a Animal) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_a.String()))
+	str := _a.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for Animal.
@@ -150,7 +155,8 @@ func (_a Animal) MarshalJSON() ([]byte, error) {
 	if err := _a.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Animal. %w", _a, err)
 	}
-	return json.Marshal(_a.String())
+	str := _AnimalStringValue(_a)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for Animal.
@@ -176,7 +182,7 @@ func (_a Animal) Value() (driver.Value, error) {
 	if err := _a.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as Animal. %w", _a, err)
 	}
-	return _a.String(), nil
+	return _AnimalStringValue(_a), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for Animal.
@@ -209,7 +215,7 @@ func (_a Animal) MarshalText() ([]byte, error) {
 	if err := _a.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Animal. %w", _a, err)
 	}
-	return []byte(_a.String()), nil
+	return []byte(_AnimalStringValue(_a)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for Animal.
@@ -232,7 +238,7 @@ func (_a Animal) MarshalYAML() (interface{}, error) {
 	if err := _a.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Animal. %w", _a, err)
 	}
-	return _a.String(), nil
+	return _AnimalStringValue(_a), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for Animal.
@@ -307,6 +313,10 @@ func (_b Bird) String() string {
 	if !_b.IsValid() {
 		return fmt.Sprintf("Bird(%d)", _b)
 	}
+	return _BirdStringValue(_b)
+}
+
+func _BirdStringValue(_b Bird) string {
 	idx := uint(_b)
 	return _BirdStrings[idx]
 }
@@ -335,7 +345,7 @@ func (_b Bird) MarshalBinary() ([]byte, error) {
 	if err := _b.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Bird. %w", _b, err)
 	}
-	return []byte(_b.String()), nil
+	return []byte(_BirdStringValue(_b)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for Bird.
@@ -355,7 +365,8 @@ func (_b *Bird) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for Bird.
 func (_b Bird) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_b.String()))
+	str := _b.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for Bird.
@@ -388,7 +399,8 @@ func (_b Bird) MarshalJSON() ([]byte, error) {
 	if err := _b.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Bird. %w", _b, err)
 	}
-	return json.Marshal(_b.String())
+	str := _BirdStringValue(_b)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for Bird.
@@ -414,7 +426,7 @@ func (_b Bird) Value() (driver.Value, error) {
 	if err := _b.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as Bird. %w", _b, err)
 	}
-	return _b.String(), nil
+	return _BirdStringValue(_b), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for Bird.
@@ -447,7 +459,7 @@ func (_b Bird) MarshalText() ([]byte, error) {
 	if err := _b.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Bird. %w", _b, err)
 	}
-	return []byte(_b.String()), nil
+	return []byte(_BirdStringValue(_b)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for Bird.
@@ -470,7 +482,7 @@ func (_b Bird) MarshalYAML() (interface{}, error) {
 	if err := _b.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Bird. %w", _b, err)
 	}
-	return _b.String(), nil
+	return _BirdStringValue(_b), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for Bird.
@@ -546,6 +558,10 @@ func (_f Fish) String() string {
 	if !_f.IsValid() {
 		return fmt.Sprintf("Fish(%d)", _f)
 	}
+	return _FishStringValue(_f)
+}
+
+func _FishStringValue(_f Fish) string {
 	idx := uint(_f)
 	return _FishStrings[idx]
 }
@@ -575,7 +591,7 @@ func (_f Fish) MarshalBinary() ([]byte, error) {
 	if err := _f.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Fish. %w", _f, err)
 	}
-	return []byte(_f.String()), nil
+	return []byte(_FishStringValue(_f)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for Fish.
@@ -595,7 +611,8 @@ func (_f *Fish) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for Fish.
 func (_f Fish) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_f.String()))
+	str := _f.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for Fish.
@@ -628,7 +645,8 @@ func (_f Fish) MarshalJSON() ([]byte, error) {
 	if err := _f.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Fish. %w", _f, err)
 	}
-	return json.Marshal(_f.String())
+	str := _FishStringValue(_f)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for Fish.
@@ -654,7 +672,7 @@ func (_f Fish) Value() (driver.Value, error) {
 	if err := _f.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as Fish. %w", _f, err)
 	}
-	return _f.String(), nil
+	return _FishStringValue(_f), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for Fish.
@@ -687,7 +705,7 @@ func (_f Fish) MarshalText() ([]byte, error) {
 	if err := _f.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Fish. %w", _f, err)
 	}
-	return []byte(_f.String()), nil
+	return []byte(_FishStringValue(_f)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for Fish.
@@ -710,7 +728,7 @@ func (_f Fish) MarshalYAML() (interface{}, error) {
 	if err := _f.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Fish. %w", _f, err)
 	}
-	return _f.String(), nil
+	return _FishStringValue(_f), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for Fish.
@@ -783,25 +801,26 @@ func (_m Mammal) String() string {
 	if !_m.IsValid() {
 		return fmt.Sprintf("Mammal(%d)", _m)
 	}
+	return _MammalStringValue(_m)
+}
+
+func _MammalStringValue(_m Mammal) string {
 	idx := uint(_m)
 	return _MammalStrings[idx]
 }
 
-var (
-	_MammalStringToValueMap = map[string]Mammal{
-		_MammalString[0:13]:  MammalBumblebeeBat,
-		_MammalString[13:23]: MammalBlueWhale,
-		_MammalString[23:36]: MammalBowheadWhale,
-	}
-)
-
 // MammalFromString determines the enum value with an exact case match.
 func MammalFromString(raw string) (Mammal, bool) {
-	v, ok := _MammalStringToValueMap[raw]
-	if !ok {
+	switch raw {
+	case _MammalString[0:13]:
+		return MammalBumblebeeBat, true
+	case _MammalString[13:23]:
+		return MammalBlueWhale, true
+	case _MammalString[23:36]:
+		return MammalBowheadWhale, true
+	default:
 		return Mammal(0), false
 	}
-	return v, true
 }
 
 // MarshalBinary implements the encoding.BinaryMarshaler interface for Mammal.
@@ -809,7 +828,7 @@ func (_m Mammal) MarshalBinary() ([]byte, error) {
 	if err := _m.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Mammal. %w", _m, err)
 	}
-	return []byte(_m.String()), nil
+	return []byte(_MammalStringValue(_m)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for Mammal.
@@ -829,7 +848,8 @@ func (_m *Mammal) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for Mammal.
 func (_m Mammal) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_m.String()))
+	str := _m.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for Mammal.
@@ -862,7 +882,8 @@ func (_m Mammal) MarshalJSON() ([]byte, error) {
 	if err := _m.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Mammal. %w", _m, err)
 	}
-	return json.Marshal(_m.String())
+	str := _MammalStringValue(_m)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for Mammal.
@@ -888,7 +909,7 @@ func (_m Mammal) Value() (driver.Value, error) {
 	if err := _m.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as Mammal. %w", _m, err)
 	}
-	return _m.String(), nil
+	return _MammalStringValue(_m), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for Mammal.
@@ -921,7 +942,7 @@ func (_m Mammal) MarshalText() ([]byte, error) {
 	if err := _m.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Mammal. %w", _m, err)
 	}
-	return []byte(_m.String()), nil
+	return []byte(_MammalStringValue(_m)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for Mammal.
@@ -944,7 +965,7 @@ func (_m Mammal) MarshalYAML() (interface{}, error) {
 	if err := _m.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Mammal. %w", _m, err)
 	}
-	return _m.String(), nil
+	return _MammalStringValue(_m), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for Mammal.
@@ -1018,26 +1039,28 @@ func (_r Reptile) String() string {
 	if !_r.IsValid() {
 		return fmt.Sprintf("Reptile(%d)", _r)
 	}
+	return _ReptileStringValue(_r)
+}
+
+func _ReptileStringValue(_r Reptile) string {
 	idx := uint(_r)
 	return _ReptileStrings[idx]
 }
 
-var (
-	_ReptileStringToValueMap = map[string]Reptile{
-		_ReptileString[0:18]:  ReptileSaltwaterCrocodile,
-		_ReptileString[18:31]: ReptileBeardedDragon,
-		_ReptileString[31:40]: ReptileChameleon,
-		_ReptileString[40:52]: ReptileComodoDragon,
-	}
-)
-
 // ReptileFromString determines the enum value with an exact case match.
 func ReptileFromString(raw string) (Reptile, bool) {
-	v, ok := _ReptileStringToValueMap[raw]
-	if !ok {
+	switch raw {
+	case _ReptileString[0:18]:
+		return ReptileSaltwaterCrocodile, true
+	case _ReptileString[18:31]:
+		return ReptileBeardedDragon, true
+	case _ReptileString[31:40]:
+		return ReptileChameleon, true
+	case _ReptileString[40:52]:
+		return ReptileComodoDragon, true
+	default:
 		return Reptile(0), false
 	}
-	return v, true
 }
 
 // MarshalBinary implements the encoding.BinaryMarshaler interface for Reptile.
@@ -1045,7 +1068,7 @@ func (_r Reptile) MarshalBinary() ([]byte, error) {
 	if err := _r.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Reptile. %w", _r, err)
 	}
-	return []byte(_r.String()), nil
+	return []byte(_ReptileStringValue(_r)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for Reptile.
@@ -1065,7 +1088,8 @@ func (_r *Reptile) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for Reptile.
 func (_r Reptile) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_r.String()))
+	str := _r.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for Reptile.
@@ -1098,7 +1122,8 @@ func (_r Reptile) MarshalJSON() ([]byte, error) {
 	if err := _r.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Reptile. %w", _r, err)
 	}
-	return json.Marshal(_r.String())
+	str := _ReptileStringValue(_r)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for Reptile.
@@ -1124,7 +1149,7 @@ func (_r Reptile) Value() (driver.Value, error) {
 	if err := _r.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as Reptile. %w", _r, err)
 	}
-	return _r.String(), nil
+	return _ReptileStringValue(_r), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for Reptile.
@@ -1157,7 +1182,7 @@ func (_r Reptile) MarshalText() ([]byte, error) {
 	if err := _r.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Reptile. %w", _r, err)
 	}
-	return []byte(_r.String()), nil
+	return []byte(_ReptileStringValue(_r)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for Reptile.
@@ -1180,7 +1205,7 @@ func (_r Reptile) MarshalYAML() (interface{}, error) {
 	if err := _r.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Reptile. %w", _r, err)
 	}
-	return _r.String(), nil
+	return _ReptileStringValue(_r), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for Reptile.

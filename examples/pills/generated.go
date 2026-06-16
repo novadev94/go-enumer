@@ -17,7 +17,8 @@ var (
 )
 
 const (
-	_PillAliasedString = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
+	_PillAliasedString      = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
+	_PillAliasedLowerString = "placeboaspirinibuprofenparacetamolacetaminophenvitamin-c"
 )
 
 var (
@@ -70,6 +71,10 @@ func (_p PillAliased) String() string {
 	if !_p.IsValid() {
 		return fmt.Sprintf("PillAliased(%d)", _p)
 	}
+	return _PillAliasedStringValue(_p)
+}
+
+func _PillAliasedStringValue(_p PillAliased) string {
 	idx := uint(_p)
 	return _PillAliasedStrings[idx]
 }
@@ -83,6 +88,14 @@ var (
 		_PillAliasedString[34:47]: PillAliasedAcetaminophen,
 		_PillAliasedString[47:56]: PillAliasedVitaminC,
 	}
+	_PillAliasedLowerStringToValueMap = map[string]PillAliased{
+		_PillAliasedLowerString[0:7]:   PillAliasedPlacebo,
+		_PillAliasedLowerString[7:14]:  PillAliasedAspirin,
+		_PillAliasedLowerString[14:23]: PillAliasedIbuprofen,
+		_PillAliasedLowerString[23:34]: PillAliasedParacetamol,
+		_PillAliasedLowerString[34:47]: PillAliasedAcetaminophen,
+		_PillAliasedLowerString[47:56]: PillAliasedVitaminC,
+	}
 )
 
 // PillAliasedFromString determines the enum value with an exact case match.
@@ -94,12 +107,25 @@ func PillAliasedFromString(raw string) (PillAliased, bool) {
 	return v, true
 }
 
+// PillAliasedFromStringIgnoreCase determines the enum value with a case-insensitive match.
+func PillAliasedFromStringIgnoreCase(raw string) (PillAliased, bool) {
+	v, ok := PillAliasedFromString(raw)
+	if ok {
+		return v, ok
+	}
+	v, ok = _PillAliasedLowerStringToValueMap[raw]
+	if !ok {
+		return PillAliased(0), false
+	}
+	return v, true
+}
+
 // MarshalBinary implements the encoding.BinaryMarshaler interface for PillAliased.
 func (_p PillAliased) MarshalBinary() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillAliased. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PillAliasedStringValue(_p)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for PillAliased.
@@ -110,7 +136,7 @@ func (_p *PillAliased) UnmarshalBinary(text []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillAliasedFromString(str)
+	*_p, ok = PillAliasedFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillAliased", str)
 	}
@@ -119,7 +145,8 @@ func (_p *PillAliased) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for PillAliased.
 func (_p PillAliased) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_p.String()))
+	str := _p.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for PillAliased.
@@ -140,7 +167,7 @@ func (_p *PillAliased) UnmarshalGQL(value interface{}) error {
 	}
 
 	var ok bool
-	*_p, ok = PillAliasedFromString(str)
+	*_p, ok = PillAliasedFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillAliased", str)
 	}
@@ -152,7 +179,8 @@ func (_p PillAliased) MarshalJSON() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillAliased. %w", _p, err)
 	}
-	return json.Marshal(_p.String())
+	str := _PillAliasedStringValue(_p)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for PillAliased.
@@ -166,7 +194,7 @@ func (_p *PillAliased) UnmarshalJSON(data []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillAliasedFromString(str)
+	*_p, ok = PillAliasedFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillAliased", str)
 	}
@@ -178,7 +206,7 @@ func (_p PillAliased) Value() (driver.Value, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as PillAliased. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PillAliasedStringValue(_p), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for PillAliased.
@@ -199,7 +227,7 @@ func (_p *PillAliased) Scan(value interface{}) error {
 	}
 
 	var ok bool
-	*_p, ok = PillAliasedFromString(str)
+	*_p, ok = PillAliasedFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillAliased", str)
 	}
@@ -211,7 +239,7 @@ func (_p PillAliased) MarshalText() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillAliased. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PillAliasedStringValue(_p)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for PillAliased.
@@ -222,7 +250,7 @@ func (_p *PillAliased) UnmarshalText(text []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillAliasedFromString(str)
+	*_p, ok = PillAliasedFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillAliased", str)
 	}
@@ -234,7 +262,7 @@ func (_p PillAliased) MarshalYAML() (interface{}, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillAliased. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PillAliasedStringValue(_p), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for PillAliased.
@@ -249,7 +277,7 @@ func (_p *PillAliased) UnmarshalYAML(n *yaml.Node) error {
 	}
 
 	var ok bool
-	*_p, ok = PillAliasedFromString(str)
+	*_p, ok = PillAliasedFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillAliased", str)
 	}
@@ -257,7 +285,8 @@ func (_p *PillAliased) UnmarshalYAML(n *yaml.Node) error {
 }
 
 const (
-	_PillUnsignedString = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
+	_PillUnsignedString      = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
+	_PillUnsignedLowerString = "placeboaspirinibuprofenparacetamolacetaminophenvitamin-c"
 )
 
 var (
@@ -310,6 +339,10 @@ func (_p PillUnsigned) String() string {
 	if !_p.IsValid() {
 		return fmt.Sprintf("PillUnsigned(%d)", _p)
 	}
+	return _PillUnsignedStringValue(_p)
+}
+
+func _PillUnsignedStringValue(_p PillUnsigned) string {
 	idx := uint(_p)
 	return _PillUnsignedStrings[idx]
 }
@@ -323,6 +356,14 @@ var (
 		_PillUnsignedString[34:47]: PillUnsignedAcetaminophen,
 		_PillUnsignedString[47:56]: PillUnsignedVitaminC,
 	}
+	_PillUnsignedLowerStringToValueMap = map[string]PillUnsigned{
+		_PillUnsignedLowerString[0:7]:   PillUnsignedPlacebo,
+		_PillUnsignedLowerString[7:14]:  PillUnsignedAspirin,
+		_PillUnsignedLowerString[14:23]: PillUnsignedIbuprofen,
+		_PillUnsignedLowerString[23:34]: PillUnsignedParacetamol,
+		_PillUnsignedLowerString[34:47]: PillUnsignedAcetaminophen,
+		_PillUnsignedLowerString[47:56]: PillUnsignedVitaminC,
+	}
 )
 
 // PillUnsignedFromString determines the enum value with an exact case match.
@@ -334,12 +375,25 @@ func PillUnsignedFromString(raw string) (PillUnsigned, bool) {
 	return v, true
 }
 
+// PillUnsignedFromStringIgnoreCase determines the enum value with a case-insensitive match.
+func PillUnsignedFromStringIgnoreCase(raw string) (PillUnsigned, bool) {
+	v, ok := PillUnsignedFromString(raw)
+	if ok {
+		return v, ok
+	}
+	v, ok = _PillUnsignedLowerStringToValueMap[raw]
+	if !ok {
+		return PillUnsigned(0), false
+	}
+	return v, true
+}
+
 // MarshalBinary implements the encoding.BinaryMarshaler interface for PillUnsigned.
 func (_p PillUnsigned) MarshalBinary() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PillUnsignedStringValue(_p)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for PillUnsigned.
@@ -350,7 +404,7 @@ func (_p *PillUnsigned) UnmarshalBinary(text []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsignedFromString(str)
+	*_p, ok = PillUnsignedFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned", str)
 	}
@@ -359,7 +413,8 @@ func (_p *PillUnsigned) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for PillUnsigned.
 func (_p PillUnsigned) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_p.String()))
+	str := _p.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for PillUnsigned.
@@ -380,7 +435,7 @@ func (_p *PillUnsigned) UnmarshalGQL(value interface{}) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsignedFromString(str)
+	*_p, ok = PillUnsignedFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned", str)
 	}
@@ -392,7 +447,8 @@ func (_p PillUnsigned) MarshalJSON() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned. %w", _p, err)
 	}
-	return json.Marshal(_p.String())
+	str := _PillUnsignedStringValue(_p)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for PillUnsigned.
@@ -406,7 +462,7 @@ func (_p *PillUnsigned) UnmarshalJSON(data []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsignedFromString(str)
+	*_p, ok = PillUnsignedFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned", str)
 	}
@@ -418,7 +474,7 @@ func (_p PillUnsigned) Value() (driver.Value, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as PillUnsigned. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PillUnsignedStringValue(_p), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for PillUnsigned.
@@ -439,7 +495,7 @@ func (_p *PillUnsigned) Scan(value interface{}) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsignedFromString(str)
+	*_p, ok = PillUnsignedFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned", str)
 	}
@@ -451,7 +507,7 @@ func (_p PillUnsigned) MarshalText() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PillUnsignedStringValue(_p)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for PillUnsigned.
@@ -462,7 +518,7 @@ func (_p *PillUnsigned) UnmarshalText(text []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsignedFromString(str)
+	*_p, ok = PillUnsignedFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned", str)
 	}
@@ -474,7 +530,7 @@ func (_p PillUnsigned) MarshalYAML() (interface{}, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PillUnsignedStringValue(_p), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for PillUnsigned.
@@ -489,7 +545,7 @@ func (_p *PillUnsigned) UnmarshalYAML(n *yaml.Node) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsignedFromString(str)
+	*_p, ok = PillUnsignedFromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned", str)
 	}
@@ -497,7 +553,8 @@ func (_p *PillUnsigned) UnmarshalYAML(n *yaml.Node) error {
 }
 
 const (
-	_PillUnsigned16String = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
+	_PillUnsigned16String      = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
+	_PillUnsigned16LowerString = "placeboaspirinibuprofenparacetamolacetaminophenvitamin-c"
 )
 
 var (
@@ -550,6 +607,10 @@ func (_p PillUnsigned16) String() string {
 	if !_p.IsValid() {
 		return fmt.Sprintf("PillUnsigned16(%d)", _p)
 	}
+	return _PillUnsigned16StringValue(_p)
+}
+
+func _PillUnsigned16StringValue(_p PillUnsigned16) string {
 	idx := uint(_p)
 	return _PillUnsigned16Strings[idx]
 }
@@ -563,6 +624,14 @@ var (
 		_PillUnsigned16String[34:47]: PillUnsigned16Acetaminophen,
 		_PillUnsigned16String[47:56]: PillUnsigned16VitaminC,
 	}
+	_PillUnsigned16LowerStringToValueMap = map[string]PillUnsigned16{
+		_PillUnsigned16LowerString[0:7]:   PillUnsigned16Placebo,
+		_PillUnsigned16LowerString[7:14]:  PillUnsigned16Aspirin,
+		_PillUnsigned16LowerString[14:23]: PillUnsigned16Ibuprofen,
+		_PillUnsigned16LowerString[23:34]: PillUnsigned16Paracetamol,
+		_PillUnsigned16LowerString[34:47]: PillUnsigned16Acetaminophen,
+		_PillUnsigned16LowerString[47:56]: PillUnsigned16VitaminC,
+	}
 )
 
 // PillUnsigned16FromString determines the enum value with an exact case match.
@@ -574,12 +643,25 @@ func PillUnsigned16FromString(raw string) (PillUnsigned16, bool) {
 	return v, true
 }
 
+// PillUnsigned16FromStringIgnoreCase determines the enum value with a case-insensitive match.
+func PillUnsigned16FromStringIgnoreCase(raw string) (PillUnsigned16, bool) {
+	v, ok := PillUnsigned16FromString(raw)
+	if ok {
+		return v, ok
+	}
+	v, ok = _PillUnsigned16LowerStringToValueMap[raw]
+	if !ok {
+		return PillUnsigned16(0), false
+	}
+	return v, true
+}
+
 // MarshalBinary implements the encoding.BinaryMarshaler interface for PillUnsigned16.
 func (_p PillUnsigned16) MarshalBinary() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned16. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PillUnsigned16StringValue(_p)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for PillUnsigned16.
@@ -590,7 +672,7 @@ func (_p *PillUnsigned16) UnmarshalBinary(text []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned16FromString(str)
+	*_p, ok = PillUnsigned16FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned16", str)
 	}
@@ -599,7 +681,8 @@ func (_p *PillUnsigned16) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for PillUnsigned16.
 func (_p PillUnsigned16) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_p.String()))
+	str := _p.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for PillUnsigned16.
@@ -620,7 +703,7 @@ func (_p *PillUnsigned16) UnmarshalGQL(value interface{}) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned16FromString(str)
+	*_p, ok = PillUnsigned16FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned16", str)
 	}
@@ -632,7 +715,8 @@ func (_p PillUnsigned16) MarshalJSON() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned16. %w", _p, err)
 	}
-	return json.Marshal(_p.String())
+	str := _PillUnsigned16StringValue(_p)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for PillUnsigned16.
@@ -646,7 +730,7 @@ func (_p *PillUnsigned16) UnmarshalJSON(data []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned16FromString(str)
+	*_p, ok = PillUnsigned16FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned16", str)
 	}
@@ -658,7 +742,7 @@ func (_p PillUnsigned16) Value() (driver.Value, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as PillUnsigned16. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PillUnsigned16StringValue(_p), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for PillUnsigned16.
@@ -679,7 +763,7 @@ func (_p *PillUnsigned16) Scan(value interface{}) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned16FromString(str)
+	*_p, ok = PillUnsigned16FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned16", str)
 	}
@@ -691,7 +775,7 @@ func (_p PillUnsigned16) MarshalText() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned16. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PillUnsigned16StringValue(_p)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for PillUnsigned16.
@@ -702,7 +786,7 @@ func (_p *PillUnsigned16) UnmarshalText(text []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned16FromString(str)
+	*_p, ok = PillUnsigned16FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned16", str)
 	}
@@ -714,7 +798,7 @@ func (_p PillUnsigned16) MarshalYAML() (interface{}, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned16. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PillUnsigned16StringValue(_p), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for PillUnsigned16.
@@ -729,7 +813,7 @@ func (_p *PillUnsigned16) UnmarshalYAML(n *yaml.Node) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned16FromString(str)
+	*_p, ok = PillUnsigned16FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned16", str)
 	}
@@ -737,7 +821,8 @@ func (_p *PillUnsigned16) UnmarshalYAML(n *yaml.Node) error {
 }
 
 const (
-	_PillUnsigned32String = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
+	_PillUnsigned32String      = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
+	_PillUnsigned32LowerString = "placeboaspirinibuprofenparacetamolacetaminophenvitamin-c"
 )
 
 var (
@@ -790,6 +875,10 @@ func (_p PillUnsigned32) String() string {
 	if !_p.IsValid() {
 		return fmt.Sprintf("PillUnsigned32(%d)", _p)
 	}
+	return _PillUnsigned32StringValue(_p)
+}
+
+func _PillUnsigned32StringValue(_p PillUnsigned32) string {
 	idx := uint(_p)
 	return _PillUnsigned32Strings[idx]
 }
@@ -803,6 +892,14 @@ var (
 		_PillUnsigned32String[34:47]: PillUnsigned32Acetaminophen,
 		_PillUnsigned32String[47:56]: PillUnsigned32VitaminC,
 	}
+	_PillUnsigned32LowerStringToValueMap = map[string]PillUnsigned32{
+		_PillUnsigned32LowerString[0:7]:   PillUnsigned32Placebo,
+		_PillUnsigned32LowerString[7:14]:  PillUnsigned32Aspirin,
+		_PillUnsigned32LowerString[14:23]: PillUnsigned32Ibuprofen,
+		_PillUnsigned32LowerString[23:34]: PillUnsigned32Paracetamol,
+		_PillUnsigned32LowerString[34:47]: PillUnsigned32Acetaminophen,
+		_PillUnsigned32LowerString[47:56]: PillUnsigned32VitaminC,
+	}
 )
 
 // PillUnsigned32FromString determines the enum value with an exact case match.
@@ -814,12 +911,25 @@ func PillUnsigned32FromString(raw string) (PillUnsigned32, bool) {
 	return v, true
 }
 
+// PillUnsigned32FromStringIgnoreCase determines the enum value with a case-insensitive match.
+func PillUnsigned32FromStringIgnoreCase(raw string) (PillUnsigned32, bool) {
+	v, ok := PillUnsigned32FromString(raw)
+	if ok {
+		return v, ok
+	}
+	v, ok = _PillUnsigned32LowerStringToValueMap[raw]
+	if !ok {
+		return PillUnsigned32(0), false
+	}
+	return v, true
+}
+
 // MarshalBinary implements the encoding.BinaryMarshaler interface for PillUnsigned32.
 func (_p PillUnsigned32) MarshalBinary() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned32. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PillUnsigned32StringValue(_p)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for PillUnsigned32.
@@ -830,7 +940,7 @@ func (_p *PillUnsigned32) UnmarshalBinary(text []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned32FromString(str)
+	*_p, ok = PillUnsigned32FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned32", str)
 	}
@@ -839,7 +949,8 @@ func (_p *PillUnsigned32) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for PillUnsigned32.
 func (_p PillUnsigned32) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_p.String()))
+	str := _p.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for PillUnsigned32.
@@ -860,7 +971,7 @@ func (_p *PillUnsigned32) UnmarshalGQL(value interface{}) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned32FromString(str)
+	*_p, ok = PillUnsigned32FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned32", str)
 	}
@@ -872,7 +983,8 @@ func (_p PillUnsigned32) MarshalJSON() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned32. %w", _p, err)
 	}
-	return json.Marshal(_p.String())
+	str := _PillUnsigned32StringValue(_p)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for PillUnsigned32.
@@ -886,7 +998,7 @@ func (_p *PillUnsigned32) UnmarshalJSON(data []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned32FromString(str)
+	*_p, ok = PillUnsigned32FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned32", str)
 	}
@@ -898,7 +1010,7 @@ func (_p PillUnsigned32) Value() (driver.Value, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as PillUnsigned32. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PillUnsigned32StringValue(_p), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for PillUnsigned32.
@@ -919,7 +1031,7 @@ func (_p *PillUnsigned32) Scan(value interface{}) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned32FromString(str)
+	*_p, ok = PillUnsigned32FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned32", str)
 	}
@@ -931,7 +1043,7 @@ func (_p PillUnsigned32) MarshalText() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned32. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PillUnsigned32StringValue(_p)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for PillUnsigned32.
@@ -942,7 +1054,7 @@ func (_p *PillUnsigned32) UnmarshalText(text []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned32FromString(str)
+	*_p, ok = PillUnsigned32FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned32", str)
 	}
@@ -954,7 +1066,7 @@ func (_p PillUnsigned32) MarshalYAML() (interface{}, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned32. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PillUnsigned32StringValue(_p), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for PillUnsigned32.
@@ -969,7 +1081,7 @@ func (_p *PillUnsigned32) UnmarshalYAML(n *yaml.Node) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned32FromString(str)
+	*_p, ok = PillUnsigned32FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned32", str)
 	}
@@ -977,7 +1089,8 @@ func (_p *PillUnsigned32) UnmarshalYAML(n *yaml.Node) error {
 }
 
 const (
-	_PillUnsigned64String = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
+	_PillUnsigned64String      = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
+	_PillUnsigned64LowerString = "placeboaspirinibuprofenparacetamolacetaminophenvitamin-c"
 )
 
 var (
@@ -1030,6 +1143,10 @@ func (_p PillUnsigned64) String() string {
 	if !_p.IsValid() {
 		return fmt.Sprintf("PillUnsigned64(%d)", _p)
 	}
+	return _PillUnsigned64StringValue(_p)
+}
+
+func _PillUnsigned64StringValue(_p PillUnsigned64) string {
 	idx := uint(_p)
 	return _PillUnsigned64Strings[idx]
 }
@@ -1043,6 +1160,14 @@ var (
 		_PillUnsigned64String[34:47]: PillUnsigned64Acetaminophen,
 		_PillUnsigned64String[47:56]: PillUnsigned64VitaminC,
 	}
+	_PillUnsigned64LowerStringToValueMap = map[string]PillUnsigned64{
+		_PillUnsigned64LowerString[0:7]:   PillUnsigned64Placebo,
+		_PillUnsigned64LowerString[7:14]:  PillUnsigned64Aspirin,
+		_PillUnsigned64LowerString[14:23]: PillUnsigned64Ibuprofen,
+		_PillUnsigned64LowerString[23:34]: PillUnsigned64Paracetamol,
+		_PillUnsigned64LowerString[34:47]: PillUnsigned64Acetaminophen,
+		_PillUnsigned64LowerString[47:56]: PillUnsigned64VitaminC,
+	}
 )
 
 // PillUnsigned64FromString determines the enum value with an exact case match.
@@ -1054,12 +1179,25 @@ func PillUnsigned64FromString(raw string) (PillUnsigned64, bool) {
 	return v, true
 }
 
+// PillUnsigned64FromStringIgnoreCase determines the enum value with a case-insensitive match.
+func PillUnsigned64FromStringIgnoreCase(raw string) (PillUnsigned64, bool) {
+	v, ok := PillUnsigned64FromString(raw)
+	if ok {
+		return v, ok
+	}
+	v, ok = _PillUnsigned64LowerStringToValueMap[raw]
+	if !ok {
+		return PillUnsigned64(0), false
+	}
+	return v, true
+}
+
 // MarshalBinary implements the encoding.BinaryMarshaler interface for PillUnsigned64.
 func (_p PillUnsigned64) MarshalBinary() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned64. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PillUnsigned64StringValue(_p)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for PillUnsigned64.
@@ -1070,7 +1208,7 @@ func (_p *PillUnsigned64) UnmarshalBinary(text []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned64FromString(str)
+	*_p, ok = PillUnsigned64FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned64", str)
 	}
@@ -1079,7 +1217,8 @@ func (_p *PillUnsigned64) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for PillUnsigned64.
 func (_p PillUnsigned64) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_p.String()))
+	str := _p.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for PillUnsigned64.
@@ -1100,7 +1239,7 @@ func (_p *PillUnsigned64) UnmarshalGQL(value interface{}) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned64FromString(str)
+	*_p, ok = PillUnsigned64FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned64", str)
 	}
@@ -1112,7 +1251,8 @@ func (_p PillUnsigned64) MarshalJSON() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned64. %w", _p, err)
 	}
-	return json.Marshal(_p.String())
+	str := _PillUnsigned64StringValue(_p)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for PillUnsigned64.
@@ -1126,7 +1266,7 @@ func (_p *PillUnsigned64) UnmarshalJSON(data []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned64FromString(str)
+	*_p, ok = PillUnsigned64FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned64", str)
 	}
@@ -1138,7 +1278,7 @@ func (_p PillUnsigned64) Value() (driver.Value, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as PillUnsigned64. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PillUnsigned64StringValue(_p), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for PillUnsigned64.
@@ -1159,7 +1299,7 @@ func (_p *PillUnsigned64) Scan(value interface{}) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned64FromString(str)
+	*_p, ok = PillUnsigned64FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned64", str)
 	}
@@ -1171,7 +1311,7 @@ func (_p PillUnsigned64) MarshalText() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned64. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PillUnsigned64StringValue(_p)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for PillUnsigned64.
@@ -1182,7 +1322,7 @@ func (_p *PillUnsigned64) UnmarshalText(text []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned64FromString(str)
+	*_p, ok = PillUnsigned64FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned64", str)
 	}
@@ -1194,7 +1334,7 @@ func (_p PillUnsigned64) MarshalYAML() (interface{}, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned64. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PillUnsigned64StringValue(_p), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for PillUnsigned64.
@@ -1209,7 +1349,7 @@ func (_p *PillUnsigned64) UnmarshalYAML(n *yaml.Node) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned64FromString(str)
+	*_p, ok = PillUnsigned64FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned64", str)
 	}
@@ -1217,7 +1357,8 @@ func (_p *PillUnsigned64) UnmarshalYAML(n *yaml.Node) error {
 }
 
 const (
-	_PillUnsigned8String = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
+	_PillUnsigned8String      = "PLACEBOASPIRINIBUPROFENPARACETAMOLACETAMINOPHENVITAMIN-C"
+	_PillUnsigned8LowerString = "placeboaspirinibuprofenparacetamolacetaminophenvitamin-c"
 )
 
 var (
@@ -1270,6 +1411,10 @@ func (_p PillUnsigned8) String() string {
 	if !_p.IsValid() {
 		return fmt.Sprintf("PillUnsigned8(%d)", _p)
 	}
+	return _PillUnsigned8StringValue(_p)
+}
+
+func _PillUnsigned8StringValue(_p PillUnsigned8) string {
 	idx := uint(_p)
 	return _PillUnsigned8Strings[idx]
 }
@@ -1283,6 +1428,14 @@ var (
 		_PillUnsigned8String[34:47]: PillUnsigned8Acetaminophen,
 		_PillUnsigned8String[47:56]: PillUnsigned8VitaminC,
 	}
+	_PillUnsigned8LowerStringToValueMap = map[string]PillUnsigned8{
+		_PillUnsigned8LowerString[0:7]:   PillUnsigned8Placebo,
+		_PillUnsigned8LowerString[7:14]:  PillUnsigned8Aspirin,
+		_PillUnsigned8LowerString[14:23]: PillUnsigned8Ibuprofen,
+		_PillUnsigned8LowerString[23:34]: PillUnsigned8Paracetamol,
+		_PillUnsigned8LowerString[34:47]: PillUnsigned8Acetaminophen,
+		_PillUnsigned8LowerString[47:56]: PillUnsigned8VitaminC,
+	}
 )
 
 // PillUnsigned8FromString determines the enum value with an exact case match.
@@ -1294,12 +1447,25 @@ func PillUnsigned8FromString(raw string) (PillUnsigned8, bool) {
 	return v, true
 }
 
+// PillUnsigned8FromStringIgnoreCase determines the enum value with a case-insensitive match.
+func PillUnsigned8FromStringIgnoreCase(raw string) (PillUnsigned8, bool) {
+	v, ok := PillUnsigned8FromString(raw)
+	if ok {
+		return v, ok
+	}
+	v, ok = _PillUnsigned8LowerStringToValueMap[raw]
+	if !ok {
+		return PillUnsigned8(0), false
+	}
+	return v, true
+}
+
 // MarshalBinary implements the encoding.BinaryMarshaler interface for PillUnsigned8.
 func (_p PillUnsigned8) MarshalBinary() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned8. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PillUnsigned8StringValue(_p)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for PillUnsigned8.
@@ -1310,7 +1476,7 @@ func (_p *PillUnsigned8) UnmarshalBinary(text []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned8FromString(str)
+	*_p, ok = PillUnsigned8FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned8", str)
 	}
@@ -1319,7 +1485,8 @@ func (_p *PillUnsigned8) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for PillUnsigned8.
 func (_p PillUnsigned8) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_p.String()))
+	str := _p.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for PillUnsigned8.
@@ -1340,7 +1507,7 @@ func (_p *PillUnsigned8) UnmarshalGQL(value interface{}) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned8FromString(str)
+	*_p, ok = PillUnsigned8FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned8", str)
 	}
@@ -1352,7 +1519,8 @@ func (_p PillUnsigned8) MarshalJSON() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned8. %w", _p, err)
 	}
-	return json.Marshal(_p.String())
+	str := _PillUnsigned8StringValue(_p)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for PillUnsigned8.
@@ -1366,7 +1534,7 @@ func (_p *PillUnsigned8) UnmarshalJSON(data []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned8FromString(str)
+	*_p, ok = PillUnsigned8FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned8", str)
 	}
@@ -1378,7 +1546,7 @@ func (_p PillUnsigned8) Value() (driver.Value, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as PillUnsigned8. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PillUnsigned8StringValue(_p), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for PillUnsigned8.
@@ -1399,7 +1567,7 @@ func (_p *PillUnsigned8) Scan(value interface{}) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned8FromString(str)
+	*_p, ok = PillUnsigned8FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned8", str)
 	}
@@ -1411,7 +1579,7 @@ func (_p PillUnsigned8) MarshalText() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned8. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PillUnsigned8StringValue(_p)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for PillUnsigned8.
@@ -1422,7 +1590,7 @@ func (_p *PillUnsigned8) UnmarshalText(text []byte) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned8FromString(str)
+	*_p, ok = PillUnsigned8FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned8", str)
 	}
@@ -1434,7 +1602,7 @@ func (_p PillUnsigned8) MarshalYAML() (interface{}, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PillUnsigned8. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PillUnsigned8StringValue(_p), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for PillUnsigned8.
@@ -1449,7 +1617,7 @@ func (_p *PillUnsigned8) UnmarshalYAML(n *yaml.Node) error {
 	}
 
 	var ok bool
-	*_p, ok = PillUnsigned8FromString(str)
+	*_p, ok = PillUnsigned8FromStringIgnoreCase(str)
 	if !ok {
 		return fmt.Errorf("Value %q does not represent a PillUnsigned8", str)
 	}

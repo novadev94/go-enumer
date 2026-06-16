@@ -32,6 +32,10 @@ func ({{ receiver $ts.Name }} {{ $ts.Name }}) String() string {
 	if !{{ receiver $ts.Name }}.IsValid() {
 		return fmt.Sprintf("{{ $ts.Name }}(%d)", {{ receiver $ts.Name }})
 	}
+	return _{{ $ts.Name }}StringValue({{ receiver $ts.Name }})
+}
+
+func _{{ $ts.Name }}StringValue({{ receiver $ts.Name }} {{ $ts.Name }}) string {
 {{- if $ts.RequiresGeneratedUndefinedValue }}
 {{- /* This block assures the proper serialization of the generated undefined Value */}}
 	if {{ receiver $ts.Name }} == 0 {

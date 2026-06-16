@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/bsontype"
 	"go.mongodb.org/mongo-driver/x/bsonx/bsoncore"
 	"io"
@@ -74,6 +73,10 @@ func (_p Planet) String() string {
 	if !_p.IsValid() {
 		return fmt.Sprintf("Planet(%d)", _p)
 	}
+	return _PlanetStringValue(_p)
+}
+
+func _PlanetStringValue(_p Planet) string {
 	idx := uint(_p) - 1
 	return _PlanetStrings[idx]
 }
@@ -105,7 +108,7 @@ func (_p Planet) MarshalBinary() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Planet. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PlanetStringValue(_p)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for Planet.
@@ -128,7 +131,9 @@ func (_p Planet) MarshalBSONValue() (bsontype.Type, []byte, error) {
 	if err := _p.Validate(); err != nil {
 		return 0, nil, fmt.Errorf("Cannot marshal value %q as Planet. %w", _p, err)
 	}
-	return bson.MarshalValue(_p.String())
+	str := _PlanetStringValue(_p)
+	data := make([]byte, 0, 4+len(str)+1)
+	return bsontype.String, bsoncore.AppendString(data, str), nil
 }
 
 // UnmarshalBSONValue implements the bson.ValueUnmarshaler interface for Planet.
@@ -153,7 +158,8 @@ func (_p *Planet) UnmarshalBSONValue(t bsontype.Type, data []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for Planet.
 func (_p Planet) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_p.String()))
+	str := _p.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for Planet.
@@ -186,7 +192,8 @@ func (_p Planet) MarshalJSON() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Planet. %w", _p, err)
 	}
-	return json.Marshal(_p.String())
+	str := _PlanetStringValue(_p)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for Planet.
@@ -212,7 +219,7 @@ func (_p Planet) Value() (driver.Value, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as Planet. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PlanetStringValue(_p), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for Planet.
@@ -245,7 +252,7 @@ func (_p Planet) MarshalText() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Planet. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PlanetStringValue(_p)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for Planet.
@@ -268,7 +275,7 @@ func (_p Planet) MarshalYAML() (interface{}, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as Planet. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PlanetStringValue(_p), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for Planet.
@@ -345,6 +352,10 @@ func (_p PlanetSupportUndefined) String() string {
 	if !_p.IsValid() {
 		return fmt.Sprintf("PlanetSupportUndefined(%d)", _p)
 	}
+	return _PlanetSupportUndefinedStringValue(_p)
+}
+
+func _PlanetSupportUndefinedStringValue(_p PlanetSupportUndefined) string {
 	if _p == 0 {
 		return ""
 	}
@@ -382,7 +393,7 @@ func (_p PlanetSupportUndefined) MarshalBinary() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PlanetSupportUndefined. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PlanetSupportUndefinedStringValue(_p)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for PlanetSupportUndefined.
@@ -405,7 +416,9 @@ func (_p PlanetSupportUndefined) MarshalBSONValue() (bsontype.Type, []byte, erro
 	if _p == 0 {
 		return bsontype.Undefined, nil, nil
 	}
-	return bson.MarshalValue(_p.String())
+	str := _PlanetSupportUndefinedStringValue(_p)
+	data := make([]byte, 0, 4+len(str)+1)
+	return bsontype.String, bsoncore.AppendString(data, str), nil
 }
 
 // UnmarshalBSONValue implements the bson.ValueUnmarshaler interface for PlanetSupportUndefined.
@@ -427,7 +440,8 @@ func (_p *PlanetSupportUndefined) UnmarshalBSONValue(t bsontype.Type, data []byt
 
 // MarshalGQL implements the graphql.Marshaler interface for PlanetSupportUndefined.
 func (_p PlanetSupportUndefined) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_p.String()))
+	str := _p.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for PlanetSupportUndefined.
@@ -458,7 +472,8 @@ func (_p PlanetSupportUndefined) MarshalJSON() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PlanetSupportUndefined. %w", _p, err)
 	}
-	return json.Marshal(_p.String())
+	str := _PlanetSupportUndefinedStringValue(_p)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for PlanetSupportUndefined.
@@ -484,7 +499,7 @@ func (_p PlanetSupportUndefined) Value() (driver.Value, error) {
 	if _p == 0 {
 		return nil, nil
 	}
-	return _p.String(), nil
+	return _PlanetSupportUndefinedStringValue(_p), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for PlanetSupportUndefined.
@@ -515,7 +530,7 @@ func (_p PlanetSupportUndefined) MarshalText() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PlanetSupportUndefined. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PlanetSupportUndefinedStringValue(_p)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for PlanetSupportUndefined.
@@ -535,7 +550,7 @@ func (_p PlanetSupportUndefined) MarshalYAML() (interface{}, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PlanetSupportUndefined. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PlanetSupportUndefinedStringValue(_p), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for PlanetSupportUndefined.
@@ -610,6 +625,10 @@ func (_p PlanetSupportUndefinedWithDefault) String() string {
 	if !_p.IsValid() {
 		return fmt.Sprintf("PlanetSupportUndefinedWithDefault(%d)", _p)
 	}
+	return _PlanetSupportUndefinedWithDefaultStringValue(_p)
+}
+
+func _PlanetSupportUndefinedWithDefaultStringValue(_p PlanetSupportUndefinedWithDefault) string {
 	idx := uint(_p)
 	return _PlanetSupportUndefinedWithDefaultStrings[idx]
 }
@@ -645,7 +664,7 @@ func (_p PlanetSupportUndefinedWithDefault) MarshalBinary() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PlanetSupportUndefinedWithDefault. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PlanetSupportUndefinedWithDefaultStringValue(_p)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for PlanetSupportUndefinedWithDefault.
@@ -665,7 +684,9 @@ func (_p PlanetSupportUndefinedWithDefault) MarshalBSONValue() (bsontype.Type, [
 	if err := _p.Validate(); err != nil {
 		return 0, nil, fmt.Errorf("Cannot marshal value %q as PlanetSupportUndefinedWithDefault. %w", _p, err)
 	}
-	return bson.MarshalValue(_p.String())
+	str := _PlanetSupportUndefinedWithDefaultStringValue(_p)
+	data := make([]byte, 0, 4+len(str)+1)
+	return bsontype.String, bsoncore.AppendString(data, str), nil
 }
 
 // UnmarshalBSONValue implements the bson.ValueUnmarshaler interface for PlanetSupportUndefinedWithDefault.
@@ -687,7 +708,8 @@ func (_p *PlanetSupportUndefinedWithDefault) UnmarshalBSONValue(t bsontype.Type,
 
 // MarshalGQL implements the graphql.Marshaler interface for PlanetSupportUndefinedWithDefault.
 func (_p PlanetSupportUndefinedWithDefault) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_p.String()))
+	str := _p.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for PlanetSupportUndefinedWithDefault.
@@ -718,7 +740,8 @@ func (_p PlanetSupportUndefinedWithDefault) MarshalJSON() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PlanetSupportUndefinedWithDefault. %w", _p, err)
 	}
-	return json.Marshal(_p.String())
+	str := _PlanetSupportUndefinedWithDefaultStringValue(_p)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for PlanetSupportUndefinedWithDefault.
@@ -741,7 +764,7 @@ func (_p PlanetSupportUndefinedWithDefault) Value() (driver.Value, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as PlanetSupportUndefinedWithDefault. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PlanetSupportUndefinedWithDefaultStringValue(_p), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for PlanetSupportUndefinedWithDefault.
@@ -772,7 +795,7 @@ func (_p PlanetSupportUndefinedWithDefault) MarshalText() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PlanetSupportUndefinedWithDefault. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PlanetSupportUndefinedWithDefaultStringValue(_p)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for PlanetSupportUndefinedWithDefault.
@@ -792,7 +815,7 @@ func (_p PlanetSupportUndefinedWithDefault) MarshalYAML() (interface{}, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PlanetSupportUndefinedWithDefault. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PlanetSupportUndefinedWithDefaultStringValue(_p), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for PlanetSupportUndefinedWithDefault.
@@ -867,6 +890,10 @@ func (_p PlanetWithDefault) String() string {
 	if !_p.IsValid() {
 		return fmt.Sprintf("PlanetWithDefault(%d)", _p)
 	}
+	return _PlanetWithDefaultStringValue(_p)
+}
+
+func _PlanetWithDefaultStringValue(_p PlanetWithDefault) string {
 	idx := uint(_p)
 	return _PlanetWithDefaultStrings[idx]
 }
@@ -899,7 +926,7 @@ func (_p PlanetWithDefault) MarshalBinary() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PlanetWithDefault. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PlanetWithDefaultStringValue(_p)), nil
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for PlanetWithDefault.
@@ -922,7 +949,9 @@ func (_p PlanetWithDefault) MarshalBSONValue() (bsontype.Type, []byte, error) {
 	if err := _p.Validate(); err != nil {
 		return 0, nil, fmt.Errorf("Cannot marshal value %q as PlanetWithDefault. %w", _p, err)
 	}
-	return bson.MarshalValue(_p.String())
+	str := _PlanetWithDefaultStringValue(_p)
+	data := make([]byte, 0, 4+len(str)+1)
+	return bsontype.String, bsoncore.AppendString(data, str), nil
 }
 
 // UnmarshalBSONValue implements the bson.ValueUnmarshaler interface for PlanetWithDefault.
@@ -947,7 +976,8 @@ func (_p *PlanetWithDefault) UnmarshalBSONValue(t bsontype.Type, data []byte) er
 
 // MarshalGQL implements the graphql.Marshaler interface for PlanetWithDefault.
 func (_p PlanetWithDefault) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_p.String()))
+	str := _p.String()
+	_, _ = w.Write(strconv.AppendQuote(make([]byte, 0, len(str)+2), str))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for PlanetWithDefault.
@@ -980,7 +1010,8 @@ func (_p PlanetWithDefault) MarshalJSON() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PlanetWithDefault. %w", _p, err)
 	}
-	return json.Marshal(_p.String())
+	str := _PlanetWithDefaultStringValue(_p)
+	return strconv.AppendQuote(make([]byte, 0, len(str)+2), str), nil
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface for PlanetWithDefault.
@@ -1006,7 +1037,7 @@ func (_p PlanetWithDefault) Value() (driver.Value, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot serialize value %q as PlanetWithDefault. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PlanetWithDefaultStringValue(_p), nil
 }
 
 // Scan implements the sql/driver.Scanner interface for PlanetWithDefault.
@@ -1039,7 +1070,7 @@ func (_p PlanetWithDefault) MarshalText() ([]byte, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PlanetWithDefault. %w", _p, err)
 	}
-	return []byte(_p.String()), nil
+	return []byte(_PlanetWithDefaultStringValue(_p)), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface for PlanetWithDefault.
@@ -1062,7 +1093,7 @@ func (_p PlanetWithDefault) MarshalYAML() (interface{}, error) {
 	if err := _p.Validate(); err != nil {
 		return nil, fmt.Errorf("Cannot marshal value %q as PlanetWithDefault. %w", _p, err)
 	}
-	return _p.String(), nil
+	return _PlanetWithDefaultStringValue(_p), nil
 }
 
 // UnmarshalYAML implements a YAML Unmarshaler for PlanetWithDefault.
